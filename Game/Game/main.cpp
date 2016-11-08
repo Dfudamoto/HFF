@@ -1,7 +1,10 @@
 #include "stdafx.h"
+<<<<<<< HEAD
 #include "GameCamera.h"
 
 GameCamera *gamecamera;
+=======
+>>>>>>> dc6a953a7c04451b7be4d57e54ff866c58fb24d7
 
 /*!
  * @brief	tkEngineの初期化。
@@ -59,7 +62,11 @@ int WINAPI wWinMain(
 {
 	//tkEngineの初期化。
 	InitTkEngine( hInst );
+<<<<<<< HEAD
 	gamecamera = NewGO<GameCamera>(0);
+=======
+
+>>>>>>> dc6a953a7c04451b7be4d57e54ff866c58fb24d7
 	Engine().RunGameLoop();		//ゲームループを実行。
 
 	return 0;

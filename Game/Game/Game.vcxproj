@@ -162,7 +162,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <ClCompile Include="GameCamera.cpp" />
+=======
+>>>>>>> dc6a953a7c04451b7be4d57e54ff866c58fb24d7
     <ClCompile Include="main.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -172,7 +175,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <ClInclude Include="GameCamera.h" />
+=======
+>>>>>>> dc6a953a7c04451b7be4d57e54ff866c58fb24d7
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
