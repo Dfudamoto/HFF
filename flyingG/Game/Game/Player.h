@@ -1,6 +1,6 @@
 #pragma once
-#define MAX_ANGLE 90
-#define MIN_ANGLE -90
+#define MAX_ANGLE 89
+#define MIN_ANGLE -89
 
 class Player :	public IGameObject
 {
@@ -14,11 +14,14 @@ public:
 	//プレイヤーの移動処理
 	void Move();
 
-	//視点の回転
+	//視点(モデル)の回転
 	void Rotation();
 	
 	//描画処理
 	void Render(CRenderContext&);
+
+	//爆弾を投げる処理
+	void BombSlow();
 
 	CVector3 position;			//場所
 	CQuaternion rotation;		//プレイヤーの向き
@@ -27,5 +30,6 @@ public:
 	CLight light;				//ライト
 	CVector3 move_direction_z;	//正面へのベクトル
 	CVector3 move_direction_x;	//横方向へのベクトル
+	int anglex;
 };
 
