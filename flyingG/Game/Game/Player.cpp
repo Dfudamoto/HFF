@@ -65,19 +65,29 @@ void Player::Move()
 
 void Player::Rotation()
 {
-	CQuaternion multiy;
-	int angle = 0;
+	CQuaternion multix;
+	static int angley = 0;
+	static int anglex = 0;
 	int rad = 6;
 	if (Pad(0).IsPress(enButtonA))
 	{
-		angle += rad;
+		angley += rad;
 	}
 	if (Pad(0).IsPress(enButtonB))
 	{
-		angle -= rad;
+		angley -= rad;
 	}
-	multiy.SetRotation(CVector3::AxisY, CMath::DegToRad(angle));
-	rotation.Multiply(multiy);
+	if (Pad(0).IsPress(enButtonX) && anglex < MAX_ANGLE)
+	{
+		anglex += rad;
+	}
+	if (Pad(0).IsPress(enButtonY) && anglex > MIN_ANGLE)
+	{
+		anglex -= rad;
+	}
+	multix.SetRotation(CVector3::AxisX, CMath::DegToRad(anglex));
+	rotation.SetRotation(CVector3::AxisY, CMath::DegToRad(angley));
+	rotation.Multiply(multix);
 }
 
 void Player::Render(CRenderContext& rendercontext)
