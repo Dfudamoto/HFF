@@ -1,9 +1,13 @@
 #include "stdafx.h"
+<<<<<<< HEAD:Game/Game/main.cpp
+<<<<<<< HEAD
 #include "GameCamera.h"
-#include "Player.h"
 
 GameCamera *gamecamera;
-Player *player;
+=======
+>>>>>>> dc6a953a7c04451b7be4d57e54ff866c58fb24d7
+=======
+>>>>>>> 4f0222fc4f44dfc97952ab120175ecc584ab9dcf:flyingG/Game/Game/main.cpp
 
 /*!
  * @brief	tkEngineの初期化。
@@ -61,8 +65,15 @@ int WINAPI wWinMain(
 {
 	//tkEngineの初期化。
 	InitTkEngine( hInst );
+<<<<<<< HEAD:Game/Game/main.cpp
+<<<<<<< HEAD
 	gamecamera = NewGO<GameCamera>(0);
-	player = NewGO<Player>(0);
+=======
+
+>>>>>>> dc6a953a7c04451b7be4d57e54ff866c58fb24d7
+=======
+
+>>>>>>> 4f0222fc4f44dfc97952ab120175ecc584ab9dcf:flyingG/Game/Game/main.cpp
 	Engine().RunGameLoop();		//ゲームループを実行。
 
 	return 0;

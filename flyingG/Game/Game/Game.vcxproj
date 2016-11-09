@@ -162,7 +162,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+<<<<<<< HEAD:flyingG/Game/Game/Game.vcxproj
     <ClCompile Include="GameCamera.cpp" />
+=======
+>>>>>>> 4f0222fc4f44dfc97952ab120175ecc584ab9dcf:flyingG/Game/Game/Game.vcxproj
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -173,8 +176,11 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD:flyingG/Game/Game/Game.vcxproj
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="Player.h" />
+=======
+>>>>>>> 4f0222fc4f44dfc97952ab120175ecc584ab9dcf:flyingG/Game/Game/Game.vcxproj
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
