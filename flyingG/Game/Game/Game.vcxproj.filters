@@ -17,22 +17,28 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+<<<<<<< HEAD:Game/Game/Game.vcxproj.filters
+<<<<<<< HEAD
     <ClCompile Include="GameCamera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+=======
+>>>>>>> dc6a953a7c04451b7be4d57e54ff866c58fb24d7
+=======
+>>>>>>> 4f0222fc4f44dfc97952ab120175ecc584ab9dcf:flyingG/Game/Game/Game.vcxproj.filters
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
+<<<<<<< HEAD:Game/Game/Game.vcxproj.filters
+<<<<<<< HEAD
     <ClInclude Include="GameCamera.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+=======
+>>>>>>> dc6a953a7c04451b7be4d57e54ff866c58fb24d7
+=======
+>>>>>>> 4f0222fc4f44dfc97952ab120175ecc584ab9dcf:flyingG/Game/Game/Game.vcxproj.filters
   </ItemGroup>
 </Project>
