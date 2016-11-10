@@ -1,6 +1,6 @@
 #pragma once
-#define MAX_ANGLE 89
-#define MIN_ANGLE -89
+#define MAX_ANGLE 80
+#define MIN_ANGLE -80
 
 class Player :	public IGameObject
 {
