@@ -6,11 +6,13 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="Bomb.cpp" />
+    <ClCompile Include="HelmetLight.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Bomb.h" />
+    <ClInclude Include="HelmetLight.h" />
   </ItemGroup>
 </Project>
