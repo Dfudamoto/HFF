@@ -20,5 +20,6 @@
 #include "tkEngine/Physics/tkPhysics.h"
 using namespace tkEngine;
 #include "tkEngine/random/tkRandom.h"
+#include "tkEngine/particle/tkParticleEmitter.h"
 
 #endif // _STDAFX_H_

@@ -14,7 +14,8 @@ Player::Player()
 	light.SetAmbinetLight(CVector3::One);
 	model.SetLight(&light);
 	position = CVector3::Zero;
-	rotation.SetRotation(CVector3::AxisY, CMath::DegToRad(180));
+	position.y = 0.8f;
+	rotation.SetRotation(CVector3::AxisY, CMath::DegToRad(0));
 	anglex = 0;
 }
 
@@ -46,7 +47,9 @@ void Player::Update()
 	{
 		BombSlow();
 	}
-	model.Update(position, rotation, CVector3::One);
+	CVector3 pos = position;
+	pos.y -= 0.8f;
+	model.Update(pos, rotation, CVector3::One);
 }
 
 void Player::Move()
@@ -73,7 +76,7 @@ void Player::Rotation()
 {
 	CQuaternion multix;
 	static int angley = 0;
-	int rad = 6;
+	int rad = 1;
 	if (Pad(0).IsPress(enButtonA))
 	{
 		angley += rad;

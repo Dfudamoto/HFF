@@ -69,6 +69,7 @@ namespace tkEngine{
 		void Start() override ;
 		void Update() override;
 		void Render( CRenderContext& renderContext ) override;
+		void Deth();
 		/*!
 		*@brief	パーティクルに力を加える。
 		*@param[in]	applyForce		乱数生成に使用する乱数生成機。

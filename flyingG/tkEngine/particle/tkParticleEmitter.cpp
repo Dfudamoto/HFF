@@ -48,6 +48,7 @@ namespace tkEngine{
 				p++;
 			}
 		}
+		Deth();
 	}
 	/*!
 	*@brief	パーティクルに力を加える。
@@ -59,8 +60,16 @@ namespace tkEngine{
 			p->ApplyForce(applyForce);
 		}
 	}
-	void CParticleEmitter::Render( CRenderContext& renderContext )
+	void CParticleEmitter::Render(CRenderContext& renderContext)
 	{
-		
+
+	}
+
+	void CParticleEmitter::Deth()
+	{
+		if (timer > 1.0f)
+		{
+			DeleteGO(this);
+		}
 	}
 }
