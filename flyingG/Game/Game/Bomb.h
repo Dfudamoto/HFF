@@ -21,7 +21,7 @@ public:
 	CVector3 move_direction;	//飛ぶ方向
 	CVector3 axisx;				//回転する軸
 	CQuaternion rotation;		//モデルの向き
-	float fallspeed;
+	float fallspeed;			//爆弾の落ちるスピード
 
 };
 

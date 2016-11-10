@@ -7,6 +7,7 @@
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="Bomb.cpp" />
     <ClCompile Include="HelmetLight.cpp" />
+    <ClCompile Include="sky.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameCamera.h" />
@@ -14,5 +15,6 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Bomb.h" />
     <ClInclude Include="HelmetLight.h" />
+    <ClInclude Include="sky.h" />
   </ItemGroup>
 </Project>

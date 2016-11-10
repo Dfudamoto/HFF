@@ -8,12 +8,12 @@ extern GameCamera *gamecamera;
 extern Player *player;
 Bomb *bomb;
 CRandom random;
-
+extern CLight darklight;
 
 Bomb::Bomb()
 {
 	random.Init((unsigned int)+time(NULL));
-	modeldata.LoadModelData("Assets/modelData/testbomb.x", NULL);
+	modeldata.LoadModelData("Assets/modelData/car.X", NULL);
 	model.Init(&modeldata);
 	light.SetAmbinetLight(CVector3::One);
 	model.SetLight(&light);

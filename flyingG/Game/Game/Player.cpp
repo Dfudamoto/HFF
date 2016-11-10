@@ -76,7 +76,7 @@ void Player::Rotation()
 {
 	CQuaternion multix;
 	static int angley = 0;
-	int rad = 1;
+	int rad = 6;
 	if (Pad(0).IsPress(enButtonA))
 	{
 		angley += rad;

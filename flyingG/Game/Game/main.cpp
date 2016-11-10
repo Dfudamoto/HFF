@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include "GameCamera.h"
 #include "Player.h"
+#include "HelmetLight.h"
+#include "sky.h"
+
 GameCamera *gamecamera;
 Player *player;
 
@@ -62,6 +65,8 @@ int WINAPI wWinMain(
 	InitTkEngine( hInst );
 	gamecamera = NewGO<GameCamera>(0);
 	player = NewGO<Player>(0);
+	NewGO<HelmetLight>(0);
+	NewGO<sky>(0);
 	Engine().RunGameLoop();		//ゲームループを実行。
 
 	return 0;
