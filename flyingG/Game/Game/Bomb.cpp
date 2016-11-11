@@ -28,6 +28,7 @@ Bomb::Bomb()
 	move_direction.y = matrix.m[2][1];
 	move_direction.z = matrix.m[2][2];
 	move_direction.Scale(0.3f);
+	model.SetShadowCasterFlag(true);
 	fallspeed = 0.3f;
 }
 
@@ -87,6 +88,7 @@ void Bomb::CollCheck()
 		{1.0f, 1.0f, 1.0f},								//!<æŽZƒJƒ‰[B
 		},
 		position);
+		model.SetShadowCasterFlag(false);
 		DeleteGO(this);
 	}
 }

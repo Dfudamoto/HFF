@@ -17,8 +17,8 @@ HelmetLight::HelmetLight()
 	rotation = CQuaternion::Identity;
 	darklight.SetAmbinetLight({ 0.1f, 0.1f, 0.1f });
 	darklight.SetDiffuseLightColor(0, { 0.9f, 0.9f, 0.9f, 1.0f });
-	getflg = false;
-	lightswitch = false;
+	getflg = true;
+	lightswitch = true;
 }
 
 
@@ -52,7 +52,9 @@ void HelmetLight::Update()
 		darklight.SetDiffuseLightDirection(0, CVector3::Zero);
 	}
 	//シャドウマップのライトの設定
-	ShadowMap().SetLightPosition(player->position);
+	CVector3 lightposition = player->position;
+	//lightposition.x *= -1.0f;
+	ShadowMap().SetLightPosition(lightposition);
 	ShadowMap().SetLightDirection(lightdirection);
 
 
@@ -60,7 +62,7 @@ void HelmetLight::Update()
 	//ライトのON/OFFの切り替え
 	if (KeyInput().IsTrgger(CKeyInput::enKeyB))
 	{
-		lightswitch = !lightswitch;
+		//lightswitch = !lightswitch;
 	}
 	model.Update(position, rotation, CVector3::One);
 
