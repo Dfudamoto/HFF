@@ -76,6 +76,7 @@ namespace tkEngine{
 		*/
 		void ApplyForce(const CVector3& applyForce);
 	private:
+		int						dethcount;
 		float					timer;			//!<タイマー
 		CRandom*				random;			//!<乱数生成機。
 		const CCamera*			camera;			//!<カメラ。

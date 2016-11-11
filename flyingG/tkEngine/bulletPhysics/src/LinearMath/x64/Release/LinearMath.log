@@ -14,4 +14,4 @@ btVector3.cpp(564): warning C4267: '=': 'size_t' から 'long' に変換しま�
 btVector3.cpp(569): warning C4267: '-=': 'size_t' から 'unsigned long' に変換しました。データが失われているかもしれません。
 btVector3.cpp(815): warning C4267: '=': 'size_t' から 'long' に変換しました。データが失われているかもしれません。
   コードを生成中...
-  LinearMath.vcxproj -> C:\Users\kbc16\OneDrive\ドキュメント\github\HFF\flyingG\Game\x64\Release\LinearMath.lib
+  LinearMath.vcxproj -> C:\Users\kbc16\Desktop\ゲームPG\自作ゲーム(エンジンは借り物)\shooting\Game\x64\Release\LinearMath.lib

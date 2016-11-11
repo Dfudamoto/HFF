@@ -13,7 +13,7 @@ using namespace std;
 namespace tkEngine{
 	CParticleEmitter::CParticleEmitter()
 	{
-
+		dethcount = 0;
 	}
 	CParticleEmitter::~CParticleEmitter()
 	{
@@ -60,14 +60,15 @@ namespace tkEngine{
 			p->ApplyForce(applyForce);
 		}
 	}
-	void CParticleEmitter::Render(CRenderContext& renderContext)
+	void CParticleEmitter::Render( CRenderContext& renderContext )
 	{
-
+		
 	}
 
 	void CParticleEmitter::Deth()
 	{
-		if (timer > 1.0f)
+		dethcount++;
+		if (dethcount > 50)
 		{
 			DeleteGO(this);
 		}
