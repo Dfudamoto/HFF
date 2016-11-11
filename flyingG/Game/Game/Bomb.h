@@ -5,6 +5,8 @@ public:
 	Bomb();
 	~Bomb();
 
+	//
+
 	//XVŠÖ”
 	void Update();
 
