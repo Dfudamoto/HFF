@@ -1,13 +1,11 @@
 #include "stdafx.h"
-<<<<<<< HEAD:Game/Game/main.cpp
-<<<<<<< HEAD
 #include "GameCamera.h"
+#include "Player.h"
+#include "HelmetLight.h"
+#include "sky.h"
 
 GameCamera *gamecamera;
-=======
->>>>>>> dc6a953a7c04451b7be4d57e54ff866c58fb24d7
-=======
->>>>>>> 4f0222fc4f44dfc97952ab120175ecc584ab9dcf:flyingG/Game/Game/main.cpp
+Player *player;
 
 /*!
  * @brief	tkEngineの初期化。
@@ -45,7 +43,7 @@ void InitTkEngine( HINSTANCE hInst )
 	initParam.graphicsConfig.reflectionMapConfig.reflectionMapWidth = 512;
 	initParam.graphicsConfig.reflectionMapConfig.reflectionMapHeight = 512;
 	//DOF
-	initParam.graphicsConfig.dofConfig.isEnable = true;
+	//initParam.graphicsConfig.dofConfig.isEnable = true;
 	//AA
 	initParam.graphicsConfig.aaConfig.isEnable = true;
 
@@ -65,15 +63,10 @@ int WINAPI wWinMain(
 {
 	//tkEngineの初期化。
 	InitTkEngine( hInst );
-<<<<<<< HEAD:Game/Game/main.cpp
-<<<<<<< HEAD
 	gamecamera = NewGO<GameCamera>(0);
-=======
-
->>>>>>> dc6a953a7c04451b7be4d57e54ff866c58fb24d7
-=======
-
->>>>>>> 4f0222fc4f44dfc97952ab120175ecc584ab9dcf:flyingG/Game/Game/main.cpp
+	player = NewGO<Player>(0);
+	NewGO<HelmetLight>(0);
+	NewGO<sky>(0);
 	Engine().RunGameLoop();		//ゲームループを実行。
 
 	return 0;
