@@ -10,11 +10,11 @@
     <ClCompile Include="sky.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameCamera.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Bomb.h" />
     <ClInclude Include="HelmetLight.h" />
     <ClInclude Include="sky.h" />
+    <ClInclude Include="GameCamera.h" />
   </ItemGroup>
 </Project>
