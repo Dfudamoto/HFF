@@ -9,8 +9,6 @@ public:
 
 	void Update();
 
-	void render(CRenderContext&);
-
 	CCamera camera;
 
 };
