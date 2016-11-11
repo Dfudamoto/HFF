@@ -4,10 +4,10 @@
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="Bomb.cpp" />
     <ClCompile Include="HelmetLight.cpp" />
     <ClCompile Include="sky.cpp" />
+    <ClCompile Include="..\..\..\..\..\..\..\Desktop\ゲームPG\自作ゲーム(エンジンは借り物)\shooting\Game\Game\stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h" />
