@@ -34,14 +34,17 @@ void HelmetLight::Update()
 	{
 		position = player->position;
 		rotation = player->rotation;
-		
 	}
 	CMatrix matrix = player->model.GetWorldMatrix();
 	CVector3 lightdirection;
 	lightdirection.x = matrix.m[2][0];
 	lightdirection.y = matrix.m[2][1];
 	lightdirection.z = matrix.m[2][2];
-	lightdirection.Normalize();
+	//lightdirection.Normalize();
+	CVector3 shadowdirection = lightdirection;
+	shadowdirection.Add(player->position);
+	shadowdirection.Scale(-1.0f);
+	shadowdirection.Normalize();
 	lightdirection.Scale(-1.0f);
 	if (lightswitch)
 	{
@@ -53,28 +56,28 @@ void HelmetLight::Update()
 	}
 	//シャドウマップのライトの設定
 	CVector3 lightposition = player->position;
-	//lightposition.x *= -1.0f;
 	ShadowMap().SetLightPosition(lightposition);
 	ShadowMap().SetLightDirection(lightdirection);
 
-
 	Equip();
-	//ライトのON/OFFの切り替え
-	if (Pad(0).IsTrigger(enButtonX))
-	{
-		//lightswitch = !lightswitch;
-	}
+
 	model.Update(position, rotation, CVector3::One);
 
 }
 
 void HelmetLight::Equip()
 {
+	//装備を拾う時の距離判定
 	CVector3 distance;
 	distance.Subtract(position, player->position);
 	if (distance.Length() < 2.0f && KeyInput().IsTrgger(CKeyInput::enKeyB))
 	{
 		getflg = true;
+	}
+	//ライトのON/OFFの切り替え
+	if (Pad(0).IsTrigger(enButtonX))
+	{
+		//lightswitch = !lightswitch;
 	}
 }
 
