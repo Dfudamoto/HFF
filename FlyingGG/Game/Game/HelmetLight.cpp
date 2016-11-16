@@ -19,6 +19,7 @@ HelmetLight::HelmetLight()
 	darklight.SetDiffuseLightColor(0, { 0.9f, 0.9f, 0.9f, 1.0f });
 	getflg = true;
 	lightswitch = true;
+	ShadowMap().SetCalcLightViewFunc(CShadowMap::enCalcLightViewFunc_PositionDirection);
 }
 
 
@@ -42,13 +43,11 @@ void HelmetLight::Update()
 	lightdirection.z = matrix.m[2][2];
 	//lightdirection.Normalize();
 	CVector3 shadowdirection = lightdirection;
-	shadowdirection.Add(player->position);
-	shadowdirection.Scale(-1.0f);
-	shadowdirection.Normalize();
 	lightdirection.Scale(-1.0f);
+
 	if (lightswitch)
 	{
-		darklight.SetDiffuseLightDirection(0, lightdirection);
+		darklight.SetDiffuseLightDirection(0, CVector3(0.0f, 0.0f, 1.0f));
 	}
 	else
 	{
@@ -57,7 +56,7 @@ void HelmetLight::Update()
 	//シャドウマップのライトの設定
 	CVector3 lightposition = player->position;
 	ShadowMap().SetLightPosition(lightposition);
-	ShadowMap().SetLightDirection(lightdirection);
+	ShadowMap().SetLightDirection(shadowdirection);
 
 	Equip();
 

@@ -77,7 +77,7 @@ namespace tkEngine{
 			);
 #else
 			m_projectionMatrix.MakeProjectionMatrix(
-				CMath::DegToRad(60.0f),
+				CMath::DegToRad(120.0f),
 				m_accpect,
 				m_near,
 				m_far
@@ -141,7 +141,7 @@ namespace tkEngine{
 				);
 #else
 				m_projectionMatrix.MakeProjectionMatrix(
-					CMath::DegToRad(60.0f),
+					CMath::DegToRad(120.0f),
 					m_accpect,
 					m_near,
 					m_far

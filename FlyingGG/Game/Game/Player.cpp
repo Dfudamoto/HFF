@@ -14,6 +14,7 @@ Player::Player()
 	model.SetLight(&light);
 
 	position = CVector3::Zero;
+	position.y = 10.0f;
 	rotation.SetRotation(CVector3::AxisY, CMath::DegToRad(180));
 
 	bombdata.LoadModelData("Assets/modelData/car.X", NULL);

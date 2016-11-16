@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "HelmetLight.h"
 #include "sky.h"
+#include "Map.h"
 
 GameCamera *gamecamera;
 Player *player;
@@ -34,9 +35,9 @@ void InitTkEngine( HINSTANCE hInst )
 	//Shadow
 	initParam.graphicsConfig.shadowRenderConfig.Init();
 	initParam.graphicsConfig.shadowRenderConfig.isEnable = true;
-	initParam.graphicsConfig.shadowRenderConfig.shadowMapWidth = 1024;
-	initParam.graphicsConfig.shadowRenderConfig.shadowMapHeight = 1024;
-	initParam.graphicsConfig.shadowRenderConfig.numShadowMap = 3;
+	initParam.graphicsConfig.shadowRenderConfig.shadowMapWidth = 2048;
+	initParam.graphicsConfig.shadowRenderConfig.shadowMapHeight = 2048;
+	initParam.graphicsConfig.shadowRenderConfig.numShadowMap = 1;
 	
 	//reflection
 	initParam.graphicsConfig.reflectionMapConfig.isEnable = false;
@@ -50,7 +51,7 @@ void InitTkEngine( HINSTANCE hInst )
 	Engine().Init(initParam);	//初期化。
 	
 	ShadowMap().SetNear(2.0f);
-	ShadowMap().SetFar(40.0f);
+	ShadowMap().SetFar(1000.0f);
 	
 }
 
@@ -66,7 +67,7 @@ int WINAPI wWinMain(
 	gamecamera = NewGO<GameCamera>(0);
 	player = NewGO<Player>(0);
 	NewGO<HelmetLight>(0);
-	NewGO<sky>(0);
+	NewGO<Map>(0);
 	Engine().RunGameLoop();		//ゲームループを実行。
 
 	return 0;
