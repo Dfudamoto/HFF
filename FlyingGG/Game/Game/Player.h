@@ -29,8 +29,7 @@ public:
 	CSkinModel model;			//モデル
 	CSkinModelData modeldata;	//モデルデータ
 	CLight light;				//ライト
-	CVector3 move_direction_z;	//正面へのベクトル
-	CVector3 move_direction_x;	//横方向へのベクトル
 	CCharacterController characterController;
+	float radius;				//アイテムのあたり判定取るときの半径
 };
 

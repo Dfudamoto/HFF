@@ -19,6 +19,7 @@ Player::Player()
 	bombdata.LoadModelData("Assets/modelData/car.X", NULL);
 
 	characterController.Init(0.5f, 1.0f, position);
+	radius = 3.0f;
 }
 
 
@@ -43,28 +44,31 @@ void Player::Update()
 void Player::Move()
 {
 
+	CVector3 move_direction_z;	//正面へのベクトル
+	CVector3 move_direction_x;	//横方向へのベクトル
+
+	//プレイヤーの前方向のベクトルを取得
 	CMatrix matrix = model.GetWorldMatrix();
 	float speedscale = 30.0f;
 	move_direction_z.x = matrix.m[2][0];
-	move_direction_z.y = 0.0f;
 	move_direction_z.z = matrix.m[2][2];
-	move_direction_z.Normalize();
+	//move_direction_z.Normalize();
 	move_direction_z.Scale(speedscale);
-
+	
+	//プレイヤーの横方向へのベクトルの取得
 	move_direction_x.x = matrix.m[0][0];
-	move_direction_x.y = 0.0f;
 	move_direction_x.z = matrix.m[0][2];
-	move_direction_x.Normalize();
+	//move_direction_x.Normalize();
 	move_direction_x.Scale(speedscale);
 
 	CVector3 addposx = move_direction_x;
 	addposx.Scale(Pad(0).GetLStickXF());
-	position.Add(addposx);
 
 	CVector3 addposz = move_direction_z;
 	addposz.Scale(Pad(0).GetLStickYF());
 	CVector3 move;
 	move.Add(addposx, addposz);
+	move.y = -9.8f / 60.0f;
 	//決定した移動速度をキャラクタコントローラーに設定。
 	characterController.SetMoveSpeed(move);
 	//キャラクターコントローラーを実行。
