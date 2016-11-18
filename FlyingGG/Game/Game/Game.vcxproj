@@ -166,7 +166,10 @@
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="HeelingApple.cpp" />
     <ClCompile Include="HelmetLight.cpp" />
+    <ClCompile Include="ItemBox.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Map.cpp" />
+    <ClCompile Include="MapChip.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="sky.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -181,6 +184,9 @@
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="HeelingApple.h" />
     <ClInclude Include="HelmetLight.h" />
+    <ClInclude Include="ItemBox.h" />
+    <ClInclude Include="Map.h" />
+    <ClInclude Include="MapChip.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="sky.h" />
     <ClInclude Include="stdafx.h" />

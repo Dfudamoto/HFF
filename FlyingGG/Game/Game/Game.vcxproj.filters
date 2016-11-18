@@ -32,7 +32,17 @@
     <ClCompile Include="sky.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="HeelingApple.cpp">
+=======
+    <ClCompile Include="Map.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MapChip.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemBox.cpp">
+>>>>>>> 8cd9349423c8f6d4919479a511cfa142502622d3
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -55,6 +65,18 @@
     <ClInclude Include="sky.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="HeelingApple.h" />
+=======
+    <ClInclude Include="Map.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MapChip.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemBox.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+>>>>>>> 8cd9349423c8f6d4919479a511cfa142502622d3
   </ItemGroup>
 </Project>

@@ -19,6 +19,7 @@ HelmetLight::HelmetLight()
 	darklight.SetDiffuseLightColor(0, { 0.9f, 0.9f, 0.9f, 1.0f });
 	getflg = true;
 	lightswitch = true;
+	ShadowMap().SetCalcLightViewFunc(CShadowMap::enCalcLightViewFunc_PositionDirection);
 }
 
 
@@ -34,18 +35,19 @@ void HelmetLight::Update()
 	{
 		position = player->position;
 		rotation = player->rotation;
-		
 	}
 	CMatrix matrix = player->model.GetWorldMatrix();
 	CVector3 lightdirection;
 	lightdirection.x = matrix.m[2][0];
 	lightdirection.y = matrix.m[2][1];
 	lightdirection.z = matrix.m[2][2];
-	lightdirection.Normalize();
+	//lightdirection.Normalize();
+	CVector3 shadowdirection = lightdirection;
 	lightdirection.Scale(-1.0f);
+
 	if (lightswitch)
 	{
-		darklight.SetDiffuseLightDirection(0, lightdirection);
+		darklight.SetDiffuseLightDirection(0, CVector3(0.0f, 0.0f, 1.0f));
 	}
 	else
 	{
@@ -53,34 +55,34 @@ void HelmetLight::Update()
 	}
 	//シャドウマップのライトの設定
 	CVector3 lightposition = player->position;
-	//lightposition.x *= -1.0f;
 	ShadowMap().SetLightPosition(lightposition);
-	ShadowMap().SetLightDirection(lightdirection);
-
+	ShadowMap().SetLightDirection(shadowdirection);
 
 	Equip();
-	//ライトのON/OFFの切り替え
-	if (Pad(0).IsTrigger(enButtonX))
-	{
-		//lightswitch = !lightswitch;
-	}
+
 	model.Update(position, rotation, CVector3::One);
 
 }
 
 void HelmetLight::Equip()
 {
+	//装備を拾う時の距離判定
 	CVector3 distance;
 	distance.Subtract(position, player->position);
 	if (distance.Length() < 2.0f && KeyInput().IsTrgger(CKeyInput::enKeyB))
 	{
 		getflg = true;
 	}
+	//ライトのON/OFFの切り替え
+	if (Pad(0).IsTrigger(enButtonX))
+	{
+		//lightswitch = !lightswitch;
+	}
 }
 
 void HelmetLight::Render(CRenderContext& rendercontext)
 {
-	model.Draw(rendercontext, gamecamera->camera.GetViewMatrix(), gamecamera->camera.GetProjectionMatrix());
+	//model.Draw(rendercontext, gamecamera->camera.GetViewMatrix(), gamecamera->camera.GetProjectionMatrix());
 }
 
 

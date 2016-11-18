@@ -1,6 +1,10 @@
 #pragma once
+
+#include "tkEngine/character/tkCharacterController.h"
+
 #define MAX_ANGLE 75
 #define MIN_ANGLE -75
+
 class Player :	public IGameObject
 {
 public:
@@ -18,6 +22,7 @@ public:
 	
 	//描画処理
 	void Render(CRenderContext&);
+
 	CSkinModelData bombdata;	//ボムのモデルデータ
 	CVector3 position;			//場所
 	CQuaternion rotation;		//プレイヤーの向き
@@ -26,5 +31,6 @@ public:
 	CLight light;				//ライト
 	CVector3 move_direction_z;	//正面へのベクトル
 	CVector3 move_direction_x;	//横方向へのベクトル
+	CCharacterController characterController;
 };
 
