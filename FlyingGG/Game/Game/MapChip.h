@@ -1,4 +1,8 @@
 #pragma once
+
+#include "tkEngine/Physics/tkMeshCollider.h"
+#include "tkEngine/Physics/tkRigidBody.h"
+
 class MapChip : public IGameObject
 {
 public:
@@ -12,5 +16,7 @@ public:
 	//ここからメンバ変数。
 	CSkinModel			skinModel;		//スキンモデル。
 	CSkinModelData		skinModelData;	//スキンモデルデータ。
+	CMeshCollider		meshCollider;	//メッシュコライダー。
+	CRigidBody			rigidBody;		//剛体。
 };
 

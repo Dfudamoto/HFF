@@ -7,7 +7,7 @@ extern GameCamera *gamecamera;
 
 sky::sky()
 {
-	modeldata.LoadModelData("Assets/modelData/axe.X", NULL);
+	modeldata.LoadModelData("Assets/modelData/apple.X", NULL);
 	model.Init(&modeldata);
 	model.SetLight(&darklight);
 	darklight.SetAmbinetLight({ 1.0f, 1.0f, 1.0f });

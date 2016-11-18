@@ -12,12 +12,13 @@ Player::Player()
 	model.Init(&modeldata);
 	light.SetAmbinetLight(CVector3::One);
 	model.SetLight(&light);
-
 	position = CVector3::Zero;
-	position.y = 10.0f;
+	position = {0.0f, 23.0f, 10.0f };
 	rotation.SetRotation(CVector3::AxisY, CMath::DegToRad(180));
 
 	bombdata.LoadModelData("Assets/modelData/car.X", NULL);
+
+	characterController.Init(0.5f, 1.0f, position);
 }
 
 
@@ -43,7 +44,7 @@ void Player::Move()
 {
 
 	CMatrix matrix = model.GetWorldMatrix();
-	float speedscale = 0.3f;
+	float speedscale = 30.0f;
 	move_direction_z.x = matrix.m[2][0];
 	move_direction_z.y = 0.0f;
 	move_direction_z.z = matrix.m[2][2];
@@ -62,7 +63,15 @@ void Player::Move()
 
 	CVector3 addposz = move_direction_z;
 	addposz.Scale(Pad(0).GetLStickYF());
-	position.Add(addposz);
+	CVector3 move;
+	move.Add(addposx, addposz);
+	//決定した移動速度をキャラクタコントローラーに設定。
+	characterController.SetMoveSpeed(move);
+	//キャラクターコントローラーを実行。
+	characterController.Execute();
+	//実行結果を受け取る。
+	position = characterController.GetPosition();
+	//position.y = 0.0f;
 
 }
 
@@ -73,10 +82,10 @@ void Player::Rotation()
 	static float angley = 0;
 
 	angley += Pad(0).GetRStickXF() * anglespeed;
-	if (MIN_ANGLE < anglex && Pad(0).GetRStickYF() < 0
-		|| anglex < MAX_ANGLE && 0 < Pad(0).GetRStickYF())
+	if (MIN_ANGLE < anglex && -Pad(0).GetRStickYF() < 0
+		|| anglex < MAX_ANGLE && 0 < -Pad(0).GetRStickYF())
 	{
-		anglex += Pad(0).GetRStickYF() * anglespeed;
+		anglex -= Pad(0).GetRStickYF() * anglespeed;
 	}
 
 	rotation.SetRotation(CVector3::AxisY, CMath::DegToRad(angley));
@@ -87,6 +96,6 @@ void Player::Rotation()
 
 void Player::Render(CRenderContext& rendercontext)
 {
-	model.Draw(rendercontext, gamecamera->camera.GetViewMatrix(), gamecamera->camera.GetProjectionMatrix());
+	//model.Draw(rendercontext, gamecamera->camera.GetViewMatrix(), gamecamera->camera.GetProjectionMatrix());
 }
 
