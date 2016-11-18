@@ -32,6 +32,9 @@
     <ClCompile Include="sky.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="HeelingApple.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -52,5 +55,6 @@
     <ClInclude Include="sky.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="HeelingApple.h" />
   </ItemGroup>
 </Project>
