@@ -90,6 +90,11 @@ namespace tkEngine{
 		* @brief	剛体を物理エンジンから削除。。
 		*/
 		void RemoveRigidBoby();
+
+		bool GetCollision()
+		{
+			return collision;
+		}
 	private:
 		CVector3 			m_position = CVector3::Zero;	//座標。
 		CVector3 			m_moveSpeed = CVector3::Zero;	//移動速度。 
@@ -97,8 +102,9 @@ namespace tkEngine{
 		bool				m_isOnGround = true;			//地面の上にいる？
 		CCapsuleCollider	m_collider;						//コライダー。
 		float				m_radius = 0.0f;
-		float				m_height = 0.0f;		
+		float				m_height = 0.0f;	
 		CRigidBody			m_rigidBody;					//剛体。
 		float				m_gravity = -9.8f;				//重力。
+		bool				collision;
 	};
 }

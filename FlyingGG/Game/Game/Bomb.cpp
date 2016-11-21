@@ -18,6 +18,7 @@ Bomb::Bomb()
 	light.SetAmbinetLight(CVector3::One);
 	model.SetLight(&light);
 	position = player->position;
+	//position = { 0.0f, 10.0f, 0.0f };
 	rotation.SetRotation(CVector3::AxisY, CMath::DegToRad(0));
 	CMatrix matrix = player->model.GetWorldMatrix();
 	axisx.x = matrix.m[0][0];
@@ -27,9 +28,12 @@ Bomb::Bomb()
 	move_direction.x = matrix.m[2][0];
 	move_direction.y = matrix.m[2][1];
 	move_direction.z = matrix.m[2][2];
-	move_direction.Scale(0.3f);
+	move_direction.Normalize();
+	move_direction.Scale(10.0f);
 	model.SetShadowCasterFlag(true);
 	fallspeed = 0.3f;
+	start = true;
+	charactercontroller.Init(0.5f, 0.5f, position);
 }
 
 Bomb::~Bomb()
@@ -44,11 +48,23 @@ void Bomb::Init(CSkinModelData* modeldata)
 
 void Bomb::Update()
 {
-	float gravity = -0.0108f;
-	position.Add(move_direction);
-	fallspeed += gravity;
-	position.y += fallspeed;
 
+	position.Add(move_direction);
+	CVector3 move_speed;
+	move_speed = move_direction;
+	if (start)
+	{
+		move_speed.y += 5.0f;
+		start = false;
+	}
+	else
+	{
+
+		move_speed = charactercontroller.GetMoveSpeed();
+	}
+	charactercontroller.SetMoveSpeed(move_speed);
+	charactercontroller.Execute();
+	position = charactercontroller.GetPosition();
 	//ƒ‚ƒfƒ‹‚Ì‰ñ“]
 	CQuaternion multi;
 	multi.SetRotation(axisx, CMath::DegToRad(-10));
@@ -61,7 +77,8 @@ void Bomb::Update()
 
 void Bomb::CollCheck()
 {
-	if (position.y < 0.0f)
+
+	if (charactercontroller.GetCollision())
 	{
 		CParticleEmitter *particle;
 		particle = NewGO<CParticleEmitter>(0);
@@ -94,6 +111,7 @@ void Bomb::CollCheck()
 		},
 		position);
 		model.SetShadowCasterFlag(false);
+		charactercontroller.RemoveRigidBoby();
 		DeleteGO(this);
 	}
 }

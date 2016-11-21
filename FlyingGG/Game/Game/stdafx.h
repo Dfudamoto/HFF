@@ -22,5 +22,6 @@ using namespace tkEngine;
 #include "tkEngine/random/tkRandom.h"
 #include "tkEngine/particle/tkParticleEmitter.h"
 #include "tkEngine/Sound/tkSoundSource.h"
+#include "tkEngine/character/tkCharacterController.h"
 
 #endif // _STDAFX_H_

@@ -117,6 +117,7 @@ namespace tkEngine{
 		m_rigidBody.GetBody()->setUserIndex(enCollisionAttr_Character);
 		m_rigidBody.GetBody()->setCollisionFlags(btCollisionObject::CF_CHARACTER_OBJECT);
 		PhysicsWorld().AddRigidBody(&m_rigidBody);
+		collision = false;
 
 	}
 	void CCharacterController::Execute()
@@ -185,6 +186,7 @@ namespace tkEngine{
 					vOffset = hitNormalXZ;
 					vOffset.Scale(-fT0 + m_radius);
 					nextPosition.Add(vOffset);
+					collision = true;
 				}
 				else {
 					//どことも当たらないので終わり。
@@ -256,8 +258,10 @@ namespace tkEngine{
 				m_isJump = false;
 				m_isOnGround = true;
 				nextPosition.y = callback.hitPos.y + offset - m_radius;
+				collision = true;
 			}
-			else {
+			else
+			{
 				//地面上にいない。
 				m_isOnGround = false;
 			}
