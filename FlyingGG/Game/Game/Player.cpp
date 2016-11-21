@@ -54,23 +54,20 @@ void Player::Move()
 	move_direction_z.z = matrix.m[2][2];
 	move_direction_z.Normalize();
 	move_direction_z.Scale(speedscale);
+	move_direction_z.Scale(Pad(0).GetLStickYF());
 	
 	//プレイヤーの横方向へのベクトルの取得
 	move_direction_x.x = matrix.m[0][0];
 	move_direction_x.z = matrix.m[0][2];
 	move_direction_x.Normalize();
 	move_direction_x.Scale(speedscale);
+	move_direction_x.Scale(Pad(0).GetLStickXF());
 
-	CVector3 addposx = move_direction_x;
-	addposx.Scale(Pad(0).GetLStickXF());
-
-	CVector3 addposz = move_direction_z;
-	addposz.Scale(Pad(0).GetLStickYF());
 	CVector3 move = characterController.GetMoveSpeed();
 	move.x = 0.0f;
 	move.z = 0.0f;
-	move.Add(addposx);
-	move.Add(addposz);
+	move.Add(move_direction_x);
+	move.Add(move_direction_z);
 	if (Pad(0).IsTrigger(enButtonB))
 	{
 		characterController.Jump();
