@@ -2,7 +2,7 @@
 #include "HeelingApple.h"
 #include "GameCamera.h"
 
-extern GameCamera* gameCamera;
+extern GameCamera* gamecamera;
 
 
 HeelingApple::HeelingApple()
@@ -18,13 +18,29 @@ HeelingApple::~HeelingApple()
 	model.SetLight(&light);
 }
 
-void HeelingApple::Update() {
+void HeelingApple::Init(const char *modelname, CVector3 position, CQuaternion rotation)
+{
+	//ファイルパスを作成する。
+	char filePath[256];
+	sprintf(filePath, "Assets/modelData/%s.X", modelname);
+	//モデルデータをロード。
+	modeldata.LoadModelData(filePath, NULL);
+	//CSkinModelを初期化。
+	model.Init(&modeldata);
+	//デフォルトライトを設定して。
+	model.SetLight(&light);
+	this->position = position;
+	this->rotation = rotation;
+}
+
+void HeelingApple::Update() 
+{
 
 }
 
 void HeelingApple::Render(CRenderContext& renderContext) {
 	model.Draw(renderContext,
-		gameCamera->camera.GetViewMatrix(),
-		gameCamera->camera.GetProjectionMatrix()
+		gamecamera->camera.GetViewMatrix(),
+		gamecamera->camera.GetProjectionMatrix()
 	);
 }

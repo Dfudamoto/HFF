@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Map.h"
 #include "MapChip.h"
+#include "ItemBox.h"
 CLight defaultlight;
 
 struct SMapInfo {
@@ -29,9 +30,18 @@ void Map::Start()
 	int numObject = sizeof(mapLocInfo) / sizeof(mapLocInfo[0]);
 	//置かれているオブジェクトの数だけマップチップを生成する。
 	for (int i = 0; i < numObject; i++) {
-		MapChip* mapChip = NewGO<MapChip>(0);
-		//モデル名、座標、回転を与えてマップチップを初期化する。
-		mapChip->Init(mapLocInfo[i].modelName, mapLocInfo[i].position, mapLocInfo[i].rotation);
+		if (strcmp(mapLocInfo[i].modelName, "woodbox") == 0)
+		{
+			ItemBox* itembox = NewGO<ItemBox>(0);
+			//モデル名、座標、回転を与えてマップチップを初期化する。
+			itembox->Init(mapLocInfo[i].modelName, mapLocInfo[i].position, mapLocInfo[i].rotation);
+		}
+		else
+		{
+			MapChip* mapChip = NewGO<MapChip>(0);
+			//モデル名、座標、回転を与えてマップチップを初期化する。
+			mapChip->Init(mapLocInfo[i].modelName, mapLocInfo[i].position, mapLocInfo[i].rotation);
+		}
 	}
 }
 void Map::Update()

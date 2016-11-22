@@ -13,6 +13,7 @@ public:
 
 	CSkinModel model;
 	CSkinModelData modeldata;
+	CSkinModelData bombdata;
 	CLight light;
 	CVector3 position;
 	CQuaternion rotation;

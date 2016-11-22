@@ -26,5 +26,6 @@ public:
 	float fallspeed;			//爆弾の落ちるスピード
 	CCharacterController charactercontroller;
 	bool start;
+	CVector3 move_speed;		//爆弾の移動速度
 };
 

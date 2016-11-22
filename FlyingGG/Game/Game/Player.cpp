@@ -17,7 +17,6 @@ Player::Player()
 	rotation.SetRotation(CVector3::AxisY, CMath::DegToRad(180));
 
 	bombdata.LoadModelData("Assets/modelData/car.X", NULL);
-
 	characterController.Init(0.5f, 1.0f, position);
 	radius = 3.0f;
 }
@@ -30,6 +29,7 @@ Player::~Player()
 
 void Player::Update()
 {
+	//ƒ{ƒ€‚ð“Š‚°‚é
 	if (Pad(0).IsTrigger(enButtonA))
 	{
 		Bomb *bomb;
@@ -104,6 +104,6 @@ void Player::Rotation()
 
 void Player::Render(CRenderContext& rendercontext)
 {
-	//model.Draw(rendercontext, gamecamera->camera.GetViewMatrix(), gamecamera->camera.GetProjectionMatrix());
+	model.Draw(rendercontext, gamecamera->camera.GetViewMatrix(), gamecamera->camera.GetProjectionMatrix());
 }
 
