@@ -9,6 +9,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\Title">
+      <UniqueIdentifier>{77d95a80-f7de-4cf8-b4d8-913982529468}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -41,6 +44,9 @@
     <ClCompile Include="ItemBox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Title.cpp">
+      <Filter>Source Files\Title</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -69,6 +75,9 @@
     </ClInclude>
     <ClInclude Include="ItemBox.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Title.h">
+      <Filter>Source Files\Title</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
