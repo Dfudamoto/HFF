@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "smog.h"
+#include"Player.h"
 
+extern Player *player;
 
 smog::smog()
 {
