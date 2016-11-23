@@ -15,7 +15,7 @@ public:
 	void Render(CRenderContext&);
 
 private:
-	CVector3						m_position;
+	CVector3 m_position;
 	CVector3 position;			//êŠ
 };
 

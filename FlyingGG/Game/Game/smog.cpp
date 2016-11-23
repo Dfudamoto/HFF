@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "smog.h"
+#include"Player.h"
 
+extern Player *player;
 
 smog::smog()
 {
@@ -14,16 +16,17 @@ smog::~smog()
 }
 
 void smog::Update() {
-	/*CVector3 diff;
-	diff.x = pos.x - m_position.x;
-	diff.y = pos.y - m_position.y;
-	diff.z = pos.z - m_position.z;
+	CVector3 diff;
+	diff.x = player->position.x - position.x;
+	diff.y = player->position.y - position.y;
+	diff.z = player->position.z - position.z;
 	float length;
 	length = diff.Length();
 	if (length < 0.05) {
-		CGameObjectManager::Instance().DeleteGameObject(this);
+		MessageBox(NULL, NULL, "ƒ_ƒ[ƒW", MB_OK);
 	}
-	*/
+	
+	
 }
 
 void smog::Render(CRenderContext& rendercontext)
