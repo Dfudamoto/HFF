@@ -13,10 +13,10 @@ Player::Player()
 	light.SetAmbinetLight(CVector3::One);
 	model.SetLight(&light);
 	position = CVector3::Zero;
-	position = {0.0f, 23.0f, 10.0f };
+	position = {0.0f, 3.0f, 10.0f };
 	rotation.SetRotation(CVector3::AxisY, CMath::DegToRad(180));
 
-	bombdata.LoadModelData("Assets/modelData/car.X", NULL);
+	bombdata.LoadModelData("Assets/modelData/bomb.X", NULL);
 	characterController.Init(0.5f, 1.0f, position);
 	radius = 3.0f;
 }
@@ -104,6 +104,6 @@ void Player::Rotation()
 
 void Player::Render(CRenderContext& rendercontext)
 {
-	model.Draw(rendercontext, gamecamera->camera.GetViewMatrix(), gamecamera->camera.GetProjectionMatrix());
+	//model.Draw(rendercontext, gamecamera->camera.GetViewMatrix(), gamecamera->camera.GetProjectionMatrix());
 }
 

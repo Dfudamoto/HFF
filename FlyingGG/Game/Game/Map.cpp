@@ -2,6 +2,9 @@
 #include "Map.h"
 #include "MapChip.h"
 #include "ItemBox.h"
+#include "HealingApple.h"
+#include "DebuffItem.h"
+
 CLight defaultlight;
 
 struct SMapInfo {
@@ -30,7 +33,19 @@ void Map::Start()
 	int numObject = sizeof(mapLocInfo) / sizeof(mapLocInfo[0]);
 	//置かれているオブジェクトの数だけマップチップを生成する。
 	for (int i = 0; i < numObject; i++) {
-		if (strcmp(mapLocInfo[i].modelName, "woodbox") == 0)
+		if (strcmp(mapLocInfo[i].modelName, "apple") == 0)
+		{
+			HealingApple* apple = NewGO<HealingApple>(0);
+			//モデル名、座標、回転を与えてマップチップを初期化する。
+			apple->Init(mapLocInfo[i].modelName, mapLocInfo[i].position, mapLocInfo[i].rotation);
+		}
+		else if (strcmp(mapLocInfo[i].modelName, "papaya") == 0)
+		{
+			DebuffItem* debuffitem = NewGO<DebuffItem>(0);
+			//モデル名、座標、回転を与えてマップチップを初期化する。
+			debuffitem->Init(mapLocInfo[i].modelName, mapLocInfo[i].position, mapLocInfo[i].rotation);
+		}
+		else if (strcmp(mapLocInfo[i].modelName, "woodbox") == 0)
 		{
 			ItemBox* itembox = NewGO<ItemBox>(0);
 			//モデル名、座標、回転を与えてマップチップを初期化する。

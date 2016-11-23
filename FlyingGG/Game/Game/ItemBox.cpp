@@ -31,6 +31,7 @@ void ItemBox::Init(const char *modelname, CVector3& position, CQuaternion& rotat
 	model.SetLight(&light);
 	this->position = position;
 	this->rotation = rotation;
+	//model.SetFogParam(enFogFuncDist, 0.0f, 30.0f);
 }
 void ItemBox::Update()
 {
