@@ -1,3 +1,14 @@
-﻿  main.cpp
+﻿  stdafx.cpp
+  Title.cpp
+  sky.cpp
+  Player.cpp
+  MapChip.cpp
+  Map.cpp
+  main.cpp
+  ItemBox.cpp
+  HelmetLight.cpp
+  GameCamera.cpp
+  Bomb.cpp
+  コードを生成中...
   Game.vcxproj -> C:\Users\kbc16b08\Documents\HFF\FlyingGG\Game\x64\Debug\Game.exe
   Game.vcxproj -> C:\Users\kbc16b08\Documents\HFF\FlyingGG\Game\x64\Debug\Game.pdb (Full PDB)

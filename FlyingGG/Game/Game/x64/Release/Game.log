@@ -1,4 +1,15 @@
-﻿  Title.cpp
+﻿  stdafx.cpp
+  Bomb.cpp
+  GameCamera.cpp
+  HelmetLight.cpp
+  ItemBox.cpp
+  Map.cpp
+  MapChip.cpp
+  Player.cpp
+  Title.cpp
+  main.cpp
+  sky.cpp
+  コードを生成中...
 LINK : warning LNK4075: /INCREMENTAL は /LTCG の指定によって無視されます。
   LINK : /LTCG が指定されましたが、コードの生成は必要ありません。リンク コマンド ラインから /LTCG を削除し、リンカーの性能を改善してください。
   Game.vcxproj -> C:\Users\kbc16b08\Documents\HFF\FlyingGG\Game\x64\Release\Game.exe
