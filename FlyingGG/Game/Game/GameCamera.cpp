@@ -7,7 +7,7 @@ extern Player *player;
 GameCamera::GameCamera()
 {
 	camera.SetPosition({ 0.0f, 1.0f, 10.0f });
-	camera.SetPosition({ 0.0f, 40.0f, 80.0f });
+	camera.SetPosition({ 0.0f, 20.0f, 40.0f });
 	camera.SetTarget({ 0.0f, 0.0f, 0.0f });
 }
 

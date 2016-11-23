@@ -16,7 +16,7 @@ public:
 	//何かに当たっているか判定する処理
 	void CollCheck();
 
-	CSkinModel model;			//モデル	
+	CSkinModel model;			//モデル
 	CSkinModelData modeldata;	//モデルデータ
 	CLight light;				//ライト
 	CVector3 position;			//場所
@@ -24,6 +24,7 @@ public:
 	CVector3 axisx;				//回転する軸
 	CQuaternion rotation;		//モデルの向き
 	float fallspeed;			//爆弾の落ちるスピード
-
+	CCharacterController charactercontroller;
+	bool start;
 };
 

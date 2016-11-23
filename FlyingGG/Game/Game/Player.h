@@ -1,6 +1,5 @@
 #pragma once
 
-#include "tkEngine/character/tkCharacterController.h"
 
 #define MAX_ANGLE 75
 #define MIN_ANGLE -75
