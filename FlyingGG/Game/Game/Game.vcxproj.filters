@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Bomb.cpp" />
+    <ClCompile Include="GameCamera.cpp" />
+    <ClCompile Include="HelmetLight.cpp" />
+    <ClCompile Include="ItemBox.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Map.cpp" />
+    <ClCompile Include="MapChip.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="sky.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="smog.cpp" />
+    <ClCompile Include="HealingApple.cpp" />
+    <ClCompile Include="DebuffItem.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Bomb.h" />
+    <ClInclude Include="GameCamera.h" />
+    <ClInclude Include="HelmetLight.h" />
+    <ClInclude Include="ItemBox.h" />
+    <ClInclude Include="Map.h" />
+    <ClInclude Include="MapChip.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="sky.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="smog.h" />
+    <ClInclude Include="HealingApple.h" />
+    <ClInclude Include="DebuffItem.h" />
+  </ItemGroup>
+</Project>
