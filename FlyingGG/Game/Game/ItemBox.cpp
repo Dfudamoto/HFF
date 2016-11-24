@@ -41,7 +41,7 @@ void ItemBox::Update()
 	{
 		DeleteGO(this);
 		Bomb *bomb = NewGO<Bomb>(0);
-		bomb->Init(&bombdata);
+		bomb->Init(position);
 	}
 	model.Update(position, rotation, CVector3::One);
 }
