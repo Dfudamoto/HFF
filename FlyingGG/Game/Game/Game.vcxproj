@@ -163,9 +163,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Bomb.cpp" />
-    <ClCompile Include="DebuffItem.cpp" />
     <ClCompile Include="GameCamera.cpp" />
-    <ClCompile Include="HealingApple.cpp" />
     <ClCompile Include="HelmetLight.cpp" />
     <ClCompile Include="ItemBox.cpp" />
     <ClCompile Include="main.cpp" />
@@ -173,27 +171,25 @@
     <ClCompile Include="MapChip.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="sky.cpp" />
-    <ClCompile Include="smog.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Title.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bomb.h" />
-    <ClInclude Include="DebuffItem.h" />
     <ClInclude Include="GameCamera.h" />
-    <ClInclude Include="HealingApple.h" />
     <ClInclude Include="HelmetLight.h" />
     <ClInclude Include="ItemBox.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MapChip.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="sky.h" />
-    <ClInclude Include="smog.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Title.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
