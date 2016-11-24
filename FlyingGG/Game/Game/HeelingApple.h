@@ -1,5 +1,5 @@
 #pragma once
-class HeelingApple
+class HeelingApple:public IGameObject
 {
 public:
 	HeelingApple();

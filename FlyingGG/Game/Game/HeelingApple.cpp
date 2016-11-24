@@ -12,8 +12,8 @@ HeelingApple::HeelingApple()
 
 HeelingApple::~HeelingApple()
 {
-	modelData.LoadModelData("Assets/modelData/P47_0.X", NULL);
-	model.Init(&modelData);
+	modeldata.LoadModelData("Assets/modelData/P47_0.X", NULL);
+	model.Init(&modeldata);
 	light.SetAmbinetLight({ 1.0f,1.0f,1.0f });
 	model.SetLight(&light);
 }
