@@ -4,6 +4,7 @@
 
 extern GameCamera *gamecamera;
 extern CLight defaultlight;
+extern CLight darklight;
 
 MapChip::MapChip()
 {
@@ -27,10 +28,10 @@ void MapChip::Init(const char* modelName, CVector3 position, CQuaternion rotatio
 	//ワールド行列を更新する。
 	//このオブジェクトは動かないので、初期化で一回だけワールド行列を作成すればおｋ。
 	skinModel.Update(position, rotation, CVector3::One);
+	//skinModel.SetFogParam(enFogFuncDist, 0.0f, 30.0f);
 
 	//メッシュコライダーの作成。
 	meshCollider.CreateFromSkinModel(&skinModel, skinModelData.GetRootBoneWorldMatrix());
-
 	//剛体の作成。
 	RigidBodyInfo rbInfo;
 	//剛体のコライダーを渡す。

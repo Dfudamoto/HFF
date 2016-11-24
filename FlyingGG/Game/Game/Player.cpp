@@ -13,10 +13,10 @@ Player::Player()
 	light.SetAmbinetLight(CVector3::One);
 	model.SetLight(&light);
 	position = CVector3::Zero;
-	position = {0.0f, 23.0f, 10.0f };
+	position = {0.0f, 3.0f, 10.0f };
 	rotation.SetRotation(CVector3::AxisY, CMath::DegToRad(180));
 
-	bombdata.LoadModelData("Assets/modelData/car.X", NULL);
+	bombdata.LoadModelData("Assets/modelData/bomb.X", NULL);
 	characterController.Init(0.5f, 1.0f, position);
 	radius = 3.0f;
 }
@@ -52,6 +52,7 @@ void Player::Move()
 	float speedscale = 30.0f;
 	move_direction_z.x = matrix.m[2][0];
 	move_direction_z.z = matrix.m[2][2];
+	move_direction_z.y = 0.0f;
 	move_direction_z.Normalize();
 	move_direction_z.Scale(speedscale);
 	move_direction_z.Scale(Pad(0).GetLStickYF());
@@ -59,6 +60,7 @@ void Player::Move()
 	//プレイヤーの横方向へのベクトルの取得
 	move_direction_x.x = matrix.m[0][0];
 	move_direction_x.z = matrix.m[0][2];
+	move_direction_x.y = 0.0f;
 	move_direction_x.Normalize();
 	move_direction_x.Scale(speedscale);
 	move_direction_x.Scale(Pad(0).GetLStickXF());
@@ -104,6 +106,6 @@ void Player::Rotation()
 
 void Player::Render(CRenderContext& rendercontext)
 {
-	model.Draw(rendercontext, gamecamera->camera.GetViewMatrix(), gamecamera->camera.GetProjectionMatrix());
+	//model.Draw(rendercontext, gamecamera->camera.GetViewMatrix(), gamecamera->camera.GetProjectionMatrix());
 }
 

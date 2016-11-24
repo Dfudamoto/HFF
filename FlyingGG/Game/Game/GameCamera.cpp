@@ -16,7 +16,6 @@ GameCamera::~GameCamera()
 {
 }
 
-
 void GameCamera::Update()
 {
 	CMatrix matrix = player->model.GetWorldMatrix();
@@ -29,7 +28,7 @@ void GameCamera::Update()
 	//position.y += 1.0f;
 
 	target.Add(player->position);
-	//camera.SetPosition(position);
-	//camera.SetTarget(target);
+	camera.SetPosition(position);
+	camera.SetTarget(target);
 	camera.Update();
 }

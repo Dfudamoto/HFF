@@ -91,9 +91,13 @@ namespace tkEngine{
 		*/
 		void RemoveRigidBoby();
 
-		bool GetCollision()
+		bool IsCollision()
 		{
 			return collision;
+		}
+		bool IsPickup()
+		{
+			return pickup;
 		}
 	private:
 		CVector3 			m_position = CVector3::Zero;	//座標。
@@ -106,5 +110,6 @@ namespace tkEngine{
 		CRigidBody			m_rigidBody;					//剛体。
 		float				m_gravity = -9.8f;				//重力。
 		bool				collision;
+		bool				pickup;
 	};
 }

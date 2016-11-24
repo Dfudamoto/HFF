@@ -17,9 +17,23 @@ Bomb::Bomb()
 	//model.Init(modeldata);
 	light.SetAmbinetLight(CVector3::One);
 	model.SetLight(&light);
+	rotation.SetRotation(CVector3::AxisY, CMath::DegToRad(0));
+	model.SetShadowCasterFlag(true);
+	fallspeed = 0.3f;
+	start = true;
+	angle = 0;
+}
+
+Bomb::~Bomb()
+{
+
+}
+
+void Bomb::Init(CSkinModelData* modeldata)
+{
+	model.Init(modeldata);
 	position = player->position;
 	position.y += 0.7f; //プレイヤーの位置が低いための補正
-	rotation.SetRotation(CVector3::AxisY, CMath::DegToRad(0));
 	CMatrix matrix = player->model.GetWorldMatrix();
 	//ボム空中にある間の回転軸
 	axisx.x = matrix.m[0][0];
@@ -35,22 +49,20 @@ Bomb::Bomb()
 	direction.Scale(0.3f);
 	position.Add(direction);//プレイヤーにもあたるので少し前にずらす
 	move_direction.Scale(10.0f);
-	model.SetShadowCasterFlag(true);
-	fallspeed = 0.3f;
-	start = true;
-	charactercontroller.Init(0.5f, 0.5f, position);
 	move_speed.y += 5.0f;
 	move_speed = move_direction;
+	charactercontroller.Init(0.5f, 0.5f, position);
+	angle = 10;
 }
 
-Bomb::~Bomb()
+void Bomb::Init(CVector3 position)
 {
-
-}
-
-void Bomb::Init(CSkinModelData* modeldata)
-{
-	model.Init(modeldata);
+	modeldata.LoadModelData("Assets/modelData/bomb.X", NULL);
+	model.Init(&modeldata);
+	this->position = position;
+	move_speed = CVector3::Zero;
+	axisx = CVector3::AxisY;
+	charactercontroller.Init(0.5f, 0.5f, this->position);
 }
 
 void Bomb::Update()
@@ -62,7 +74,7 @@ void Bomb::Update()
 	move_speed = charactercontroller.GetMoveSpeed();
 	//モデルの回転
 	CQuaternion multi;
-	multi.SetRotation(axisx, CMath::DegToRad(-10));
+	multi.SetRotation(axisx, CMath::DegToRad(-angle));
 	rotation.Multiply(multi);
 
 	CollCheck();
@@ -72,8 +84,16 @@ void Bomb::Update()
 
 void Bomb::CollCheck()
 {
-
-	if (charactercontroller.GetCollision())
+	if (!charactercontroller.IsPickup())
+	{
+		if (charactercontroller.IsCollision())
+		{
+			move_speed = CVector3::Zero;
+			angle = 0;
+		}
+		//return;
+	}
+	if (charactercontroller.IsCollision())
 	{
 		//パーティクルを出す処理
 		CParticleEmitter *particle;

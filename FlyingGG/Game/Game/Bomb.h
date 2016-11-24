@@ -7,6 +7,8 @@ public:
 
 	void Init(CSkinModelData*);
 
+	void Init(CVector3);
+
 	//XVŠÖ”
 	void Update();
 
@@ -27,5 +29,6 @@ public:
 	CCharacterController charactercontroller;
 	bool start;
 	CVector3 move_speed;		//”š’e‚ÌˆÚ“®‘¬“x
+	int angle;
 };
 

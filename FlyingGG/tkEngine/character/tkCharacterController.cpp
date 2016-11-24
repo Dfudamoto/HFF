@@ -118,7 +118,7 @@ namespace tkEngine{
 		m_rigidBody.GetBody()->setCollisionFlags(btCollisionObject::CF_CHARACTER_OBJECT);
 		PhysicsWorld().AddRigidBody(&m_rigidBody);
 		collision = false;
-
+		pickup = false;
 	}
 	void CCharacterController::Execute()
 	{
