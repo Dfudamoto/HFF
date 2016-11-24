@@ -47,6 +47,12 @@
     <ClCompile Include="Title.cpp">
       <Filter>Source Files\Title</Filter>
     </ClCompile>
+    <ClCompile Include="HealingApple.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DebuffItem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -79,5 +85,9 @@
     <ClInclude Include="Title.h">
       <Filter>Source Files\Title</Filter>
     </ClInclude>
+    <ClInclude Include="HealingApple.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DebuffItem.h" />
   </ItemGroup>
 </Project>

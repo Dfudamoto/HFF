@@ -163,7 +163,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Bomb.cpp" />
+    <ClCompile Include="DebuffItem.cpp" />
     <ClCompile Include="GameCamera.cpp" />
+    <ClCompile Include="HealingApple.cpp" />
     <ClCompile Include="HelmetLight.cpp" />
     <ClCompile Include="ItemBox.cpp" />
     <ClCompile Include="main.cpp" />
@@ -181,7 +183,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bomb.h" />
+    <ClInclude Include="DebuffItem.h" />
     <ClInclude Include="GameCamera.h" />
+    <ClInclude Include="HealingApple.h" />
     <ClInclude Include="HelmetLight.h" />
     <ClInclude Include="ItemBox.h" />
     <ClInclude Include="Map.h" />
