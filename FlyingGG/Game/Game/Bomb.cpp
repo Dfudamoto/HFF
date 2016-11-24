@@ -91,7 +91,7 @@ void Bomb::CollCheck()
 			move_speed = CVector3::Zero;
 			angle = 0;
 		}
-		return;
+		//return;
 	}
 	if (charactercontroller.IsCollision())
 	{
