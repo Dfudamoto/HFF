@@ -10,7 +10,6 @@ extern Player *player;
 ItemBox::ItemBox()
 {
 	light.SetAmbinetLight(CVector3::One);
-	bombdata.LoadModelData("Assets/modelData/car.X", NULL);
 }
 
 
@@ -35,10 +34,12 @@ void ItemBox::Init(const char *modelname, CVector3& position, CQuaternion& rotat
 }
 void ItemBox::Update()
 {
+	//プレイヤーとの距離と測る
 	CVector3 distance;
 	distance.Subtract(position, player->position);
 	if (distance.Length() < player->radius && Pad(0).IsTrigger(enButtonX))
 	{
+		//ある一定の距離でボタンが押されたら消えてボムをだす
 		DeleteGO(this);
 		Bomb *bomb = NewGO<Bomb>(0);
 		bomb->Init(position);

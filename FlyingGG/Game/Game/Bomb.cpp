@@ -20,8 +20,8 @@ Bomb::Bomb()
 	rotation.SetRotation(CVector3::AxisY, CMath::DegToRad(0));
 	model.SetShadowCasterFlag(true);
 	fallspeed = 0.3f;
-	start = true;
 	angle = 0;
+	pickup = false;
 }
 
 Bomb::~Bomb()
@@ -84,15 +84,16 @@ void Bomb::Update()
 
 void Bomb::CollCheck()
 {
-	if (!charactercontroller.IsPickup())
+	if (!pickup)
 	{
 		if (charactercontroller.IsCollision())
 		{
 			move_speed = CVector3::Zero;
 			angle = 0;
 		}
-		//return;
+		return;
 	}
+	//何かに当たったらパーティクルを出して死亡
 	if (charactercontroller.IsCollision())
 	{
 		//パーティクルを出す処理

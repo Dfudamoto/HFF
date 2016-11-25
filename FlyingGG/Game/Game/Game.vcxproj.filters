@@ -88,6 +88,8 @@
     <ClInclude Include="HealingApple.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="DebuffItem.h" />
+    <ClInclude Include="DebuffItem.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -11,11 +11,10 @@ public:
 
 	void Render(CRenderContext&);
 
-	CSkinModel model;
-	CSkinModelData modeldata;
-	CSkinModelData bombdata;
-	CLight light;
-	CVector3 position;
-	CQuaternion rotation;
+	CSkinModel			model;		//モデル
+	CSkinModelData		modeldata;	//モデルのデータ
+	CLight				light;		//モデルの光
+	CVector3			position;	//場所
+	CQuaternion			rotation;	//モデルの回転
 };
 

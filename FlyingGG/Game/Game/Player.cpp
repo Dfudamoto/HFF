@@ -47,7 +47,7 @@ void Player::Move()
 	CVector3 move_direction_z;	//正面へのベクトル
 	CVector3 move_direction_x;	//横方向へのベクトル
 
-	//プレイヤーの前方向のベクトルを取得
+	//プレイヤーの前(後ろ)方向のベクトルを取得
 	CMatrix matrix = model.GetWorldMatrix();
 	float speedscale = 30.0f;
 	move_direction_z.x = matrix.m[2][0];
@@ -66,10 +66,12 @@ void Player::Move()
 	move_direction_x.Scale(Pad(0).GetLStickXF());
 
 	CVector3 move = characterController.GetMoveSpeed();
+	//前(後ろ)と横の移動量の足し算
 	move.x = 0.0f;
 	move.z = 0.0f;
 	move.Add(move_direction_x);
 	move.Add(move_direction_z);
+	//ジャンプ処理
 	if (Pad(0).IsTrigger(enButtonB))
 	{
 		characterController.Jump();
@@ -87,11 +89,13 @@ void Player::Move()
 
 void Player::Rotation()
 {
+	//プレイヤーの回転角度と回転速度
 	float anglespeed = 5.0f;
 	static float anglex = 0;
 	static float angley = 0;
 
 	angley += Pad(0).GetRStickXF() * anglespeed;
+	//プレイヤーの回転できる角度の限度チェック
 	if (MIN_ANGLE < anglex && -Pad(0).GetRStickYF() < 0
 		|| anglex < MAX_ANGLE && 0 < -Pad(0).GetRStickYF())
 	{
