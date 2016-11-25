@@ -7,16 +7,17 @@ extern GameCamera *gamecamera;
 
 Player::Player()
 {
+	modelresource.Load(modeldata, "Assets/modelData/Player.X", NULL);
+	modelresource.Load(bombdata, "Assets/modelData/bomb.X", NULL);
 	//ÉÇÉfÉãÇÃèâä˙âª
-	modeldata.LoadModelData("Assets/modelData/Player.X", NULL);
-	model.Init(&modeldata);
+
+	model.Init(modeldata.GetBody());
 	light.SetAmbinetLight(CVector3::One);
 	model.SetLight(&light);
 	position = CVector3::Zero;
 	position = {0.0f, 3.0f, 10.0f };
 	rotation.SetRotation(CVector3::AxisY, CMath::DegToRad(180));
 
-	bombdata.LoadModelData("Assets/modelData/bomb.X", NULL);
 	characterController.Init(0.5f, 1.0f, position);
 	radius = 3.0f;
 }
@@ -34,7 +35,7 @@ void Player::Update()
 	{
 		Bomb *bomb;
 		bomb = NewGO<Bomb>(0);
-		bomb->Init(&bombdata);
+		bomb->Init(bombdata.CreateClone());
 	}
 	Move();
 	Rotation();

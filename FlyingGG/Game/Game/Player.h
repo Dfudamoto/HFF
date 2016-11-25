@@ -22,13 +22,15 @@ public:
 	//描画処理
 	void Render(CRenderContext&);
 
-	CSkinModelData				bombdata;			//ボムのモデルデータ
+	CSkinModelDataHandle		bombdata;			//ボムのモデルデータ
 	CVector3					position;			//場所
 	CQuaternion					rotation;			//プレイヤーの向き
 	CSkinModel					model;				//モデル
-	CSkinModelData				modeldata;			//モデルデータ
+	//CSkinModelData				modeldata;			//モデルデータ
 	CLight						light;				//ライト
 	CCharacterController		characterController;
 	float						radius;				//アイテムのあたり判定取るときの半径
+	CSkinModelDataHandle		modeldata;			//モデルデータ
+	CSkinModelDataResources		modelresource;		//モデルデータを扱うやつ
 };
 

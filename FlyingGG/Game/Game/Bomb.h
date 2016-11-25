@@ -29,6 +29,6 @@ public:
 	CCharacterController	charactercontroller;
 	CVector3				move_speed;			//移動速度
 	int						angle;				//回転する角度
-	bool					pickup				//プレイヤーに拾われてるか
+	bool					pickup;				//プレイヤーに拾われてるか
 };
 

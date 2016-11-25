@@ -91,7 +91,7 @@ void Bomb::CollCheck()
 			move_speed = CVector3::Zero;
 			angle = 0;
 		}
-		return;
+		//return;
 	}
 	//何かに当たったらパーティクルを出して死亡
 	if (charactercontroller.IsCollision())
@@ -129,6 +129,7 @@ void Bomb::CollCheck()
 		position);
 		model.SetShadowCasterFlag(false);
 		charactercontroller.RemoveRigidBoby();
+		//modeldata.ModelDelete();
 		DeleteGO(this);
 	}
 }
