@@ -7,7 +7,7 @@ extern Player *player;
 smog::smog()
 {
 	position = CVector3::Zero;
-	position = { 20.0f, 23.0f, 10.0f };
+	position = { 0.0f, 23.0f, 10.0f };
 }
 
 
