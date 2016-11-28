@@ -171,6 +171,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="MapChip.cpp" />
+    <ClCompile Include="Pitfall.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="sky.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -190,6 +191,7 @@
     <ClInclude Include="ItemBox.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MapChip.h" />
+    <ClInclude Include="Pitfall.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="sky.h" />
     <ClInclude Include="stdafx.h" />
