@@ -53,9 +53,6 @@
     <ClCompile Include="DebuffItem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Pitfall.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -91,7 +88,8 @@
     <ClInclude Include="HealingApple.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="DebuffItem.h" />
-    <ClInclude Include="Pitfall.h" />
+    <ClInclude Include="DebuffItem.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

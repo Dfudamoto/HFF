@@ -44,6 +44,7 @@ void HealingApple::Init(const char *modelname, CVector3 position, CQuaternion ro
 
 void HealingApple::Update() 
 {
+	//プレイヤーとの距離を計算
 	CVector3 distance;
 	distance.Subtract(position, player->position);
 	if (Pad(0).IsTrigger(enButtonX) && distance.Length() < player->radius)
@@ -54,10 +55,12 @@ void HealingApple::Update()
 	{
 		return;
 	}
+	//移動（落下）処理
 	charactercontroller.Execute();
 	CVector3 movespeed = charactercontroller.GetMoveSpeed();
 	charactercontroller.SetMoveSpeed(movespeed);
 	position = charactercontroller.GetPosition();
+
 	model.Update(position, rotation, CVector3::One);
 }
 

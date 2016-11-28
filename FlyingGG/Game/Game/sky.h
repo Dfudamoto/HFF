@@ -8,8 +8,8 @@ public:
 
 	void Render(CRenderContext&);
 
-	CSkinModel model;
-	CSkinModelData modeldata;
-	CQuaternion rotation;
+	CSkinModel		model;		//モデル
+	CSkinModelData	modeldata;	//モデルのデータ
+	CQuaternion		rotation;	//モデルの回転率
 };
 

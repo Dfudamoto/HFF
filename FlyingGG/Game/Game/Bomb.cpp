@@ -20,8 +20,8 @@ Bomb::Bomb()
 	rotation.SetRotation(CVector3::AxisY, CMath::DegToRad(0));
 	model.SetShadowCasterFlag(true);
 	fallspeed = 0.3f;
-	start = true;
 	angle = 0;
+	pickup = false;
 }
 
 Bomb::~Bomb()
@@ -84,7 +84,7 @@ void Bomb::Update()
 
 void Bomb::CollCheck()
 {
-	if (!charactercontroller.IsPickup())
+	if (!pickup)
 	{
 		if (charactercontroller.IsCollision())
 		{
@@ -93,6 +93,7 @@ void Bomb::CollCheck()
 		}
 		//return;
 	}
+	//何かに当たったらパーティクルを出して死亡
 	if (charactercontroller.IsCollision())
 	{
 		//パーティクルを出す処理
@@ -128,6 +129,7 @@ void Bomb::CollCheck()
 		position);
 		model.SetShadowCasterFlag(false);
 		charactercontroller.RemoveRigidBoby();
+		//modeldata.ModelDelete();
 		DeleteGO(this);
 	}
 }
