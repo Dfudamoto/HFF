@@ -22,6 +22,7 @@ public:
 	//描画処理
 	void Render(CRenderContext&);
 
+	int							bombcount;
 	CSkinModelDataHandle		bombdata;			//ボムのモデルデータ
 	CVector3					position;			//場所
 	CQuaternion					rotation;			//プレイヤーの向き

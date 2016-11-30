@@ -7,7 +7,7 @@ extern GameCamera *gamecamera;
 
 Player::Player()
 {
-	modelresource.Load(modeldata, "Assets/modelData/Player.X", NULL);
+	modelresource.Load(modeldata, "Assets/modelData/bodyg.X", NULL);
 	modelresource.Load(bombdata, "Assets/modelData/bomb.X", NULL);
 	//ƒ‚ƒfƒ‹‚Ì‰Šú‰»
 
@@ -20,6 +20,7 @@ Player::Player()
 
 	characterController.Init(0.5f, 1.0f, position);
 	radius = 3.0f;
+	bombcount = 0;
 }
 
 
@@ -31,11 +32,12 @@ Player::~Player()
 void Player::Update()
 {
 	//ƒ{ƒ€‚ð“Š‚°‚é
-	if (Pad(0).IsTrigger(enButtonA))
+	if (Pad(0).IsTrigger(enButtonA) && bombcount > 0)
 	{
 		Bomb *bomb;
 		bomb = NewGO<Bomb>(0);
-		bomb->Init(bombdata.CreateClone());
+		bomb->Init();
+		bombcount--;
 	}
 	Move();
 	Rotation();
@@ -111,6 +113,6 @@ void Player::Rotation()
 
 void Player::Render(CRenderContext& rendercontext)
 {
-	//model.Draw(rendercontext, gamecamera->camera.GetViewMatrix(), gamecamera->camera.GetProjectionMatrix());
+	model.Draw(rendercontext, gamecamera->camera.GetViewMatrix(), gamecamera->camera.GetProjectionMatrix());
 }
 

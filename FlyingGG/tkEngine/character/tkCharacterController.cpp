@@ -185,7 +185,10 @@ namespace tkEngine{
 					vOffset = hitNormalXZ;
 					vOffset.Scale(-fT0 + m_radius);
 					nextPosition.Add(vOffset);
-					collision = true;
+					if (pickup)
+					{
+						collision = true;
+					}
 				}
 				else {
 					//Ç«Ç±Ç∆Ç‡ìñÇΩÇÁÇ»Ç¢ÇÃÇ≈èIÇÌÇËÅB
@@ -257,7 +260,10 @@ namespace tkEngine{
 				m_isJump = false;
 				m_isOnGround = true;
 				nextPosition.y = callback.hitPos.y + offset - m_radius;
-				collision = true;
+				if (pickup)
+				{
+					collision = true;
+				}
 			}
 			else
 			{

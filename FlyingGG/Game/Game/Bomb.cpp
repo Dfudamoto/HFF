@@ -13,15 +13,15 @@ extern CLight darklight;
 Bomb::Bomb()
 {
 	random.Init((unsigned int)+time(NULL));
-	//modeldata.LoadModelData("Assets/modelData/car.X", NULL);
-	//model.Init(modeldata);
+	modelresource.Load(modeldata, "Assets/modelData/bomb.X", NULL);
+	model.Init(modeldata.GetBody());
 	light.SetAmbinetLight(CVector3::One);
 	model.SetLight(&light);
 	rotation.SetRotation(CVector3::AxisY, CMath::DegToRad(0));
 	model.SetShadowCasterFlag(true);
 	fallspeed = 0.3f;
 	angle = 0;
-	pickup = false;
+	charactercontroller.SetPickUp(false);
 }
 
 Bomb::~Bomb()
@@ -29,9 +29,8 @@ Bomb::~Bomb()
 
 }
 
-void Bomb::Init(CSkinModelData* modeldata)
+void Bomb::Init()
 {
-	model.Init(modeldata);
 	position = player->position;
 	position.y += 0.7f; //プレイヤーの位置が低いための補正
 	CMatrix matrix = player->model.GetWorldMatrix();
@@ -57,8 +56,8 @@ void Bomb::Init(CSkinModelData* modeldata)
 
 void Bomb::Init(CVector3 position)
 {
-	modeldata.LoadModelData("Assets/modelData/bomb.X", NULL);
-	model.Init(&modeldata);
+	//modeldata.LoadModelData("Assets/modelData/bomb.X", NULL);
+	//model.Init(&modeldata);
 	this->position = position;
 	move_speed = CVector3::Zero;
 	axisx = CVector3::AxisY;
@@ -67,7 +66,6 @@ void Bomb::Init(CVector3 position)
 
 void Bomb::Update()
 {
-	//プレイヤー
 	charactercontroller.SetMoveSpeed(move_speed);
 	charactercontroller.Execute();
 	position = charactercontroller.GetPosition();
@@ -78,60 +76,88 @@ void Bomb::Update()
 	rotation.Multiply(multi);
 
 	CollCheck();
+	Throw();
+	
 	//モデルの更新
 	model.Update(position, rotation, CVector3::One);
 }
 
+void Bomb::Throw()
+{
+	//投げられている状態ならreturnする
+	if (throwflg)
+	{
+		return;
+	}
+
+	//ボムの近くでXボタンを押すと拾う
+	CVector3 distance;
+	distance.Subtract(position, player->position);
+	if (distance.Length() < 10.0f && Pad(0).IsTrigger(enButtonX) && !charactercontroller.IsPickUp())
+	{
+		charactercontroller.SetPickUp(true);
+	}
+
+	if (charactercontroller.IsPickUp())
+	{
+		position = player->position;
+		charactercontroller.SetGravity(0.0f);
+		charactercontroller.SetPosition(position);
+		//拾った状態でAボタンを押すと投げる
+		if (Pad(0).IsTrigger(enButtonA))
+		{
+			throwflg = true;
+			charactercontroller.SetGravity(-9.8f);
+
+
+		}
+	}
+}
+
 void Bomb::CollCheck()
 {
-	if (!pickup)
+	if (!charactercontroller.IsCollision())
 	{
-		if (charactercontroller.IsCollision())
-		{
-			move_speed = CVector3::Zero;
-			angle = 0;
-		}
-		//return;
+		move_speed = CVector3::Zero;
+		angle = 0;
+		return;
 	}
 	//何かに当たったらパーティクルを出して死亡
-	if (charactercontroller.IsCollision())
+	//パーティクルを出す処理
+	CParticleEmitter *particle;
+	particle = NewGO<CParticleEmitter>(0);
+	particle->Init(random, gamecamera->camera,
 	{
-		//パーティクルを出す処理
-		CParticleEmitter *particle;
-		particle = NewGO<CParticleEmitter>(0);
-		particle->Init(random, gamecamera->camera,
-		{
-		"Assets/effect/realExplosion.png",				//!<テクスチャのファイルパス。
-		{0.0f, 0.0f, 0.0f},								//!<初速度。
-		1.0f,											//!<寿命。単位は秒。
-		1.0f,											//!<発生時間。単位は秒。
-		5.0f,											//!<パーティクルの幅。
-		5.0f,											//!<パーティクルの高さ。
-		{ 0.0f, 0.0f, 0.0f },							//!<初期位置のランダム幅。
-		{ 0.0f, 0.0f, 0.0f },							//!<初速度のランダム幅。
-		{ 0.0f, 0.0f, 0.0f },							//!<速度の積分のときのランダム幅。
-		{
-			{ 0.0f, 0.0f, 0.333f, 0.3333f },
-			{ 0.0f, 0.0f, 0.0f, 0.0f },
-			{ 0.0f, 0.0f, 0.0f, 0.0f },
-			{ 0.0f, 0.0f, 0.0f, 0.0f }
-		},//!<UVテーブル。最大4まで保持できる。xが左上のu、yが左上のv、zが右下のu、wが右下のvになる。
-		1,												//!<UVテーブルのサイズ。
-		{ 0.0f, 0.0f, 0.0f },							//!<重力。
-		true,											//!<死ぬときにフェードアウトする？
-		0.3f,											//!<フェードする時間。
-		1.0f,											//!<初期アルファ値。
-		true,											//!<ビルボード？
-		0.0f,											//!<輝度。ブルームが有効になっているとこれを強くすると光が溢れます。
-		0,												//!<0半透明合成、1加算合成。
-		{1.0f, 1.0f, 1.0f},								//!<乗算カラー。
-		},
-		position);
-		model.SetShadowCasterFlag(false);
-		charactercontroller.RemoveRigidBoby();
-		//modeldata.ModelDelete();
-		DeleteGO(this);
-	}
+	"Assets/effect/realExplosion.png",				//!<テクスチャのファイルパス。
+	{0.0f, 0.0f, 0.0f},								//!<初速度。
+	1.0f,											//!<寿命。単位は秒。
+	1.0f,											//!<発生時間。単位は秒。
+	5.0f,											//!<パーティクルの幅。
+	5.0f,											//!<パーティクルの高さ。
+	{ 0.0f, 0.0f, 0.0f },							//!<初期位置のランダム幅。
+	{ 0.0f, 0.0f, 0.0f },							//!<初速度のランダム幅。
+	{ 0.0f, 0.0f, 0.0f },							//!<速度の積分のときのランダム幅。
+	{
+		{ 0.0f, 0.0f, 0.333f, 0.3333f },
+		{ 0.0f, 0.0f, 0.0f, 0.0f },
+		{ 0.0f, 0.0f, 0.0f, 0.0f },
+		{ 0.0f, 0.0f, 0.0f, 0.0f }
+	},//!<UVテーブル。最大4まで保持できる。xが左上のu、yが左上のv、zが右下のu、wが右下のvになる。
+	1,												//!<UVテーブルのサイズ。
+	{ 0.0f, 0.0f, 0.0f },							//!<重力。
+	true,											//!<死ぬときにフェードアウトする？
+	0.3f,											//!<フェードする時間。
+	1.0f,											//!<初期アルファ値。
+	true,											//!<ビルボード？
+	0.0f,											//!<輝度。ブルームが有効になっているとこれを強くすると光が溢れます。
+	0,												//!<0半透明合成、1加算合成。
+	{1.0f, 1.0f, 1.0f},								//!<乗算カラー。
+	},
+	position);
+	model.SetShadowCasterFlag(false);
+	charactercontroller.RemoveRigidBoby();
+	//modeldata.ModelDelete();
+	DeleteGO(this);
 }
 
 void Bomb::Render(CRenderContext& rendercontext)

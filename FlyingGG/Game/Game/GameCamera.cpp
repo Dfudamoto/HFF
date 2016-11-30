@@ -11,7 +11,6 @@ GameCamera::GameCamera()
 	camera.SetTarget({ 0.0f, 0.0f, 0.0f });
 }
 
-
 GameCamera::~GameCamera()
 {
 }
@@ -28,7 +27,7 @@ void GameCamera::Update()
 	//position.y += 1.0f;
 
 	target.Add(player->position);
-	camera.SetPosition(position);
-	camera.SetTarget(target);
+	//camera.SetPosition(position);
+	//camera.SetTarget(target);
 	camera.Update();
 }

@@ -5,7 +5,7 @@ public:
 	Bomb();
 	~Bomb();
 
-	void Init(CSkinModelData*);
+	void Init();
 
 	void Init(CVector3);
 
@@ -18,8 +18,12 @@ public:
 	//何かに当たっているか判定する処理
 	void CollCheck();
 
+	//投げるか判定する処理
+	void Throw();
+
+	CSkinModelDataResources	modelresource;
+	CSkinModelDataHandle	modeldata;
 	CSkinModel				model;				//モデル
-	CSkinModelData			modeldata;			//モデルデータ
 	CLight					light;				//ライト
 	CVector3				position;			//場所
 	CVector3				move_direction;		//飛ぶ方向
@@ -29,6 +33,6 @@ public:
 	CCharacterController	charactercontroller;
 	CVector3				move_speed;			//移動速度
 	int						angle;				//回転する角度
-	bool					pickup;				//プレイヤーに拾われてるか
+	bool					throwflg;			//投げてるか
 };
 
