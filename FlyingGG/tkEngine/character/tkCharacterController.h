@@ -104,6 +104,10 @@ namespace tkEngine{
 		{
 			pickup = set;
 		}
+		bool IsDead()
+		{
+			return dead;
+		}
 
 	private:
 		CVector3 			m_position = CVector3::Zero;	//座標。
@@ -117,5 +121,6 @@ namespace tkEngine{
 		float				m_gravity = -9.8f;				//重力。
 		bool				collision;						//何かものに当たったか
 		bool				pickup;							//プレイヤーに拾われてるか
+		bool				dead;
 	};
 }

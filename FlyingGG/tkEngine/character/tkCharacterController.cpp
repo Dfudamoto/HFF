@@ -118,6 +118,7 @@ namespace tkEngine{
 		m_rigidBody.GetBody()->setCollisionFlags(btCollisionObject::CF_CHARACTER_OBJECT);
 		PhysicsWorld().AddRigidBody(&m_rigidBody);
 		collision = false;
+		dead = false;
 	}
 	void CCharacterController::Execute()
 	{
@@ -287,5 +288,6 @@ namespace tkEngine{
 	void CCharacterController::RemoveRigidBoby()
 	{
 		PhysicsWorld().RemoveRigidBody(&m_rigidBody);
+		dead = true;
 	}
 }

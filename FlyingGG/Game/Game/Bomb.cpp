@@ -6,9 +6,9 @@
 
 extern GameCamera *gamecamera;
 extern Player *player;
-Bomb *bomb;
 CRandom random;
 extern CLight darklight;
+extern Bomb* bomb[BOMBNUM];
 
 Bomb::Bomb()
 {
@@ -89,7 +89,6 @@ void Bomb::Throw()
 	{
 		return;
 	}
-
 	//ボムの近くでXボタンを押すと拾う
 	CVector3 distance;
 	distance.Subtract(position, player->position);
@@ -106,10 +105,34 @@ void Bomb::Throw()
 		//拾った状態でAボタンを押すと投げる
 		if (Pad(0).IsTrigger(enButtonA))
 		{
+			for (int i = 0;i < BOMBNUM;i++)
+			{
+				//他のボムが投げられていれば投げれない
+				if (bomb[i] != nullptr && bomb[i]->throwflg)
+				{
+					return;
+				}
+			}
 			throwflg = true;
 			charactercontroller.SetGravity(-9.8f);
-
-
+			CMatrix matrix = player->model.GetWorldMatrix();
+			//ボム空中にある間の回転軸
+			axisx.x = matrix.m[0][0];
+			axisx.y = matrix.m[0][1];
+			axisx.z = matrix.m[0][2];
+			axisx.Normalize();
+			//ボムが飛ぶ方向
+			move_direction.x = matrix.m[2][0];
+			move_direction.y = matrix.m[2][1];
+			move_direction.z = matrix.m[2][2];
+			move_direction.Normalize();
+			CVector3 addpos = move_direction;
+			addpos.Scale(0.3f);
+			position.Add(addpos);//プレイヤーにもあたるので少し前にずらす
+			move_direction.Scale(10.0f);
+			move_speed = move_direction;
+			move_speed.y += 5.0f;
+			angle = 10;
 		}
 	}
 }
@@ -118,8 +141,11 @@ void Bomb::CollCheck()
 {
 	if (!charactercontroller.IsCollision())
 	{
-		move_speed = CVector3::Zero;
-		angle = 0;
+		if(!throwflg)
+		{
+			move_speed = CVector3::Zero;
+			angle = 0;
+		}
 		return;
 	}
 	//何かに当たったらパーティクルを出して死亡
@@ -156,7 +182,14 @@ void Bomb::CollCheck()
 	position);
 	model.SetShadowCasterFlag(false);
 	charactercontroller.RemoveRigidBoby();
-	//modeldata.ModelDelete();
+	//消すボムの情報をリセット
+	for (int i = 0;i < BOMBNUM;i++)
+	{
+		if (bomb[i] != nullptr && bomb[i]->charactercontroller.IsDead())
+		{
+			bomb[i] = nullptr;
+		}
+	}
 	DeleteGO(this);
 }
 

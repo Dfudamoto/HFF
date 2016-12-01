@@ -6,6 +6,8 @@
 
 extern GameCamera *gamecamera;
 extern Player *player;
+Bomb *bomb[BOMBNUM];
+
 
 ItemBox::ItemBox()
 {
@@ -41,8 +43,15 @@ void ItemBox::Update()
 	{
 		//‚ ‚éˆê’è‚Ì‹——£‚Åƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚çÁ‚¦‚Äƒ{ƒ€‚ğ‚¾‚·
 		DeleteGO(this);
-		Bomb *bomb = NewGO<Bomb>(0);
-		bomb->Init(position);
+		for (int i = 0;i < BOMBNUM;i++)
+		{
+			if (bomb[i] == nullptr)
+			{
+				bomb[i] = NewGO<Bomb>(0);
+				bomb[i]->Init(position);
+				break;
+			}
+		}
 	}
 	model.Update(position, rotation, CVector3::One);
 }

@@ -4,6 +4,7 @@
 #include "Bomb.h"
 
 extern GameCamera *gamecamera;
+extern Bomb *bomb[BOMBNUM];
 
 Player::Player()
 {
@@ -15,14 +16,16 @@ Player::Player()
 	light.SetAmbinetLight(CVector3::One);
 	model.SetLight(&light);
 	position = CVector3::Zero;
-	position = {0.0f, 3.0f, 10.0f };
-	rotation.SetRotation(CVector3::AxisY, CMath::DegToRad(180));
-
+	position = {0.0f, 3.0f, 0.0f };
+	rotation.SetRotation(CVector3::AxisY, CMath::DegToRad(0));
 	characterController.Init(0.5f, 1.0f, position);
 	radius = 3.0f;
-	bombcount = 0;
+	bombcount = 1;
+	for (int i = 0;i < BOMBNUM;i++)
+	{
+		bomb[i] = nullptr;
+	}
 }
-
 
 Player::~Player()
 {
@@ -34,10 +37,10 @@ void Player::Update()
 	//ƒ{ƒ€‚ð“Š‚°‚é
 	if (Pad(0).IsTrigger(enButtonA) && bombcount > 0)
 	{
-		Bomb *bomb;
-		bomb = NewGO<Bomb>(0);
-		bomb->Init();
-		bombcount--;
+		//Bomb *bomb;
+		//bomb = NewGO<Bomb>(0);
+		//bomb->Init();
+		//bombcount--;
 	}
 	Move();
 	Rotation();
@@ -86,7 +89,7 @@ void Player::Move()
 	characterController.Execute();
 	//ŽÀsŒ‹‰Ê‚ðŽó‚¯Žæ‚éB
 	position = characterController.GetPosition();
-	//position.y = 0.0f;
+	position.y += 2.0f;
 
 }
 
@@ -113,6 +116,6 @@ void Player::Rotation()
 
 void Player::Render(CRenderContext& rendercontext)
 {
-	model.Draw(rendercontext, gamecamera->camera.GetViewMatrix(), gamecamera->camera.GetProjectionMatrix());
+	//model.Draw(rendercontext, gamecamera->camera.GetViewMatrix(), gamecamera->camera.GetProjectionMatrix());
 }
 
