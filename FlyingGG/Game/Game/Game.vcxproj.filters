@@ -62,6 +62,9 @@
     <ClCompile Include="HelmetLight.cpp">
       <Filter>Source Files\Item</Filter>
     </ClCompile>
+    <ClCompile Include="HPBar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -100,6 +103,9 @@
     </ClInclude>
     <ClInclude Include="HelmetLight.h">
       <Filter>Source Files\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="HPBar.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
