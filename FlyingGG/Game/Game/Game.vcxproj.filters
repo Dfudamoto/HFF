@@ -65,6 +65,9 @@
     <ClCompile Include="HPBar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ItemShow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -105,6 +108,9 @@
       <Filter>Source Files\Item</Filter>
     </ClInclude>
     <ClInclude Include="HPBar.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemShow.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

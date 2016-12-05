@@ -16,7 +16,8 @@ Pitfall::~Pitfall()
 {
 }
 
-void Pitfall::Update(){
+void Pitfall::Update()
+{
 
 }
 

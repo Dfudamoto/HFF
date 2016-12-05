@@ -3,12 +3,14 @@
 #include "GameCamera.h"
 #include "Player.h"
 #include "time.h"
+#include "ItemShow.h"
 
 extern GameCamera *gamecamera;
 extern Player *player;
 CRandom random;
 extern CLight darklight;
 extern Bomb* bomb[BOMBNUM];
+extern int itemnum;
 
 Bomb::Bomb()
 {
@@ -29,30 +31,7 @@ Bomb::~Bomb()
 
 }
 
-void Bomb::Init()
-{
-	position = player->position;
-	position.y += 0.7f; //プレイヤーの位置が低いための補正
-	CMatrix matrix = player->model.GetWorldMatrix();
-	//ボム空中にある間の回転軸
-	axisx.x = matrix.m[0][0];
-	axisx.y = matrix.m[0][1];
-	axisx.z = matrix.m[0][2];
-	axisx.Normalize();
-	//ボムが飛ぶ方向
-	move_direction.x = matrix.m[2][0];
-	move_direction.y = matrix.m[2][1];
-	move_direction.z = matrix.m[2][2];
-	move_direction.Normalize();
-	CVector3 direction = move_direction;
-	direction.Scale(0.3f);
-	position.Add(direction);//プレイヤーにもあたるので少し前にずらす
-	move_direction.Scale(10.0f);
-	move_speed.y += 5.0f;
-	move_speed = move_direction;
-	charactercontroller.Init(0.5f, 0.5f, position);
-	angle = 10;
-}
+
 
 void Bomb::Init(CVector3 position)
 {
@@ -97,12 +76,17 @@ void Bomb::Throw()
 		charactercontroller.SetPickUp(true);
 	}
 
+
 	if (charactercontroller.IsPickUp())
 	{
 		position = player->position;
 		charactercontroller.SetGravity(0.0f);
 		charactercontroller.SetPosition(position);
 		//拾った状態でAボタンを押すと投げる
+		if (itemnum != ItemShow::BOMB)
+		{
+			return;
+		}
 		if (Pad(0).IsTrigger(enButtonA))
 		{
 			for (int i = 0;i < BOMBNUM;i++)
@@ -148,6 +132,10 @@ void Bomb::CollCheck()
 		}
 		return;
 	}
+	if (itemnum != ItemShow::BOMB)
+	{
+		return;
+	}
 	//何かに当たったらパーティクルを出して死亡
 	//パーティクルを出す処理
 	CParticleEmitter *particle;
@@ -190,11 +178,16 @@ void Bomb::CollCheck()
 			bomb[i] = nullptr;
 		}
 	}
+	player->BombDam(position);
 	DeleteGO(this);
 }
 
 void Bomb::Render(CRenderContext& rendercontext)
 {
+	if (charactercontroller.IsPickUp() && !throwflg)
+	{
+		return;
+	}
 	model.Draw(rendercontext, gamecamera->camera.GetViewMatrix(), gamecamera->camera.GetProjectionMatrix());
 }
 

@@ -169,6 +169,7 @@
     <ClCompile Include="HelmetLight.cpp" />
     <ClCompile Include="HPBar.cpp" />
     <ClCompile Include="ItemBox.cpp" />
+    <ClCompile Include="ItemShow.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="MapChip.cpp" />
@@ -191,6 +192,7 @@
     <ClInclude Include="HelmetLight.h" />
     <ClInclude Include="HPBar.h" />
     <ClInclude Include="ItemBox.h" />
+    <ClInclude Include="ItemShow.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MapChip.h" />
     <ClInclude Include="Pitfall.h" />

@@ -3,7 +3,9 @@
 #include "GameCamera.h"
 #include "Player.h"
 #include "Bomb.h"
+#include "ItemShow.h"
 
+extern int itemnum;
 extern GameCamera *gamecamera;
 extern Player *player;
 Bomb *bomb[BOMBNUM];
@@ -33,9 +35,14 @@ void ItemBox::Init(const char *modelname, CVector3& position, CQuaternion& rotat
 	this->position = position;
 	this->rotation = rotation;
 	//model.SetFogParam(enFogFuncDist, 0.0f, 30.0f);
+	model.Update(position, rotation, CVector3::One);
 }
 void ItemBox::Update()
 {
+	if (itemnum != ItemShow::KNIFE)
+	{
+		return;
+	}
 	//ƒvƒŒƒCƒ„[‚Æ‚Ì‹——£‚Æ‘ª‚é
 	CVector3 distance;
 	distance.Subtract(position, player->position);

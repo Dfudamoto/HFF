@@ -12,6 +12,8 @@ public:
 
 	CTexture hp;
 	CSprite hpspr;
+	CTexture hpb;
+	CSprite hpbspr;
 
 };
 
