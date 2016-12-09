@@ -9,7 +9,7 @@ CLight darklight;		//暗いところにあるオブジェクト用のライト
 
 HelmetLight::HelmetLight()
 {
-	modeldata.LoadModelData("Assets/modelData/car.X", NULL);
+	modeldata.LoadModelData("Assets/modelData/bodyg.X", NULL);
 	model.Init(&modeldata);
 	light.SetAmbinetLight(CVector3::One);
 	model.SetLight(&light);

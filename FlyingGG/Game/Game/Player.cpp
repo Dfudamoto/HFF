@@ -8,15 +8,15 @@ extern GameCamera *gamecamera;
 Player::Player()
 {
 	//モデルの初期化
-	modeldata.LoadModelData("Assets/modelData/Player.X", NULL);
+	modeldata.LoadModelData("Assets/modelData/knife.X", NULL);
 	model.Init(&modeldata);
 	light.SetAmbinetLight(CVector3::One);
 	model.SetLight(&light);
 	position = CVector3::Zero;
-	position = {0.0f, 23.0f, 10.0f };
+	//position = {0.0f, 23.0f, 0.0f };
 	rotation.SetRotation(CVector3::AxisY, CMath::DegToRad(180));
 
-	bombdata.LoadModelData("Assets/modelData/car.X", NULL);
+	bombdata.LoadModelData("Assets/modelData/bomb.X", NULL);
 	characterController.Init(0.5f, 1.0f, position);
 	radius = 3.0f;
 }
@@ -49,7 +49,7 @@ void Player::Move()
 
 	//プレイヤーの前方向のベクトルを取得
 	CMatrix matrix = model.GetWorldMatrix();
-	float speedscale = 30.0f;
+	float speedscale = 10.0f;
 	move_direction_z.x = matrix.m[2][0];
 	move_direction_z.z = matrix.m[2][2];
 	move_direction_z.Normalize();
@@ -79,7 +79,7 @@ void Player::Move()
 	characterController.Execute();
 	//実行結果を受け取る。
 	position = characterController.GetPosition();
-	//position.y = 0.0f;
+	position.y = 0.0f;
 
 }
 

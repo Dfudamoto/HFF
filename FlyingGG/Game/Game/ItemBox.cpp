@@ -10,7 +10,7 @@ extern Player *player;
 ItemBox::ItemBox()
 {
 	light.SetAmbinetLight(CVector3::One);
-	bombdata.LoadModelData("Assets/modelData/car.X", NULL);
+	bombdata.LoadModelData("Assets/modelData/knife.X", NULL);
 }
 
 
