@@ -18,7 +18,6 @@ HealingApple::HealingApple()
 	light.SetAmbinetLight(CVector3::One);
 }
 
-
 HealingApple::~HealingApple()
 {
 
