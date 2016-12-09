@@ -9,6 +9,8 @@ public:
 
 	void Init(const char*, CVector3&, CQuaternion&);
 
+	void BombCreate();
+
 	void Render(CRenderContext&);
 
 	CSkinModel			model;		//ƒ‚ƒfƒ‹

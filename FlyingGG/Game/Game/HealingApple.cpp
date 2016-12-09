@@ -11,7 +11,8 @@ HealingApple::HealingApple()
 {	
 	//modeldata.LoadModelData("Assets/modelData/P47_0.X", NULL);
 	//model.Init(&modeldata);
-	//light.SetAmbinetLight({ 1.0f,1.0f,1.0f });
+	light.SetAmbinetLight({ 0.01f,0.01f,0.01f });
+	light.SetDiffuseLightColor(0, { 0.9f, 0.9f, 0.9f, 1.0f });
 	//model.SetLight(&light);
 	harves = false;
 	light.SetAmbinetLight(CVector3::One);
@@ -55,6 +56,8 @@ void HealingApple::Update()
 	{
 		return;
 	}
+	distance.Normalize();
+	light.SetDiffuseLightDirection(0, distance);
 	//ˆÚ“®i—‰ºjˆ—
 	charactercontroller.Execute();
 	CVector3 movespeed = charactercontroller.GetMoveSpeed();

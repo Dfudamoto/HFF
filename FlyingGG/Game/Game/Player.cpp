@@ -4,25 +4,30 @@
 #include "Bomb.h"
 
 extern GameCamera *gamecamera;
+extern Bomb *bomb[BOMBNUM];
+extern int itemnum;
 
 Player::Player()
 {
 	modelresource.Load(modeldata, "Assets/modelData/bodyg.X", NULL);
-	modelresource.Load(bombdata, "Assets/modelData/bomb.X", NULL);
 	//モデルの初期化
 
 	model.Init(modeldata.GetBody());
 	light.SetAmbinetLight(CVector3::One);
 	model.SetLight(&light);
 	position = CVector3::Zero;
-	position = {0.0f, 3.0f, 10.0f };
-	rotation.SetRotation(CVector3::AxisY, CMath::DegToRad(180));
-
+	position = {0.0f, 3.0f, 0.0f };
+	rotation.SetRotation(CVector3::AxisY, CMath::DegToRad(0));
 	characterController.Init(0.5f, 1.0f, position);
 	radius = 3.0f;
-	bombcount = 0;
+	bombcount = 1;
+	for (int i = 0;i < BOMBNUM;i++)
+	{
+		bomb[i] = nullptr;
+	}
+	hp = 130;
+	itemnum = 0;
 }
-
 
 Player::~Player()
 {
@@ -34,19 +39,19 @@ void Player::Update()
 	//ボムを投げる
 	if (Pad(0).IsTrigger(enButtonA) && bombcount > 0)
 	{
-		Bomb *bomb;
-		bomb = NewGO<Bomb>(0);
-		bomb->Init();
-		bombcount--;
+		//Bomb *bomb;
+		//bomb = NewGO<Bomb>(0);
+		//bomb->Init();
+		//bombcount--;
 	}
 	Move();
 	Rotation();
 	model.Update(position, rotation, CVector3::One);
+
 }
 
 void Player::Move()
 {
-
 	CVector3 move_direction_z;	//正面へのベクトル
 	CVector3 move_direction_x;	//横方向へのベクトル
 
@@ -86,7 +91,7 @@ void Player::Move()
 	characterController.Execute();
 	//実行結果を受け取る。
 	position = characterController.GetPosition();
-	//position.y = 0.0f;
+	position.y += 2.0f;
 
 }
 
@@ -102,7 +107,7 @@ void Player::Rotation()
 	if (MIN_ANGLE < anglex && -Pad(0).GetRStickYF() < 0
 		|| anglex < MAX_ANGLE && 0 < -Pad(0).GetRStickYF())
 	{
-		anglex -= Pad(0).GetRStickYF() * anglespeed;
+		anglex += -Pad(0).GetRStickYF() * anglespeed;
 	}
 
 	rotation.SetRotation(CVector3::AxisY, CMath::DegToRad(angley));
@@ -113,6 +118,15 @@ void Player::Rotation()
 
 void Player::Render(CRenderContext& rendercontext)
 {
-	model.Draw(rendercontext, gamecamera->camera.GetViewMatrix(), gamecamera->camera.GetProjectionMatrix());
+	//model.Draw(rendercontext, gamecamera->camera.GetViewMatrix(), gamecamera->camera.GetProjectionMatrix());
 }
 
+void Player::BombDam(CVector3& bombpos)
+{
+	CVector3 distance;
+	distance.Subtract(position, bombpos);
+	if (distance.Length() < 20.0f)
+	{
+		hp -= 10;
+	}
+}

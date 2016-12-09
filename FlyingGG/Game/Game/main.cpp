@@ -5,6 +5,8 @@
 #include "sky.h"
 #include "Map.h"
 #include "Title.h"
+#include "HPBar.h"
+#include "ItemShow.h"
 
 GameCamera *gamecamera;
 Player *player;
@@ -69,6 +71,8 @@ int WINAPI wWinMain(
 	player = NewGO<Player>(0);
 	NewGO<HelmetLight>(0);
 	NewGO<Map>(0);
+	NewGO<HPBar>(0);
+	NewGO<ItemShow>(0);
 	//NewGO<Title>(0);
 	Engine().RunGameLoop();		//ゲームループを実行。
 

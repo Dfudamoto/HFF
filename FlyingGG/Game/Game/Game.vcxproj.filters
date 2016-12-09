@@ -12,6 +12,12 @@
     <Filter Include="Source Files\Title">
       <UniqueIdentifier>{77d95a80-f7de-4cf8-b4d8-913982529468}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Item">
+      <UniqueIdentifier>{f36c7156-4124-4a1e-8f31-5faf1c4e1d0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\map">
+      <UniqueIdentifier>{b29f8e72-573b-49b0-a48f-ff0346bfe5bf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -20,13 +26,7 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Bomb.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GameCamera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="HelmetLight.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
@@ -35,22 +35,37 @@
     <ClCompile Include="sky.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Map.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MapChip.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ItemBox.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Title.cpp">
       <Filter>Source Files\Title</Filter>
     </ClCompile>
-    <ClCompile Include="HealingApple.cpp">
+    <ClCompile Include="Pitfall.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Bomb.cpp">
+      <Filter>Source Files\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="HealingApple.cpp">
+      <Filter>Source Files\Item</Filter>
+    </ClCompile>
     <ClCompile Include="DebuffItem.cpp">
+      <Filter>Source Files\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemBox.cpp">
+      <Filter>Source Files\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Source Files\map</Filter>
+    </ClCompile>
+    <ClCompile Include="MapChip.cpp">
+      <Filter>Source Files\map</Filter>
+    </ClCompile>
+    <ClCompile Include="HelmetLight.cpp">
+      <Filter>Source Files\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="HPBar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemShow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Pitfall.cpp">
@@ -61,13 +76,7 @@
     <ClInclude Include="stdafx.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Bomb.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="GameCamera.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="HelmetLight.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
@@ -76,22 +85,35 @@
     <ClInclude Include="sky.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Map.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MapChip.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ItemBox.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="Title.h">
       <Filter>Source Files\Title</Filter>
     </ClInclude>
+    <ClInclude Include="Pitfall.h" />
+    <ClInclude Include="Bomb.h">
+      <Filter>Source Files\Item</Filter>
+    </ClInclude>
     <ClInclude Include="HealingApple.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Item</Filter>
     </ClInclude>
     <ClInclude Include="DebuffItem.h">
+      <Filter>Source Files\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemBox.h">
+      <Filter>Source Files\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Source Files\map</Filter>
+    </ClInclude>
+    <ClInclude Include="MapChip.h">
+      <Filter>Source Files\map</Filter>
+    </ClInclude>
+    <ClInclude Include="HelmetLight.h">
+      <Filter>Source Files\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="HPBar.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemShow.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="Pitfall.h">

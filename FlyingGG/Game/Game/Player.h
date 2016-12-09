@@ -22,16 +22,23 @@ public:
 	//描画処理
 	void Render(CRenderContext&);
 
+	//ボムが近くで爆発したらダメージをくらう処理。
+	void BombDam(CVector3& bombpos);
+
+	int GetHP()
+	{
+		return hp;
+	}
+
 	int							bombcount;
-	CSkinModelDataHandle		bombdata;			//ボムのモデルデータ
 	CVector3					position;			//場所
 	CQuaternion					rotation;			//プレイヤーの向き
 	CSkinModel					model;				//モデル
-	//CSkinModelData				modeldata;			//モデルデータ
 	CLight						light;				//ライト
 	CCharacterController		characterController;
 	float						radius;				//アイテムのあたり判定取るときの半径
 	CSkinModelDataHandle		modeldata;			//モデルデータ
-	CSkinModelDataResources		modelresource;		//モデルデータを扱うやつ
+	CSkinModelDataResources		modelresource;		//モデルデータハンドルを入れる媒体
+	int							hp;					//プレイヤーの体力
 };
 

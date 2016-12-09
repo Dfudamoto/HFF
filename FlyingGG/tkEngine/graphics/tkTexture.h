@@ -9,15 +9,18 @@ namespace tkEngine{
 	/*!
 	 * @brief	テクスチャ。
 	 */
-	class CTexture{
+	class CTexture
+	{
 	public:
 		CTexture()
 		{
 		}
+
 		~CTexture()
 		{
 			Release();
 		}
+
 		void SetTextureDX( LPDIRECT3DTEXTURE9 tex )
 		{
 			m_tex = tex;

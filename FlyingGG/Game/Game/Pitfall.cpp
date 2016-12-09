@@ -35,8 +35,8 @@ void Pitfall::Init(const char *modelname, CVector3 position, CQuaternion rotatio
 	model.Update(position, rotation, CVector3::One);
 }
 
-void Pitfall::Update(){
-
+void Pitfall::Update()
+{
 }
 
 void Pitfall::Render(CRenderContext& renderContext) {
