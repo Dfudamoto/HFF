@@ -44,6 +44,15 @@ void HealingApple::Init(const char *modelname, CVector3 position, CQuaternion ro
 
 void HealingApple::Update() 
 {
+
+
+
+
+	model.Update(position, rotation, CVector3::One);
+}
+
+void HealingApple::Move()
+{
 	//プレイヤーとの距離を計算
 	CVector3 distance;
 	distance.Subtract(position, player->position);
@@ -51,9 +60,19 @@ void HealingApple::Update()
 	{
 		harves = true;
 	}
+	//プレイヤーとの距離を計算
+	CVector3 distance;
+	distance.Subtract(position, player->position);
 	if (!harves)
 	{
 		return;
+	}
+
+	if (charactercontroller.IsPickUp())
+	{
+		position = player->position;
+		charactercontroller.SetGravity(0.0f);
+		charactercontroller.SetPosition(position);
 	}
 	distance.Normalize();
 	light.SetDiffuseLightDirection(0, distance);
@@ -62,8 +81,6 @@ void HealingApple::Update()
 	CVector3 movespeed = charactercontroller.GetMoveSpeed();
 	charactercontroller.SetMoveSpeed(movespeed);
 	position = charactercontroller.GetPosition();
-
-	model.Update(position, rotation, CVector3::One);
 }
 
 void HealingApple::Render(CRenderContext& renderContext) {

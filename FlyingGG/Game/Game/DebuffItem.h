@@ -4,9 +4,13 @@ class DebuffItem : public IGameObject
 {
 public:
 	DebuffItem();
+	
 	~DebuffItem();
+
 	void Update();
+	
 	void Render(CRenderContext& renderContext);
+	
 	void Init(const char *, CVector3, CQuaternion);
 
 	CSkinModelData			modeldata;			//モデルのデータ

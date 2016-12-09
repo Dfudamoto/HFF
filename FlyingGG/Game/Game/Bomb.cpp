@@ -35,8 +35,6 @@ Bomb::~Bomb()
 
 void Bomb::Init(CVector3 position)
 {
-	//modeldata.LoadModelData("Assets/modelData/bomb.X", NULL);
-	//model.Init(&modeldata);
 	this->position = position;
 	move_speed = CVector3::Zero;
 	axisx = CVector3::AxisY;
