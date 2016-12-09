@@ -17,7 +17,7 @@ HelmetLight::HelmetLight()
 	rotation = CQuaternion::Identity;
 	darklight.SetAmbinetLight({ 0.01f, 0.01f, 0.01f });
 	darklight.SetDiffuseLightColor(0, { 0.9f, 0.9f, 0.9f, 1.0f });
-	getflg = true;
+	pickup = true;
 	lightswitch = true;
 	ShadowMap().SetCalcLightViewFunc(CShadowMap::enCalcLightViewFunc_PositionDirection);
 }
@@ -31,7 +31,7 @@ void HelmetLight::Update()
 {
 
 	//プレイヤーが拾った状態
-	if (getflg)
+	if (pickup)
 	{
 		position = player->position;
 		rotation = player->rotation;
@@ -41,22 +41,22 @@ void HelmetLight::Update()
 	lightdirection.x = matrix.m[2][0];
 	lightdirection.y = matrix.m[2][1];
 	lightdirection.z = matrix.m[2][2];
-	//lightdirection.Normalize();
-	CVector3 shadowdirection = lightdirection;
-	lightdirection.Scale(-1.0f);
+	lightdirection.Normalize();
+	lightdirection.Scale(1.0f);
 
-	if (lightswitch)
+	//if (lightswitch)
 	{
-		darklight.SetDiffuseLightDirection(0, CVector3(0.0f, 0.0f, 1.0f));
+		darklight.SetDiffuseLightDirection(0, lightdirection);
 	}
-	else
-	{
-		darklight.SetDiffuseLightDirection(0, CVector3::Zero);
-	}
+	//else
+	//{
+	//	darklight.SetDiffuseLightDirection(0, CVector3::Zero);
+	//}
 	//シャドウマップのライトの設定
 	CVector3 lightposition = player->position;
+	lightdirection.Add(lightposition);
 	ShadowMap().SetLightPosition(lightposition);
-	ShadowMap().SetLightDirection(shadowdirection);
+	ShadowMap().SetLightDirection(lightdirection);
 
 	Equip();
 
@@ -71,7 +71,7 @@ void HelmetLight::Equip()
 	distance.Subtract(position, player->position);
 	if (distance.Length() < 2.0f && KeyInput().IsTrgger(CKeyInput::enKeyB))
 	{
-		getflg = true;
+		pickup = true;
 	}
 	//ライトのON/OFFの切り替え
 	if (Pad(0).IsTrigger(enButtonX))
@@ -82,7 +82,11 @@ void HelmetLight::Equip()
 
 void HelmetLight::Render(CRenderContext& rendercontext)
 {
-	//model.Draw(rendercontext, gamecamera->camera.GetViewMatrix(), gamecamera->camera.GetProjectionMatrix());
+	if (pickup)
+	{
+		return;
+	}
+	model.Draw(rendercontext, gamecamera->camera.GetViewMatrix(), gamecamera->camera.GetProjectionMatrix());
 }
 
 

@@ -8,7 +8,8 @@ extern GameCamera *gamecamera;
 
 DebuffItem::DebuffItem()
 {
-	light.SetAmbinetLight(CVector3::One);
+	light.SetAmbinetLight({0.01f, 0.01f, 0.01f});
+	light.SetDiffuseLightColor(0, { 0.9f, 0.9f, 0.9f, 1.0f });
 	harves = false;
 }
 
@@ -46,6 +47,8 @@ void DebuffItem::Update()
 	{
 		return;
 	}
+	distance.Normalize();
+	light.SetDiffuseLightDirection(0, distance);
 	charactercontroller.Execute();
 	CVector3 movespeed = charactercontroller.GetMoveSpeed();
 	charactercontroller.SetMoveSpeed(movespeed);
