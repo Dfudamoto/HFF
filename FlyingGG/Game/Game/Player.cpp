@@ -11,6 +11,17 @@ Player::Player()
 {
 	modelresource.Load(modeldata, "Assets/modelData/bodyg.X", NULL);
 	//モデルの初期化
+<<<<<<< HEAD
+	modeldata.LoadModelData("Assets/modelData/knife.X", NULL);
+	model.Init(&modeldata);
+	light.SetAmbinetLight(CVector3::One);
+	model.SetLight(&light);
+	position = CVector3::Zero;
+	//position = {0.0f, 23.0f, 0.0f };
+	rotation.SetRotation(CVector3::AxisY, CMath::DegToRad(180));
+
+	bombdata.LoadModelData("Assets/modelData/bomb.X", NULL);
+=======
 
 	model.Init(modeldata.GetBody());
 	light.SetAmbinetLight(CVector3::One);
@@ -18,6 +29,7 @@ Player::Player()
 	position = CVector3::Zero;
 	position = {0.0f, 3.0f, 0.0f };
 	rotation.SetRotation(CVector3::AxisY, CMath::DegToRad(0));
+>>>>>>> b99628ebff3d3627687ebe3aebe194de88152e22
 	characterController.Init(0.5f, 1.0f, position);
 	radius = 3.0f;
 	bombcount = 1;
@@ -57,7 +69,7 @@ void Player::Move()
 
 	//プレイヤーの前(後ろ)方向のベクトルを取得
 	CMatrix matrix = model.GetWorldMatrix();
-	float speedscale = 30.0f;
+	float speedscale = 10.0f;
 	move_direction_z.x = matrix.m[2][0];
 	move_direction_z.z = matrix.m[2][2];
 	move_direction_z.y = 0.0f;
@@ -91,7 +103,11 @@ void Player::Move()
 	characterController.Execute();
 	//実行結果を受け取る。
 	position = characterController.GetPosition();
+<<<<<<< HEAD
+	position.y = 0.0f;
+=======
 	position.y += 2.0f;
+>>>>>>> b99628ebff3d3627687ebe3aebe194de88152e22
 
 }
 

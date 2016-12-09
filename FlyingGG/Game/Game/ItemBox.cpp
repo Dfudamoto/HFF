@@ -14,8 +14,13 @@ extern CLight darklight;
 
 ItemBox::ItemBox()
 {
+<<<<<<< HEAD
+	light.SetAmbinetLight(CVector3::One);
+	bombdata.LoadModelData("Assets/modelData/knife.X", NULL);
+=======
 	light.SetAmbinetLight({0.01f, 0.01f,0.01f});
 	light.SetDiffuseLightColor(0, { 0.9f, 0.9f, 0.9f, 1.0f });
+>>>>>>> b99628ebff3d3627687ebe3aebe194de88152e22
 }
 
 
