@@ -24,6 +24,12 @@ namespace tkEngine{
 			}
 			return m_originalSkinModelData.get();
 		}
+		CSkinModelData* CreateClone()
+		{
+			CSkinModelData *clonedata = new CSkinModelData;
+			clonedata->CloneModelData(*m_originalSkinModelData, NULL);
+			return clonedata;
+		}
 		/*!
 		 * @brief	‰Šú‰»B
 		 *@details

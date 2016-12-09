@@ -91,10 +91,24 @@ namespace tkEngine{
 		*/
 		void RemoveRigidBoby();
 
-		bool GetCollision()
+		bool IsCollision()
 		{
 			return collision;
 		}
+		bool IsPickUp()
+		{
+			return pickup;
+		}
+
+		void SetPickUp(bool set)
+		{
+			pickup = set;
+		}
+		bool IsDead()
+		{
+			return dead;
+		}
+
 	private:
 		CVector3 			m_position = CVector3::Zero;	//座標。
 		CVector3 			m_moveSpeed = CVector3::Zero;	//移動速度。 
@@ -105,6 +119,8 @@ namespace tkEngine{
 		float				m_height = 0.0f;	
 		CRigidBody			m_rigidBody;					//剛体。
 		float				m_gravity = -9.8f;				//重力。
-		bool				collision;
+		bool				collision;						//何かものに当たったか
+		bool				pickup;							//プレイヤーに拾われてるか
+		bool				dead;
 	};
 }

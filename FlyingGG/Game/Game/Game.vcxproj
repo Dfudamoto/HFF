@@ -163,12 +163,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Bomb.cpp" />
+    <ClCompile Include="DebuffItem.cpp" />
     <ClCompile Include="GameCamera.cpp" />
+    <ClCompile Include="HealingApple.cpp" />
     <ClCompile Include="HelmetLight.cpp" />
+    <ClCompile Include="HPBar.cpp" />
     <ClCompile Include="ItemBox.cpp" />
+    <ClCompile Include="ItemShow.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="MapChip.cpp" />
+    <ClCompile Include="Pitfall.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="sky.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -181,11 +186,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bomb.h" />
+    <ClInclude Include="DebuffItem.h" />
     <ClInclude Include="GameCamera.h" />
+    <ClInclude Include="HealingApple.h" />
     <ClInclude Include="HelmetLight.h" />
+    <ClInclude Include="HPBar.h" />
     <ClInclude Include="ItemBox.h" />
+    <ClInclude Include="ItemShow.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MapChip.h" />
+    <ClInclude Include="Pitfall.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="sky.h" />
     <ClInclude Include="stdafx.h" />

@@ -160,6 +160,11 @@ namespace tkEngine{
 		{
 			return m_materials;
 		}
+
+		void ModelDelete()
+		{
+			delete this;
+		}
 	private:
 		CMatrix* FindBoneWorldMatrix(const char* boneName, LPD3DXFRAME frame);
 		/*!

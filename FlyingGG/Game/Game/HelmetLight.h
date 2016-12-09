@@ -14,12 +14,12 @@ public:
 	//プレイヤーが拾うかのチェック処理
 	void Equip();
 
-	CSkinModelData modeldata;	//モデル
-	CSkinModel model;			//モデルデータ
-	CVector3 position;			//場所
-	CQuaternion rotation;		//モデルの向き
-	CLight light;				//ライト
-	bool getflg;				//プレイヤーが拾ったかのフラグ
-	bool lightswitch;			//ライトのON/OFF
+	CSkinModelData		modeldata;		//モデル
+	CSkinModel			model;			//モデルデータ
+	CVector3			position;		//場所
+	CQuaternion			rotation;		//モデルの向き
+	CLight				light;			//ライト
+	bool				pickup;			//プレイヤーが拾ったかのフラグ
+	bool				lightswitch;	//ライトのON/OFF
 };
 

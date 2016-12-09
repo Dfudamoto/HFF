@@ -6,17 +6,20 @@ extern Player *player;
 
 GameCamera::GameCamera()
 {
+<<<<<<< HEAD
 	camera.SetPosition({ 0.0f, 0.0f, 10.0f });
 	//camera.SetPosition({ 0.0f, 20.0f, 40.0f });
+=======
+	camera.SetPosition({ 0.0f, 5.0f, -10.0f });
+	camera.SetPosition({ 0.0f, 20.0f, 40.0f });
+>>>>>>> b99628ebff3d3627687ebe3aebe194de88152e22
 	camera.SetTarget({ 0.0f, 0.0f, 0.0f });
 	//camera.SetUp({ 0.0f, 0.0f, .0f, });
 }
 
-
 GameCamera::~GameCamera()
 {
 }
-
 
 void GameCamera::Update()
 {

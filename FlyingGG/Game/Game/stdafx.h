@@ -4,7 +4,7 @@
 
 #ifndef _STDAFX_H_
 #define _STDAFX_H_
-
+#define BOMBNUM 10
 
 #include <windows.h>
 #include "tkEngine/tkEnginePreCompile.h"

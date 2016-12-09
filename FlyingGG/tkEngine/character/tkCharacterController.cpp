@@ -118,7 +118,7 @@ namespace tkEngine{
 		m_rigidBody.GetBody()->setCollisionFlags(btCollisionObject::CF_CHARACTER_OBJECT);
 		PhysicsWorld().AddRigidBody(&m_rigidBody);
 		collision = false;
-
+		dead = false;
 	}
 	void CCharacterController::Execute()
 	{
@@ -186,7 +186,10 @@ namespace tkEngine{
 					vOffset = hitNormalXZ;
 					vOffset.Scale(-fT0 + m_radius);
 					nextPosition.Add(vOffset);
-					collision = true;
+					if (pickup)
+					{
+						collision = true;
+					}
 				}
 				else {
 					//Ç«Ç±Ç∆Ç‡ìñÇΩÇÁÇ»Ç¢ÇÃÇ≈èIÇÌÇËÅB
@@ -258,7 +261,10 @@ namespace tkEngine{
 				m_isJump = false;
 				m_isOnGround = true;
 				nextPosition.y = callback.hitPos.y + offset - m_radius;
-				collision = true;
+				if (pickup)
+				{
+					collision = true;
+				}
 			}
 			else
 			{
@@ -282,5 +288,6 @@ namespace tkEngine{
 	void CCharacterController::RemoveRigidBoby()
 	{
 		PhysicsWorld().RemoveRigidBody(&m_rigidBody);
+		dead = true;
 	}
 }
