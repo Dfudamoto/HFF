@@ -12,6 +12,7 @@ Player::Player()
 	modelresource.Load(modeldata, "Assets/modelData/bodyg.X", NULL);
 	//モデルの初期化
 
+
 	model.Init(modeldata.GetBody());
 	light.SetAmbinetLight(CVector3::One);
 	model.SetLight(&light);
@@ -57,7 +58,7 @@ void Player::Move()
 
 	//プレイヤーの前(後ろ)方向のベクトルを取得
 	CMatrix matrix = model.GetWorldMatrix();
-	float speedscale = 30.0f;
+	float speedscale = 10.0f;
 	move_direction_z.x = matrix.m[2][0];
 	move_direction_z.z = matrix.m[2][2];
 	move_direction_z.y = 0.0f;
@@ -91,6 +92,7 @@ void Player::Move()
 	characterController.Execute();
 	//実行結果を受け取る。
 	position = characterController.GetPosition();
+
 	position.y += 2.0f;
 
 }

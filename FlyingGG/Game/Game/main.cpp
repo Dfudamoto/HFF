@@ -70,9 +70,14 @@ int WINAPI wWinMain(
 	gamecamera = NewGO<GameCamera>(0);
 	player = NewGO<Player>(0);
 	NewGO<HelmetLight>(0);
+
+	//NewGO<sky>(0);//モデルをテスト表示
+	//NewGO<Map>(0);
+
 	NewGO<Map>(0);
 	NewGO<HPBar>(0);
 	NewGO<ItemShow>(0);
+
 	//NewGO<Title>(0);
 	Engine().RunGameLoop();		//ゲームループを実行。
 

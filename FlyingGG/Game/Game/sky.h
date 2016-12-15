@@ -1,4 +1,6 @@
 #pragma once
+
+//モデルをテスト表示させるクソクラス
 class sky : public IGameObject
 {
 public:

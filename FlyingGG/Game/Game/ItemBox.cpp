@@ -14,6 +14,9 @@ extern CLight darklight;
 
 ItemBox::ItemBox()
 {
+
+	light.SetAmbinetLight(CVector3::One);
+
 	light.SetAmbinetLight({0.01f, 0.01f,0.01f});
 	light.SetDiffuseLightColor(0, { 0.9f, 0.9f, 0.9f, 1.0f });
 }
