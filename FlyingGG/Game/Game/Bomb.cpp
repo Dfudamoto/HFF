@@ -78,6 +78,7 @@ void Bomb::Throw()
 	if (charactercontroller.IsPickUp())
 	{
 		position = player->position;
+		position.y += 100.0f;
 		charactercontroller.SetGravity(0.0f);
 		charactercontroller.SetPosition(position);
 		//E‚Á‚½ó‘Ô‚ÅAƒ{ƒ^ƒ“‚ð‰Ÿ‚·‚Æ“Š‚°‚é
@@ -95,6 +96,8 @@ void Bomb::Throw()
 					return;
 				}
 			}
+			position = player->position;
+			charactercontroller.SetPosition(position);
 			throwflg = true;
 			charactercontroller.SetGravity(-9.8f);
 			CMatrix matrix = player->model.GetWorldMatrix();

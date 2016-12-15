@@ -60,14 +60,14 @@
     <Filter Include="Source Files\Sound">
       <UniqueIdentifier>{e7f1ec8b-1792-4c6e-9e5e-0c608bf495ee}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\character">
-      <UniqueIdentifier>{0de922d4-3418-4774-84a2-d88020fe8447}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\HUD">
       <UniqueIdentifier>{d314ad2d-c9dc-4816-9f2d-a5551e0eb68c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\graphics\sprite">
       <UniqueIdentifier>{5a977f00-bb44-407d-bb44-34acd9466a71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\AI\character">
+      <UniqueIdentifier>{0de922d4-3418-4774-84a2-d88020fe8447}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -240,7 +240,7 @@
       <Filter>Source Files\physics</Filter>
     </ClCompile>
     <ClCompile Include="character\tkCharacterController.cpp">
-      <Filter>Source Files\character</Filter>
+      <Filter>Source Files\AI\character</Filter>
     </ClCompile>
     <ClCompile Include="graphics\sprite\tkSprite.cpp">
       <Filter>Source Files\graphics\sprite</Filter>
@@ -452,10 +452,10 @@
       <Filter>Source Files\physics</Filter>
     </ClInclude>
     <ClInclude Include="character\tkCharacterController.h">
-      <Filter>Source Files\character</Filter>
+      <Filter>Source Files\AI\character</Filter>
     </ClInclude>
     <ClInclude Include="character\tkCollisionAttr.h">
-      <Filter>Source Files\character</Filter>
+      <Filter>Source Files\AI\character</Filter>
     </ClInclude>
     <ClInclude Include="graphics\sprite\tkSprite.h">
       <Filter>Source Files\graphics\sprite</Filter>
