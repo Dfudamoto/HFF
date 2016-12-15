@@ -51,6 +51,8 @@ namespace tkEngine{
 		 * @brief	テクスチャをロード。
 		 */
 		bool Load( const char* fileName );
+
+		bool ExLoad(const char* filename);
 	private:
 		//テクスチャサイズを計算。
 		void ComputeTexSize()
@@ -61,6 +63,7 @@ namespace tkEngine{
 			m_texH = desc.Height;
 		}
 	private:
+		PALETTEENTRY palette;
 		LPDIRECT3DTEXTURE9	m_tex = nullptr;	//!<テクスチャ。
 		int m_texW = 0;							//!<テクスチャの横幅。
 		int m_texH = 0;							//!<テクスチャの縦幅。

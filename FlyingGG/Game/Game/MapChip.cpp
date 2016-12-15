@@ -69,7 +69,7 @@ void MapChip::Update()
 
 	direction.Normalize();
 	float lightscale = 1.0f / distance.Length();
-	if (distance.Length() > 1.0f)
+	//if (distance.Length() > 1.0f)
 	{
 		direction.Scale(lightscale);
 	}

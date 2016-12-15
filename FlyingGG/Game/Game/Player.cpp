@@ -9,7 +9,7 @@ extern int itemnum;
 
 Player::Player()
 {
-	modelresource.Load(modeldata, "Assets/modelData/bodyg_walk.X", &animation);
+	modelresource.Load(modeldata, "Assets/modelData/bodyg_knife.X", &animation);
 	//ƒ‚ƒfƒ‹‚Ì‰Šú‰»
 	model.Init(modeldata.GetBody());
 	light.SetAmbinetLight(CVector3::One);
@@ -25,8 +25,8 @@ Player::Player()
 	}
 	hp = 130;
 	itemnum = 0;
-	animation.PlayAnimation(animenum);
 	animenum = 0;
+	animation.SetAnimationLoopFlag(0, false);
 }
 
 Player::~Player()
@@ -36,17 +36,10 @@ Player::~Player()
 
 void Player::Update()
 {
-	if (Pad(0).IsTrigger(enButtonLB1) && animenum > 0)
+	if (Pad(0).IsTrigger(enButtonX))
 	{
-		animenum--;
-		animation.PlayAnimation(animenum, 0.2f);
+		animation.PlayAnimation(0);
 	}
-	if (Pad(0).IsTrigger(enButtonRB1) && animenum < 2)
-	{
-		animenum++;
-		animation.PlayAnimation(animenum, 0.2f);
-	}
-
 	Move();
 	Rotation();
 	animation.Update(3.0f / 60.0f);
