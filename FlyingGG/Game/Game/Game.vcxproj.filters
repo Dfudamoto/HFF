@@ -18,6 +18,9 @@
     <Filter Include="Source Files\map">
       <UniqueIdentifier>{b29f8e72-573b-49b0-a48f-ff0346bfe5bf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Gimmick">
+      <UniqueIdentifier>{88ea7b20-6075-44cc-9902-227e45bd2c8a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -37,9 +40,6 @@
     </ClCompile>
     <ClCompile Include="Title.cpp">
       <Filter>Source Files\Title</Filter>
-    </ClCompile>
-    <ClCompile Include="Pitfall.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Bomb.cpp">
       <Filter>Source Files\Item</Filter>
@@ -71,6 +71,9 @@
     <ClCompile Include="Pitfall.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Pitfall.cpp">
+      <Filter>Source Files\Gimmick</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -88,7 +91,6 @@
     <ClInclude Include="Title.h">
       <Filter>Source Files\Title</Filter>
     </ClInclude>
-    <ClInclude Include="Pitfall.h" />
     <ClInclude Include="Bomb.h">
       <Filter>Source Files\Item</Filter>
     </ClInclude>
@@ -118,6 +120,9 @@
     </ClInclude>
     <ClInclude Include="Pitfall.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Pitfall.h">
+      <Filter>Source Files\Gimmick</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

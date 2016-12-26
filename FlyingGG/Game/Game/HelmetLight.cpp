@@ -36,7 +36,7 @@ void HelmetLight::Update()
 		position = player->position;
 		rotation = player->rotation;
 	}
-	CMatrix matrix = player->model.GetWorldMatrix();
+	CMatrix matrix = player->player_model.GetWorldMatrix();
 	CVector3 lightdirection;
 	lightdirection.x = matrix.m[2][0];
 	lightdirection.y = matrix.m[2][1];

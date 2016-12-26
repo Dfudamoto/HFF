@@ -35,9 +35,9 @@ namespace tkEngine {
 			0,
 			D3DFMT_UNKNOWN,
 			D3DPOOL_DEFAULT,
-			D3DX_FILTER_NONE,
 			D3DX_DEFAULT,
-			0xff0000ff,
+			D3DX_FILTER_NONE,
+			0xffffffff,
 			NULL,
 			NULL,
 			&m_tex))) {

@@ -100,7 +100,7 @@ void Bomb::Throw()
 			charactercontroller.SetPosition(position);
 			throwflg = true;
 			charactercontroller.SetGravity(-9.8f);
-			CMatrix matrix = player->model.GetWorldMatrix();
+			CMatrix matrix = player->player_model.GetWorldMatrix();
 			//ƒ{ƒ€‹ó’†‚É‚ ‚éŠÔ‚Ì‰ñ“]Ž²
 			axisx.x = matrix.m[0][0];
 			axisx.y = matrix.m[0][1];

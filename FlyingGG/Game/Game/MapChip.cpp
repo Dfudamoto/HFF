@@ -27,9 +27,9 @@ void MapChip::Init(const char* modelName, CVector3 position, CQuaternion rotatio
 	char filePath[256];
 	sprintf(filePath, "Assets/modelData/%s.x", modelName);
 	//モデルデータをロード。
-	skinModelData.LoadModelData(filePath, NULL);
+	modelresource.Load(modeldata, filePath, NULL);
 	//CSkinModelを初期化。
-	skinModel.Init(&skinModelData);
+	skinModel.Init(modeldata.GetBody());
 	//デフォルトライトを設定して。
 	if (strcmp(modelName, "map") == 0)
 	{
@@ -45,7 +45,7 @@ void MapChip::Init(const char* modelName, CVector3 position, CQuaternion rotatio
 	//skinModel.SetFogParam(enFogFuncDist, 0.0f, 30.0f);
 
 	//メッシュコライダーの作成。
-	meshCollider.CreateFromSkinModel(&skinModel, skinModelData.GetRootBoneWorldMatrix());
+	meshCollider.CreateFromSkinModel(&skinModel, modeldata.GetBody()->GetRootBoneWorldMatrix());
 	//剛体の作成。
 	RigidBodyInfo rbInfo;
 	//剛体のコライダーを渡す。
@@ -65,14 +65,17 @@ void MapChip::Update()
 	CVector3 direction;
 	direction.Subtract(position, player->position);
 	CVector3 distance = direction;
-	distance.Scale(0.05f);
+	//distance.Scale(0.05f);
 
 	direction.Normalize();
-	float lightscale = 1.0f / distance.Length();
-	//if (distance.Length() > 1.0f)
-	{
-		direction.Scale(lightscale);
-	}
+	//direction.Scale(20.0f);
+	float light_scale = 1.0f / distance.Length();
+	//float light_limit = 3.0f;
+	////if (light_scale > light_limit)
+	//{
+	//	light_scale = light_limit;
+	//}
+	direction.Scale(light_scale);
 	light.SetDiffuseLightDirection(0, direction);
 	maplight.SetPointLightColor({ 4.0f, 4.0f, 4.0f, 1.0f });
 	maplight.SetPointLightPosition(player->position);

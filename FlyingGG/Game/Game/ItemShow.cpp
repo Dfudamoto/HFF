@@ -5,9 +5,9 @@ int itemnum;
 
 ItemShow::ItemShow()
 {
-	applet.ExLoad("Assets/sprite/2.tga");
-	bombt.ExLoad("Assets/sprite/bomb2.png");
-	knifet.ExLoad("Assets/sprite/apple2.png");
+	applet.ExLoad("Assets/sprite/apple.png");
+	bombt.ExLoad("Assets/sprite/bomb.png");
+	knifet.ExLoad("Assets/sprite/knife.png");
 	sprite.Init(&applet);
 	sprite.SetPivot({ 0.5f, 0.5f });
 	sprite.SetSize({100.0f, 100.0f});

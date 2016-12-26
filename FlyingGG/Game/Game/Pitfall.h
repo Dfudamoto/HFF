@@ -9,11 +9,13 @@ public:
 	void Update();
 	void Render(CRenderContext& renderContext);
 
-	CSkinModelData modeldata;
-	CSkinModel model;
+	CSkinModel				model;
+	CSkinModelDataResources modelresource;
+	CSkinModelDataHandle	modeldata;
 	CLight					light;					//モデルの光
 	CVector3				position;				//HealingAppleの座標
 	CQuaternion				rotation;				//モデルの回転角度
-	CCharacterController	charactercontroller;
+	CRigidBody				rigidbody;
+	CMeshCollider			meshcollider;
 };
 

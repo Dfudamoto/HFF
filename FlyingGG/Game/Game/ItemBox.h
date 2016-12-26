@@ -13,13 +13,14 @@ public:
 
 	void Render(CRenderContext&);
 
-	CSkinModel			model;		//モデル
-	CSkinModelData		modeldata;	//モデルのデータ
-	CLight				light;		//モデルの光
-	CVector3			position;	//場所
-	CQuaternion			rotation;	//モデルの回転
-	CRigidBody			rigidbody;	//剛体
-	CMeshCollider		meshcollider;
-	CCharacterController charactercontroller;
+	CSkinModel				model;		//モデル
+	CLight					light;		//モデルの光
+	CVector3				position;	//場所
+	CQuaternion				rotation;	//モデルの回転
+	CRigidBody				rigidbody;	//剛体
+	CMeshCollider			meshcollider;
+	CCharacterController	charactercontroller;
+	CSkinModelDataHandle	modeldata;
+	CSkinModelDataResources modelresource;
 };
 

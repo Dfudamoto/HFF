@@ -8,8 +8,9 @@ extern GameCamera *gamecamera;
 
 DebuffItem::DebuffItem()
 {
-	light.SetAmbinetLight({0.01f, 0.01f, 0.01f});
-	light.SetDiffuseLightColor(0, { 0.9f, 0.9f, 0.9f, 1.0f });
+	light.SetAmbinetLight(CVector3::One);
+	//light.SetAmbinetLight({0.01f, 0.01f, 0.01f});
+	//light.SetDiffuseLightColor(0, { 0.9f, 0.9f, 0.9f, 1.0f });
 	harves = false;
 }
 
@@ -23,9 +24,9 @@ void DebuffItem::Init(const char *modelname, CVector3 position, CQuaternion rota
 	char filePath[256];
 	sprintf(filePath, "Assets/modelData/%s.X", modelname);
 	//モデルデータをロード。
-	modeldata.LoadModelData(filePath, NULL);
+	modelresource.Load(modeldata, filePath, NULL);
 	//CSkinModelを初期化。
-	model.Init(&modeldata);
+	model.Init(modeldata.GetBody());
 	//デフォルトライトを設定して。
 	model.SetLight(&light);
 	this->position = position;
