@@ -35,8 +35,6 @@ Bomb::~Bomb()
 
 void Bomb::Init(CVector3 position)
 {
-	//modeldata.LoadModelData("Assets/modelData/bomb.X", NULL);
-	//model.Init(&modeldata);
 	this->position = position;
 	move_speed = CVector3::Zero;
 	axisx = CVector3::AxisY;
@@ -80,6 +78,7 @@ void Bomb::Throw()
 	if (charactercontroller.IsPickUp())
 	{
 		position = player->position;
+		position.y += 100.0f;
 		charactercontroller.SetGravity(0.0f);
 		charactercontroller.SetPosition(position);
 		//E‚Á‚½ó‘Ô‚ÅAƒ{ƒ^ƒ“‚ð‰Ÿ‚·‚Æ“Š‚°‚é
@@ -97,6 +96,8 @@ void Bomb::Throw()
 					return;
 				}
 			}
+			position = player->position;
+			charactercontroller.SetPosition(position);
 			throwflg = true;
 			charactercontroller.SetGravity(-9.8f);
 			CMatrix matrix = player->model.GetWorldMatrix();

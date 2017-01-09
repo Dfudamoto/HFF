@@ -43,9 +43,25 @@ void ItemBox::Init(const char *modelname, CVector3& position, CQuaternion& rotat
 	model.Update(position, rotation, CVector3::One);
 	model.SetShadowCasterFlag(true);
 	model.SetShadowReceiverFlag(true);
+	//メッシュコライダーの作成。
+	meshcollider.CreateFromSkinModel(&model, modeldata.GetRootBoneWorldMatrix());
+	//剛体の作成。
+	RigidBodyInfo rbInfo;
+	//剛体のコライダーを渡す。
+	rbInfo.collider = &meshcollider;
+	//剛体の質量。0.0だと動かないオブジェクト。背景などは0.0にしよう。
+	rbInfo.mass = 0.0f;
+	rbInfo.pos = position;
+	rbInfo.rot = rotation;
+	rigidbody.Create(rbInfo);
+	//作成した剛体を物理ワールドに追加する。
+	PhysicsWorld().AddRigidBody(&rigidbody);
+	charactercontroller.Init(0.3f, 1.0f, position);
 }
 void ItemBox::Update()
 {
+	charactercontroller.Execute();
+	position = charactercontroller.GetPosition();
 	BombCreate();
 	CVector3 direction;
 	direction.Subtract(position, player->position);
@@ -77,6 +93,9 @@ void ItemBox::BombCreate()
 	if (distance.Length() < player->radius && Pad(0).IsTrigger(enButtonX))
 	{
 		model.SetShadowCasterFlag(false);
+		charactercontroller.RemoveRigidBoby();
+		PhysicsWorld().RemoveRigidBody(&rigidbody);
+		rigidbody.Release();
 		//ある一定の距離でボタンが押されたら消えてボムをだす
 		DeleteGO(this);
 		for (int i = 0;i < BOMBNUM;i++)

@@ -9,10 +9,8 @@ extern int itemnum;
 
 Player::Player()
 {
-	modelresource.Load(modeldata, "Assets/modelData/bodyg.X", NULL);
+	modelresource.Load(modeldata, "Assets/modelData/bodyg.X", &animation);
 	//モデルの初期化
-
-
 	model.Init(modeldata.GetBody());
 	light.SetAmbinetLight(CVector3::One);
 	model.SetLight(&light);
@@ -21,13 +19,14 @@ Player::Player()
 	rotation.SetRotation(CVector3::AxisY, CMath::DegToRad(0));
 	characterController.Init(0.5f, 1.0f, position);
 	radius = 3.0f;
-	bombcount = 1;
 	for (int i = 0;i < BOMBNUM;i++)
 	{
 		bomb[i] = nullptr;
 	}
 	hp = 130;
 	itemnum = 0;
+	animation.PlayAnimation(animenum);
+	animenum = 0;
 }
 
 Player::~Player()
@@ -37,18 +36,21 @@ Player::~Player()
 
 void Player::Update()
 {
-	//ボムを投げる
-	if (Pad(0).IsTrigger(enButtonA) && bombcount > 0)
+	if (Pad(0).IsTrigger(enButtonLB1) && animenum > 0)
 	{
-		//Bomb *bomb;
-		//bomb = NewGO<Bomb>(0);
-		//bomb->Init();
-		//bombcount--;
+		animenum--;
+		animation.PlayAnimation(animenum, 0.2f);
 	}
+	if (Pad(0).IsTrigger(enButtonRB1) && animenum < 2)
+	{
+		animenum++;
+		animation.PlayAnimation(animenum, 0.2f);
+	}
+
 	Move();
 	Rotation();
+	animation.Update(3.0f / 60.0f);
 	model.Update(position, rotation, CVector3::One);
-
 }
 
 void Player::Move()
@@ -92,9 +94,7 @@ void Player::Move()
 	characterController.Execute();
 	//実行結果を受け取る。
 	position = characterController.GetPosition();
-
 	position.y += 2.0f;
-
 }
 
 void Player::Rotation()

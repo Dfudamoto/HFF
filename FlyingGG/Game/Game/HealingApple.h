@@ -4,9 +4,16 @@ class HealingApple : public IGameObject
 public:
 	HealingApple();
 	~HealingApple();
+	
 	void Update();
+	
 	void Render(CRenderContext& renderContext);
+	
 	void Init(const char *, CVector3, CQuaternion);
+
+	void Move();
+
+	void Light();
 
 	CSkinModelData			modeldata;				//モデルのデータ
 	CSkinModel				model;					//モデル

@@ -40,5 +40,7 @@ public:
 	CSkinModelDataHandle		modeldata;			//モデルデータ
 	CSkinModelDataResources		modelresource;		//モデルデータハンドルを入れる媒体
 	int							hp;					//プレイヤーの体力
+	CAnimation					animation;
+	int							animenum;		
 };
 

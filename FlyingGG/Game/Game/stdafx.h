@@ -23,5 +23,7 @@ using namespace tkEngine;
 #include "tkEngine/particle/tkParticleEmitter.h"
 #include "tkEngine/Sound/tkSoundSource.h"
 #include "tkEngine/character/tkCharacterController.h"
+#include "tkEngine/Physics/tkMeshCollider.h"
+#include "tkEngine/Physics/tkRigidBody.h"
 
 #endif // _STDAFX_H_

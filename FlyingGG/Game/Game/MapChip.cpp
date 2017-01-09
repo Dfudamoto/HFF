@@ -12,6 +12,7 @@ MapChip::MapChip()
 	light.SetAmbinetLight({ 0.01f, 0.01f, 0.01f });
 	light.SetDiffuseLightColor(0, { 0.9f, 0.9f, 0.9f, 1.0f });
 	maplight.SetAmbinetLight({ 0.01f, 0.01f, 0.01f });
+	maplight.SetAmbinetLight(CVector3::One);
 }
 
 
@@ -64,14 +65,13 @@ void MapChip::Update()
 	CVector3 direction;
 	direction.Subtract(position, player->position);
 	CVector3 distance = direction;
-	distance.Scale(0.2f);
+	distance.Scale(0.05f);
 
 	direction.Normalize();
 	float lightscale = 1.0f / distance.Length();
 	if (distance.Length() > 1.0f)
 	{
 		direction.Scale(lightscale);
-
 	}
 	light.SetDiffuseLightDirection(0, direction);
 	maplight.SetPointLightColor({ 4.0f, 4.0f, 4.0f, 1.0f });

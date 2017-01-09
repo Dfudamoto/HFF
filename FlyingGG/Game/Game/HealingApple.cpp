@@ -11,8 +11,9 @@ HealingApple::HealingApple()
 {	
 	//modeldata.LoadModelData("Assets/modelData/P47_0.X", NULL);
 	//model.Init(&modeldata);
-	light.SetAmbinetLight({ 0.01f,0.01f,0.01f });
-	light.SetDiffuseLightColor(0, { 0.9f, 0.9f, 0.9f, 1.0f });
+	light.SetAmbinetLight(CVector3::One);
+	//light.SetAmbinetLight({ 0.01f,0.01f,0.01f });
+	//light.SetDiffuseLightColor(0, { 0.9f, 0.9f, 0.9f, 1.0f });
 	//model.SetLight(&light);
 	harves = false;
 	light.SetAmbinetLight(CVector3::One);
@@ -44,6 +45,15 @@ void HealingApple::Init(const char *modelname, CVector3 position, CQuaternion ro
 
 void HealingApple::Update() 
 {
+
+
+
+	Move();
+	model.Update(position, rotation, CVector3::One);
+}
+
+void HealingApple::Move()
+{
 	//プレイヤーとの距離を計算
 	CVector3 distance;
 	distance.Subtract(position, player->position);
@@ -51,10 +61,20 @@ void HealingApple::Update()
 	{
 		harves = true;
 	}
+	//プレイヤーとの距離を計算
+	//CVector3 distance;
+	distance.Subtract(position, player->position);
 	if (!harves)
 	{
 		return;
 	}
+
+	//if (charactercontroller.IsPickUp())
+	//{
+	//	position = player->position;
+	//	charactercontroller.SetGravity(0.0f);
+	//	charactercontroller.SetPosition(position);
+	//}
 	distance.Normalize();
 	light.SetDiffuseLightDirection(0, distance);
 	//移動（落下）処理
@@ -62,8 +82,6 @@ void HealingApple::Update()
 	CVector3 movespeed = charactercontroller.GetMoveSpeed();
 	charactercontroller.SetMoveSpeed(movespeed);
 	position = charactercontroller.GetPosition();
-
-	model.Update(position, rotation, CVector3::One);
 }
 
 void HealingApple::Render(CRenderContext& renderContext) {
