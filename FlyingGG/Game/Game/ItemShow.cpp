@@ -5,14 +5,16 @@ int itemnum;
 
 ItemShow::ItemShow()
 {
-	applet.Load("Assets/sprite/apple.png");
-	bombt.Load("Assets/sprite/bomb.jpg");
-	knifet.Load("Assets/sprite/knife.jpg");
+	applet.ExLoad("Assets/sprite/apple.png");
+	bombt.ExLoad("Assets/sprite/bomb.png");
+	knifet.ExLoad("Assets/sprite/knife.png");
 	sprite.Init(&applet);
 	sprite.SetPivot({ 0.5f, 0.5f });
 	sprite.SetSize({100.0f, 100.0f});
 	sprite.SetPosition({ -580.0f, -300.0f });
 	itemnum = 0;
+
+	sprite.SetTexture(&applet);
 }
 
 

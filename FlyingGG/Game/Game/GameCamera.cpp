@@ -21,14 +21,13 @@ GameCamera::~GameCamera()
 
 void GameCamera::Update()
 {
-	CMatrix matrix = player->model.GetWorldMatrix();
+	CMatrix matrix = player->player_model.GetWorldMatrix();
 	CVector3 target;
 
 	target.x = matrix.m[2][0];
 	target.y = matrix.m[2][1];
 	target.z = matrix.m[2][2];
 	CVector3 position = player->position;
-	//position.y += 1.0f;
 
 
 	target.Add(player->position);

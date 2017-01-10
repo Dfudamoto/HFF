@@ -4,8 +4,12 @@
 #include "ItemBox.h"
 #include "HealingApple.h"
 #include "DebuffItem.h"
+#include "Bomb.h"
+#include "Pitfall.h"
 
 CLight defaultlight;
+extern HealingApple *apple[APPLENUM];
+extern Bomb *bomb[BOMBNUM];
 
 struct SMapInfo {
 	const char* modelName;
@@ -21,6 +25,15 @@ SMapInfo mapLocInfo[] = {
 Map::Map()
 {
 	defaultlight.SetAmbinetLight({ 1.0f, 1.0f, 1.0f });
+	applenum = 0;
+	for (int i = 0;i < BOMBNUM;i++)
+	{
+		bomb[i] = nullptr;
+	}
+	for (int i = 0;i < APPLENUM;i++)
+	{
+		apple[i] = nullptr;
+	}
 }
 
 
@@ -35,9 +48,11 @@ void Map::Start()
 	for (int i = 0; i < numObject; i++) {
 		if (strcmp(mapLocInfo[i].modelName, "apple") == 0)
 		{
-			HealingApple* apple = NewGO<HealingApple>(0);
+			
+			apple[applenum] = NewGO<HealingApple>(0);
 			//モデル名、座標、回転を与えてマップチップを初期化する。
-			apple->Init(mapLocInfo[i].modelName, mapLocInfo[i].position, mapLocInfo[i].rotation);
+			apple[applenum]->Init(mapLocInfo[i].modelName, mapLocInfo[i].position, mapLocInfo[i].rotation);
+			applenum++;
 		}
 		else if (strcmp(mapLocInfo[i].modelName, "papaya") == 0)
 		{

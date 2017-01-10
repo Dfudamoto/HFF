@@ -5,6 +5,9 @@
 #ifndef _STDAFX_H_
 #define _STDAFX_H_
 #define BOMBNUM 10
+#define APPLENUM 10
+#define MAXHP 130
+#define HEIGHT 2.0f
 
 #include <windows.h>
 #include "tkEngine/tkEnginePreCompile.h"

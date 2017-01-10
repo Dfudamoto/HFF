@@ -11,9 +11,11 @@ namespace tkEngine{
 	CSprite::CSprite()
 	{
 	}
+
 	CSprite::~CSprite()
 	{
 	}
+
 	void CSprite::Init(CTexture* texture)
 	{
 		m_effect = EffectManager().LoadEffect("Assets/presetShader/sprite.fx");
@@ -80,6 +82,8 @@ namespace tkEngine{
 		mTrans.MakeTranslation(trans);
 		mWorld.Mul(mWorld, mTrans);
 
+		renderContext.SetRenderState(RS_DESTBLEND, D3DBLEND_INVSRCALPHA);	
+
 		m_effect->Begin(renderContext);
 		m_effect->BeginPass(renderContext, 0);
 		m_effect->SetTechnique(renderContext, "SpriteTexture");
@@ -90,7 +94,10 @@ namespace tkEngine{
 		renderContext.SetStreamSource(0, m_primitive.GetVertexBuffer());
 		renderContext.SetIndices(m_primitive.GetIndexBuffer());
 		renderContext.DrawIndexedPrimitive(&m_primitive);
+
 		m_effect->EndPass(renderContext);
 		m_effect->End(renderContext);
+
+		renderContext.SetRenderState(RS_DESTBLEND, D3DBLEND_ZERO);
 	}
 }

@@ -2,31 +2,37 @@
 #include "Player.h"
 #include "GameCamera.h"
 #include "Bomb.h"
+#include "HealingApple.h"
 
 extern GameCamera *gamecamera;
 extern Bomb *bomb[BOMBNUM];
 extern int itemnum;
+extern HealingApple *apple[APPLENUM];
 
 Player::Player()
 {
-	modelresource.Load(modeldata, "Assets/modelData/bodyg.X", &animation);
+
+	//modelresource.Load(modeldata, "Assets/modelData/bodyg.X", &animation);
+	modelresource.Load(player_data, "Assets/modelData/bodyg_alpha.X", &player_animation);
+	modelresource.Load(knife_data, "Assets/modelData/knife.X", &knife_animation);
 	//モデルの初期化
-	model.Init(modeldata.GetBody());
+	player_model.Init(player_data.GetBody());
+	knife_model.Init(knife_data.GetBody());
 	light.SetAmbinetLight(CVector3::One);
-	model.SetLight(&light);
+	player_model.SetLight(&light);
+	knife_model.SetLight(&light);
 	position = CVector3::Zero;
 	position = {0.0f, 3.0f, 0.0f };
 	rotation.SetRotation(CVector3::AxisY, CMath::DegToRad(0));
 	characterController.Init(0.5f, 1.0f, position);
 	radius = 3.0f;
-	for (int i = 0;i < BOMBNUM;i++)
-	{
-		bomb[i] = nullptr;
-	}
-	hp = 130;
+
+
+	hp = MAXHP;
 	itemnum = 0;
-	animation.PlayAnimation(animenum);
 	animenum = 0;
+	//player_animation.SetAnimationLoopFlag(0, false);	
+	knife_animation.SetAnimationLoopFlag(0, false);
 }
 
 Player::~Player()
@@ -36,21 +42,28 @@ Player::~Player()
 
 void Player::Update()
 {
-	if (Pad(0).IsTrigger(enButtonLB1) && animenum > 0)
+	if (Pad(0).IsTrigger(enButtonA))
+	{
+		player_animation.PlayAnimation(animenum);
+		if (animenum == KNIFE)
+		{
+			knife_animation.PlayAnimation(0);
+		}
+	}
+	if (Pad(0).IsTrigger(enButtonLB1) && 0 < animenum)
 	{
 		animenum--;
-		animation.PlayAnimation(animenum, 0.2f);
 	}
-	if (Pad(0).IsTrigger(enButtonRB1) && animenum < 2)
+	if (Pad(0).IsTrigger(enButtonRB1) && animenum < ANIMATIONNUM - 1)
 	{
 		animenum++;
-		animation.PlayAnimation(animenum, 0.2f);
 	}
-
 	Move();
 	Rotation();
-	animation.Update(3.0f / 60.0f);
-	model.Update(position, rotation, CVector3::One);
+	player_animation.Update(3.0f / 60.0f);
+	knife_animation.Update(3.0f / 60.0f);
+	player_model.Update(position, rotation, CVector3::One);
+	knife_model.Update(position, rotation, CVector3::One);
 }
 
 void Player::Move()
@@ -59,7 +72,7 @@ void Player::Move()
 	CVector3 move_direction_x;	//横方向へのベクトル
 
 	//プレイヤーの前(後ろ)方向のベクトルを取得
-	CMatrix matrix = model.GetWorldMatrix();
+	CMatrix matrix = player_model.GetWorldMatrix();
 	float speedscale = 10.0f;
 	move_direction_z.x = matrix.m[2][0];
 	move_direction_z.z = matrix.m[2][2];
@@ -94,7 +107,7 @@ void Player::Move()
 	characterController.Execute();
 	//実行結果を受け取る。
 	position = characterController.GetPosition();
-	position.y += 2.0f;
+	position.y += HEIGHT;
 }
 
 void Player::Rotation()
@@ -120,7 +133,8 @@ void Player::Rotation()
 
 void Player::Render(CRenderContext& rendercontext)
 {
-	//model.Draw(rendercontext, gamecamera->camera.GetViewMatrix(), gamecamera->camera.GetProjectionMatrix());
+	player_model.Draw(rendercontext, gamecamera->camera.GetViewMatrix(), gamecamera->camera.GetProjectionMatrix());
+	knife_model.Draw(rendercontext, gamecamera->camera.GetViewMatrix(), gamecamera->camera.GetProjectionMatrix());
 }
 
 void Player::BombDam(CVector3& bombpos)

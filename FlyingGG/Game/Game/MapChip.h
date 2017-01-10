@@ -15,10 +15,11 @@ public:
 	//ここからメンバ変数。
 	CLight				light;			//ライト
 	CSkinModel			skinModel;		//スキンモデル。
-	CSkinModelData		skinModelData;	//スキンモデルデータ。
 	CMeshCollider		meshCollider;	//メッシュコライダー。
 	CRigidBody			rigidBody;		//剛体。
 	CVector3			position;		//場所
 	CLight				maplight;		//テスト用
+	CSkinModelDataHandle modeldata;
+	CSkinModelDataResources modelresource;
 };
 

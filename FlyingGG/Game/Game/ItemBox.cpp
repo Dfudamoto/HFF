@@ -32,9 +32,9 @@ void ItemBox::Init(const char *modelname, CVector3& position, CQuaternion& rotat
 	char filePath[256];
 	sprintf(filePath, "Assets/modelData/%s.X", modelname);
 	//モデルデータをロード。
-	modeldata.LoadModelData(filePath, NULL);
+	modelresource.Load(modeldata, filePath, NULL);
 	//CSkinModelを初期化。
-	model.Init(&modeldata);
+	model.Init(modeldata.GetBody());
 	//デフォルトライトを設定して。
 	model.SetLight(&light);
 	this->position = position;
@@ -44,7 +44,7 @@ void ItemBox::Init(const char *modelname, CVector3& position, CQuaternion& rotat
 	model.SetShadowCasterFlag(true);
 	model.SetShadowReceiverFlag(true);
 	//メッシュコライダーの作成。
-	meshcollider.CreateFromSkinModel(&model, modeldata.GetRootBoneWorldMatrix());
+	meshcollider.CreateFromSkinModel(&model, modeldata.GetBody()->GetRootBoneWorldMatrix());
 	//剛体の作成。
 	RigidBodyInfo rbInfo;
 	//剛体のコライダーを渡す。

@@ -7,5 +7,6 @@ public:
 	~Map();
 	void Start();
 	void Update();
+	int applenum;
 };
 

@@ -10,6 +10,15 @@ public:
 	Player();
 	~Player();
 
+	enum
+	{
+		WAIT,
+		WALK,
+		RUN,
+		KNIFE,
+		BOMBTHROW,
+		ANIMATIONNUM
+	};
 	//更新関数
 	void Update();
 
@@ -33,14 +42,17 @@ public:
 	int							bombcount;
 	CVector3					position;			//場所
 	CQuaternion					rotation;			//プレイヤーの向き
-	CSkinModel					model;				//モデル
+	CSkinModel					player_model;		//モデル
+	CSkinModel					knife_model;
 	CLight						light;				//ライト
 	CCharacterController		characterController;
 	float						radius;				//アイテムのあたり判定取るときの半径
-	CSkinModelDataHandle		modeldata;			//モデルデータ
+	CSkinModelDataHandle		player_data;			//モデルデータ
 	CSkinModelDataResources		modelresource;		//モデルデータハンドルを入れる媒体
+	CSkinModelDataHandle		knife_data;			//モデルデータ
 	int							hp;					//プレイヤーの体力
-	CAnimation					animation;
+	CAnimation					player_animation;
+	CAnimation					knife_animation;
 	int							animenum;		
 };
 

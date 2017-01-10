@@ -96,6 +96,7 @@ namespace tkEngine{
 			unsigned int hash = MakeGameObjectNameKey(objectName);
 			m_gameObjectListArray.at(prio).push_back(newObject);
 			newObject->m_isRegist = true;
+			newObject->m_priority = prio;
 			return newObject;
 		}
 		/*!
