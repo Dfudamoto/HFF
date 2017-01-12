@@ -211,7 +211,6 @@ namespace tkEngine{
 	void CEngine::RunGameLoop()
 	{
 		// Enter the message loop
-		MSG msg;
 		ZeroMemory(&msg, sizeof(msg));
 #ifdef USE_DISP_FPS
 		char text[256] = {"\0"};
@@ -278,10 +277,15 @@ namespace tkEngine{
 
 
 			}
+			if (m_final)
+			{
+				Final();
+			}
 		}
 	}
 	void CEngine::Final()
 	{
+		msg.message = WM_QUIT;
 		m_preRender.Release();
 		m_postEffect.Release();
 		m_backBufferRT.Release();

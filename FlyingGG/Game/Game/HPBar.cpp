@@ -26,7 +26,7 @@ HPBar::~HPBar()
 void HPBar::Update()
 {
 
-	hpspr.SetSize({ (float)(player->GetHP()), 15.0f });
+	hpspr.SetSize({ (float)(player->hp), 15.0f });
 }
 
 void HPBar::Render(CRenderContext& rendercontext)

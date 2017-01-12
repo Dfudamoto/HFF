@@ -13,6 +13,14 @@ public:
 	
 	void Init(const char *, CVector3, CQuaternion);
 
+	void Move();
+
+	void PickUp();
+	
+	void Delete();
+
+	void Eatable();
+
 	CSkinModel				model;				//ƒ‚ƒfƒ‹
 	CLight					light;				//ƒ‚ƒfƒ‹‚ÌŒõ
 	CVector3				position;			//DebuffItem‚ÌÀ•W
@@ -21,5 +29,6 @@ public:
 	bool					harves;				//–Ø‚É¶‚Á‚Ä‚é‚©
 	CSkinModelDataHandle	modeldata;
 	CSkinModelDataResources modelresource;
+	bool					deleteflg;
 };
 

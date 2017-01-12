@@ -119,6 +119,7 @@ namespace tkEngine{
 		PhysicsWorld().AddRigidBody(&m_rigidBody);
 		collision = false;
 		dead = false;
+		pickup = false;
 	}
 	void CCharacterController::Execute()
 	{

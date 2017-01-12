@@ -17,6 +17,8 @@ public:
 
 	void PickUp();
 
+	void Eatable();
+
 	CSkinModel				model;					//ƒ‚ƒfƒ‹
 	CLight					light;					//ƒ‚ƒfƒ‹‚ÌŒõ
 	CVector3				position;				//HealingApple‚ÌÀ•W

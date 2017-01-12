@@ -11,8 +11,9 @@ MapChip::MapChip()
 {
 	light.SetAmbinetLight({ 0.01f, 0.01f, 0.01f });
 	light.SetDiffuseLightColor(0, { 0.9f, 0.9f, 0.9f, 1.0f });
-	maplight.SetAmbinetLight({ 0.01f, 0.01f, 0.01f });
-	maplight.SetAmbinetLight(CVector3::One);
+	//maplight.SetAmbinetLight({ 0.01f, 0.01f, 0.01f });
+	//maplight.SetAmbinetLight(CVector3::One);
+	maplight.SetDiffuseLightColor(0, {0.9f, 0.9f, 0.9f, 1.0f});
 }
 
 
@@ -23,6 +24,7 @@ MapChip::~MapChip()
 void MapChip::Init(const char* modelName, CVector3 position, CQuaternion rotation)
 {
 	this->position = position;
+	this->rotation = rotation;
 	//ファイルパスを作成する。
 	char filePath[256];
 	sprintf(filePath, "Assets/modelData/%s.x", modelName);
@@ -30,8 +32,9 @@ void MapChip::Init(const char* modelName, CVector3 position, CQuaternion rotatio
 	modelresource.Load(modeldata, filePath, NULL);
 	//CSkinModelを初期化。
 	skinModel.Init(modeldata.GetBody());
+
 	//デフォルトライトを設定して。
-	if (strcmp(modelName, "map") == 0)
+	if (strcmp(modelName, "map") == 0 || strcmp(modelName, "ground") == 0)
 	{
 		skinModel.SetLight(&maplight);
 	}
@@ -57,6 +60,7 @@ void MapChip::Init(const char* modelName, CVector3 position, CQuaternion rotatio
 	rigidBody.Create(rbInfo);
 	//作成した剛体を物理ワールドに追加する。
 	PhysicsWorld().AddRigidBody(&rigidBody);
+
 	skinModel.SetShadowCasterFlag(true);
 	skinModel.SetShadowReceiverFlag(true);
 }
@@ -65,22 +69,36 @@ void MapChip::Update()
 	CVector3 direction;
 	direction.Subtract(position, player->position);
 	CVector3 distance = direction;
-	//distance.Scale(0.05f);
+	distance.Scale(0.05f);
 
 	direction.Normalize();
-	//direction.Scale(20.0f);
+
+	maplight.SetDiffuseLightDirection(0, {0.0f, -1.0f, 0.0f});
 	float light_scale = 1.0f / distance.Length();
-	//float light_limit = 3.0f;
-	////if (light_scale > light_limit)
-	//{
-	//	light_scale = light_limit;
-	//}
+	float light_limit = 3.0f;
+	if (light_scale > light_limit)
+	{
+		light_scale = light_limit;
+	}
 	direction.Scale(light_scale);
 	light.SetDiffuseLightDirection(0, direction);
-	maplight.SetPointLightColor({ 4.0f, 4.0f, 4.0f, 1.0f });
-	maplight.SetPointLightPosition(player->position);
+	float pointlightcolor = 4.0f;
+	skinModel.Update(position, rotation, CVector3::One);
 }
 void MapChip::Render(CRenderContext& renderContext)
 {
 	skinModel.Draw(renderContext, gamecamera->camera.GetViewMatrix(), gamecamera->camera.GetProjectionMatrix());
+}
+
+void MapChip::Delete()
+{
+	if (this == nullptr)
+	{
+		return;
+	}
+	skinModel.SetShadowCasterFlag(false);
+	PhysicsWorld().RemoveRigidBody(&rigidBody);
+	rigidBody.Release();
+	DeleteGO(this);
+
 }

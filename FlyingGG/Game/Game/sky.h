@@ -13,5 +13,7 @@ public:
 	CSkinModel		model;		//モデル
 	CSkinModelData	modeldata;	//モデルのデータ
 	CQuaternion		rotation;	//モデルの回転率
+	CLight			light;
+	CVector3		position;
 };
 

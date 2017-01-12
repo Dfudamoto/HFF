@@ -8,10 +8,10 @@ extern GameCamera *gamecamera;
 //モデルをテスト表示させるクソクラス
 sky::sky()
 {
+	light.SetAmbinetLight(CVector3::One);
 	modeldata.LoadModelData("Assets/modelData/apple.X", NULL);
 	model.Init(&modeldata);
-	model.SetLight(&darklight);
-	darklight.SetAmbinetLight({ 1.0f, 1.0f, 1.0f });
+	model.SetLight(&light);
 	rotation.SetRotation(CVector3::AxisX, CMath::DegToRad(0));
 	//model.SetShadowReceiverFlag(true);
 }

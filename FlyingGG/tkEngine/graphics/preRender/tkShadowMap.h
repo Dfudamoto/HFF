@@ -105,7 +105,7 @@ namespace tkEngine{
 		*/
 		void SetNear(float Near)
 		{
-			m_far = Near;
+			m_near = Near;
 		}
 		/*!
 		* @brief	XVB

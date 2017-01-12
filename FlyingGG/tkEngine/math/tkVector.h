@@ -341,6 +341,34 @@ namespace tkEngine{
 			z = pw * qz + px * qy - py * qx + pz * qw;
 
 		}
+		void Reverse(const CQuaternion& rot)
+		{
+			float pw, px, py, pz;
+			float qw, qx, qy, qz;
+
+			pw = w; px = x; py = y; pz = z;
+			qw = rot.w; qx = rot.x; qy = rot.y; qz = rot.z;
+
+			w = pw * -qw - px * -qx - py * qy - pz * -qz;
+			x = pw * -qx + px * -qw + py * qz - pz * -qy;
+			y = pw * -qy - px * -qz + py * qw + pz * -qx;
+			z = pw * -qz + px * -qy - py * qx + pz * -qw;
+
+		}
+
+		void ReverseMultiply(const CQuaternion& rot)
+		{
+			float pw, px, py, pz;
+			float qw, qx, qy, qz;
+
+			pw = w; px = x; py = y; pz = z;
+			qw = rot.w; qx = rot.x; qy = rot.y; qz = rot.z;
+
+			w = pw * qw + px * qx + py * qy + pz * qz;
+			x = pw * qx - px * qw - py * qz + pz * qy;
+			y = pw * qy + px * qz - py * qw - pz * qx;
+			z = pw * qz - px * qy + py * qx - pz * qw;
+		}
 		/*!
 		 *@brief	クォータニオン同士の乗算。
 		 *@details

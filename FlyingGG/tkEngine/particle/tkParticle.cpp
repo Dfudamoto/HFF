@@ -29,7 +29,8 @@ namespace tkEngine{
 		if (param.uvTableSize > 0) {
 			uv = param.uvTable[random.GetRandInt() % param.uvTableSize];
 		}
-		else {
+		else 
+		{
 			uv = param.uvTable[0];
 		}
 		
@@ -91,7 +92,9 @@ namespace tkEngine{
 		brightness = param.brightness;
 		alphaBlendMode = param.alphaBlendMode;
 		mulColor = param.mulColor;
-		rotateZ = CMath::PI * 2.0f * (float)random.GetRandDouble();
+		//rotateZ = CMath::PI * 2.0f * (float)random.GetRandDouble();
+		rotateZ = CMath::DegToRad(0);
+	
 	}
 	void CParticle::Start()
 	{
@@ -125,7 +128,8 @@ namespace tkEngine{
 			mWorld.Mul(mCameraRot, rot);
 			mWorld.Mul(mWorld, mTrans);
 		}
-		else {
+		else 
+		{
 			mWorld = mTrans;
 		}
 		timer += deltaTime;
@@ -197,7 +201,7 @@ namespace tkEngine{
 		renderContext.SetRenderState(RS_ALPHABLENDENABLE, FALSE);
 		renderContext.SetRenderState(RS_SRCBLEND, BLEND_ONE);
 		renderContext.SetRenderState(RS_DESTBLEND, BLEND_ZERO);
-		renderContext.SetRenderState(RS_ZENABLE, TRUE);
+		renderContext.SetRenderState(RS_ZENABLE, FALSE);
 		renderContext.SetRenderState(RS_ZWRITEENABLE, TRUE);
 		
 	}

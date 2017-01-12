@@ -7160,7 +7160,7 @@ AnimTicksPerSecond fps {
  4800;
 }
 
-AnimationSet  {
+AnimationSet knife_shake {
  
 
  Animation Anim- {
@@ -8941,6 +8941,33 @@ AnimationSet  {
    2;
    1;
    0;3;-1.156463,0.000001,-0.000000;;;
+  }
+ }
+}
+
+AnimationSet wait {
+ 
+
+ Animation Anim- {
+  
+  { HisuKnife }
+
+  AnimationKey rot {
+   0;
+   1;
+   0;4;0.645346,-0.009681,0.763748,-0.011095;;;
+  }
+
+  AnimationKey scale {
+   1;
+   1;
+   0;3;0.465648,0.414352,0.441661;;;
+  }
+
+  AnimationKey pos {
+   2;
+   1;
+   0;3;8.698949,-1.051560,3.493592;;;
   }
  }
 }

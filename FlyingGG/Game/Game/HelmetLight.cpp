@@ -16,10 +16,10 @@ HelmetLight::HelmetLight()
 	position = CVector3::Zero;
 	rotation = CQuaternion::Identity;
 	darklight.SetAmbinetLight({ 0.01f, 0.01f, 0.01f });
-	darklight.SetDiffuseLightColor(0, { 0.9f, 0.9f, 0.9f, 1.0f });
+	darklight.SetDiffuseLightColor(2, { 0.9f, 0.9f, 0.9f, 1.0f });
 	pickup = true;
 	lightswitch = true;
-	ShadowMap().SetCalcLightViewFunc(CShadowMap::enCalcLightViewFunc_PositionDirection);
+	ShadowMap().SetCalcLightViewFunc(CShadowMap::enCalcLightViewFunc_PositionTarget);
 }
 
 
@@ -36,32 +36,24 @@ void HelmetLight::Update()
 		position = player->position;
 		rotation = player->rotation;
 	}
-	CMatrix matrix = player->player_model.GetWorldMatrix();
+	CMatrix matrix = player->knife_model.GetWorldMatrix();
 	CVector3 lightdirection;
 	lightdirection.x = matrix.m[2][0];
 	lightdirection.y = matrix.m[2][1];
 	lightdirection.z = matrix.m[2][2];
 	lightdirection.Normalize();
-	lightdirection.Scale(1.0f);
 
-	//if (lightswitch)
-	{
-		darklight.SetDiffuseLightDirection(0, lightdirection);
-	}
-	//else
-	//{
-	//	darklight.SetDiffuseLightDirection(0, CVector3::Zero);
-	//}
+
 	//シャドウマップのライトの設定
 	CVector3 lightposition = player->position;
 	lightdirection.Add(lightposition);
+	lightposition.y -= 0.4;
+	lightdirection.y -= 1.0f;
 	ShadowMap().SetLightPosition(lightposition);
-	ShadowMap().SetLightDirection(lightdirection);
-
+	ShadowMap().SetLightTarget(lightdirection);
+	ShadowMap().Update();
 	Equip();
-
 	model.Update(position, rotation, CVector3::One);
-
 }
 
 void HelmetLight::Equip()
@@ -89,4 +81,12 @@ void HelmetLight::Render(CRenderContext& rendercontext)
 	model.Draw(rendercontext, gamecamera->camera.GetViewMatrix(), gamecamera->camera.GetProjectionMatrix());
 }
 
+void HelmetLight::Delete()
+{
+	if (this == nullptr)
+	{
+		return;
+	}
+	DeleteGO(this);
+}
 

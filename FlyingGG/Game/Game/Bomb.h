@@ -21,6 +21,8 @@ public:
 	//“Š‚°‚é‚©”»’è‚·‚éˆ—
 	void Throw();
 
+	void Delete();
+
 	CSkinModelDataResources	modelresource;
 	CSkinModelDataHandle	modeldata;
 	CSkinModel				model;				//ƒ‚ƒfƒ‹
@@ -34,5 +36,6 @@ public:
 	CVector3				move_speed;			//ˆÚ“®‘¬“x
 	int						angle;				//‰ñ“]‚·‚éŠp“x
 	bool					throwflg;			//“Š‚°‚Ä‚é‚©
+	bool					deleteflg;
 };
 

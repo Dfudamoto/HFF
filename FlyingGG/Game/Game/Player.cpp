@@ -3,34 +3,38 @@
 #include "GameCamera.h"
 #include "Bomb.h"
 #include "HealingApple.h"
+#include "ItemShow.h"
+#include "Enemy.h"
 
 extern GameCamera *gamecamera;
 extern Bomb *bomb[BOMBNUM];
 extern int itemnum;
 extern HealingApple *apple[APPLENUM];
+extern Enemy *enemy[ENEMYNUM];
 
 Player::Player()
 {
-	modelresource.Load(player_data, "Assets/modelData/bodyg_alpha.X", &player_animation);
-	modelresource.Load(knife_data, "Assets/modelData/knife.X", &knife_animation);
-	//モデルの初期化
-	player_model.Init(player_data.GetBody());
-	knife_model.Init(knife_data.GetBody());
+
 	light.SetAmbinetLight(CVector3::One);
-	player_model.SetLight(&light);
-	knife_model.SetLight(&light);
+	//player_modelresource.Load(player_data, "Assets/modelData/bodyg_alpha.X", &player_animation);
+	//player_model.Init(player_data.GetBody());
+	//player_model.SetLight(&light);
+	//knife_modelresource.Load(knife_data, "Assets/modelData/knife.X", &knife_animation);
+	//knife_model.Init(knife_data.GetBody());
+	//knife_model.SetLight(&light);
 	position = CVector3::Zero;
 	position = {0.0f, 3.0f, 0.0f };
 	rotation.SetRotation(CVector3::AxisY, CMath::DegToRad(0));
 	characterController.Init(0.5f, 1.0f, position);
 	radius = 3.0f;
-
-
 	hp = MAXHP;
 	itemnum = 0;
 	animenum = 0;
-	//player_animation.SetAnimationLoopFlag(0, false);	
-	knife_animation.SetAnimationLoopFlag(0, false);
+	bombcount = 0;
+	applecount = 0;
+	nockbackflg = false;
+	speedup_flg = false;
+	speedup_count = 0.0f;
 }
 
 Player::~Player()
@@ -38,34 +42,75 @@ Player::~Player()
 
 }
 
+void Player::Init(CVector3 position, CQuaternion rotation)
+{
+	 
+	player_modelresource.Load(player_data, "Assets/modelData/bodyg_alpha.X", &player_animation);
+	player_model.Init(player_data.GetBody());
+	player_model.SetLight(&light);
+	knife_modelresource.Load(knife_data, "Assets/modelData/knife.X", &knife_animation);
+	knife_model.Init(knife_data.GetBody());
+	knife_model.SetLight(&light);
+	this->position = position;
+	this->rotation = rotation;
+	//デフォルトライトを設定して。
+	player_model.SetLight(&light);
+	knife_model.SetLight(&light);
+	characterController.Init(0.3f, 0.3f, position);
+	characterController.SetMoveSpeed(CVector3::Zero);
+	player_model.Update(position, rotation, CVector3::One);
+	knife_model.Update(position, rotation, CVector3::One);
+	player_animation.SetAnimationLoopFlag(KNIFE, false);
+	player_animation.SetAnimationLoopFlag(BOMBTHROW, false);
+	knife_animation.SetAnimationLoopFlag(1, false);
+}
+
 void Player::Update()
 {
-	if (Pad(0).IsTrigger(enButtonA))
+	if (Pad(0).IsTrigger(enButtonLB3))
 	{
-		player_animation.PlayAnimation(animenum);
-		if (animenum == KNIFE)
+		hp = 0;
+	}
+	if (Pad(0).IsTrigger(enButtonX))
+	{
+		switch (itemnum)
 		{
-			knife_animation.PlayAnimation(0);
+		case ItemShow::KNIFE:
+			player_animation.PlayAnimation(KNIFE);
+			knife_animation.PlayAnimation(1);
+			enemy[0]->NockBack2();
+			break;
+		case ItemShow::BOMB:
+			if (bombcount > 0)
+			{
+				player_animation.PlayAnimation(BOMBTHROW);
+			}
+			break;
 		}
 	}
-	if (Pad(0).IsTrigger(enButtonLB1) && 0 < animenum)
+	if (!characterController.IsJump())
 	{
-		animenum--;
-	}
-	if (Pad(0).IsTrigger(enButtonRB1) && animenum < ANIMATIONNUM - 1)
-	{
-		animenum++;
+		nockbackflg = false;
 	}
 	Move();
 	Rotation();
+	//キャラクターコントローラーを実行。
+	characterController.Execute();
+	//実行結果を受け取る。
+	position = characterController.GetPosition();
+	position.y += HEIGHT;
 	player_animation.Update(3.0f / 60.0f);
-	knife_animation.Update(3.0f / 60.0f);
 	player_model.Update(position, rotation, CVector3::One);
+	knife_animation.Update(3.0f / 60.0f);
 	knife_model.Update(position, rotation, CVector3::One);
 }
 
 void Player::Move()
 {
+	if (nockbackflg)
+	{
+		return;
+	}
 	CVector3 move_direction_z;	//正面へのベクトル
 	CVector3 move_direction_x;	//横方向へのベクトル
 
@@ -76,8 +121,18 @@ void Player::Move()
 	move_direction_z.z = matrix.m[2][2];
 	move_direction_z.y = 0.0f;
 	move_direction_z.Normalize();
+	hitbox_position = move_direction_z;
 	move_direction_z.Scale(speedscale);
 	move_direction_z.Scale(Pad(0).GetLStickYF());
+	if (speedup_flg)
+	{
+		move_direction_z.Scale(2.0f);
+		speedup_count += 1.0f;
+		if (speedup_count >= 300.0f)
+		{
+			speedup_flg = false;
+		}
+	}
 	
 	//プレイヤーの横方向へのベクトルの取得
 	move_direction_x.x = matrix.m[0][0];
@@ -101,19 +156,16 @@ void Player::Move()
 	}
 	//決定した移動速度をキャラクタコントローラーに設定。
 	characterController.SetMoveSpeed(move);
-	//キャラクターコントローラーを実行。
-	characterController.Execute();
-	//実行結果を受け取る。
-	position = characterController.GetPosition();
-	position.y += HEIGHT;
+	hitbox_position.Scale(0.3f);
+	hitbox_position.Add(position);
 }
 
 void Player::Rotation()
 {
 	//プレイヤーの回転角度と回転速度
 	float anglespeed = 5.0f;
-	static float anglex = 0;
-	static float angley = 0;
+	static float anglex = 0.0f;
+	static float angley = 0.0f;
 
 	angley += Pad(0).GetRStickXF() * anglespeed;
 	//プレイヤーの回転できる角度の限度チェック
@@ -144,3 +196,27 @@ void Player::BombDam(CVector3& bombpos)
 		hp -= 10;
 	}
 }
+
+void Player::Delete()
+{
+	player_model.SetShadowCasterFlag(false);
+	characterController.RemoveRigidBoby();
+	DeleteGO(this);
+}
+
+void Player::NockBack()
+{
+	characterController.Jump();
+	CMatrix matrix = player_model.GetWorldMatrix();
+	CVector3 movespeed;
+	movespeed.x = -matrix.m[2][0];
+	movespeed.y = 0.0f;
+	movespeed.z = -matrix.m[2][2];
+	movespeed.Normalize();
+	movespeed.Scale(10.0f);
+	movespeed.y += 5.0f;
+	characterController.SetMoveSpeed(movespeed);
+	characterController.Execute();
+	nockbackflg = true;
+}
+

@@ -14,6 +14,8 @@ public:
 	//プレイヤーが拾うかのチェック処理
 	void Equip();
 
+	void Delete();
+
 	CSkinModelData		modeldata;		//モデル
 	CSkinModel			model;			//モデルデータ
 	CVector3			position;		//場所

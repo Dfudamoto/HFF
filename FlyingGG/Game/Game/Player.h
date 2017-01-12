@@ -19,6 +19,9 @@ public:
 		BOMBTHROW,
 		ANIMATIONNUM
 	};
+
+	void Init(CVector3, CQuaternion);
+	 
 	//更新関数
 	void Update();
 
@@ -34,12 +37,13 @@ public:
 	//ボムが近くで爆発したらダメージをくらう処理。
 	void BombDam(CVector3& bombpos);
 
-	int GetHP()
-	{
-		return hp;
-	}
+	void NockBack();
+
+	void Delete();
 
 	int							bombcount;
+	int							applecount;
+	int							debuffcount;
 	CVector3					position;			//場所
 	CQuaternion					rotation;			//プレイヤーの向き
 	CSkinModel					player_model;		//モデル
@@ -48,11 +52,16 @@ public:
 	CCharacterController		characterController;
 	float						radius;				//アイテムのあたり判定取るときの半径
 	CSkinModelDataHandle		player_data;			//モデルデータ
-	CSkinModelDataResources		modelresource;		//モデルデータハンドルを入れる媒体
+	CSkinModelDataResources		player_modelresource;		//モデルデータハンドルを入れる媒体
+	CSkinModelDataResources		knife_modelresource;		//モデルデータハンドルを入れる媒体
 	CSkinModelDataHandle		knife_data;			//モデルデータ
 	int							hp;					//プレイヤーの体力
 	CAnimation					player_animation;
 	CAnimation					knife_animation;
 	int							animenum;		
+	CVector3					hitbox_position;	//ナイフのポジション
+	bool						nockbackflg;
+	bool						speedup_flg;
+	float						speedup_count;
 };
 

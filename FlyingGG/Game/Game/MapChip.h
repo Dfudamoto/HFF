@@ -11,6 +11,7 @@ public:
 	void Init(const char* modelName, CVector3 position, CQuaternion rotation);
 	void Update();
 	void Render(CRenderContext& renderContext);
+	void Delete();
 
 	//ここからメンバ変数。
 	CLight				light;			//ライト
@@ -21,5 +22,6 @@ public:
 	CLight				maplight;		//テスト用
 	CSkinModelDataHandle modeldata;
 	CSkinModelDataResources modelresource;
+	CQuaternion				rotation;
 };
 

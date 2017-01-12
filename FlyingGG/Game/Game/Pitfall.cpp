@@ -57,9 +57,8 @@ void Pitfall::Update()
 	distance.y = 0;
 	if (distance.Length() < 5.0f)
 	{
-		PhysicsWorld().RemoveRigidBody(&rigidbody);
-		rigidbody.Release();
-		DeleteGO(this);
+		
+		;
 	}
 }
 
@@ -68,4 +67,15 @@ void Pitfall::Render(CRenderContext& renderContext) {
 		gamecamera->camera.GetViewMatrix(),
 		gamecamera->camera.GetProjectionMatrix()
 	);
+}
+
+void Pitfall::Delete()
+{
+	if (this == nullptr)
+	{
+		return;
+	}
+	PhysicsWorld().RemoveRigidBody(&rigidbody);
+	rigidbody.Release();
+	DeleteGO(this);
 }

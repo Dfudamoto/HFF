@@ -15,7 +15,8 @@ namespace tkEngine {
 	public:
 		CLight()
 		{
-			for( int i = 0; i < NUM_DIFFUSE_LIGHT; i++ ){
+			for( int i = 0; i < NUM_DIFFUSE_LIGHT; i++ )
+			{
 				m_diffuseLightDirection[i] = CVector3::AxisX;
 				m_diffuseLightColor[i].Set( 0.0f, 0.0f, 0.0f, 0.0f );
 			}
@@ -118,6 +119,7 @@ namespace tkEngine {
 		{
 			m_pointLightColor = col;
 		}
+
 	private:
 		CVector3		m_diffuseLightDirection[NUM_DIFFUSE_LIGHT];		//!<ディフューズライトの向き。
 		CVector4		m_diffuseLightColor[NUM_DIFFUSE_LIGHT];			//!<ディフューズライトのカラー(x:R成分、y:G成分、z:B成分、w:スペキュラの強さ)。

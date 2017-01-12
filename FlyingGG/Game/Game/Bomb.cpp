@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "time.h"
 #include "ItemShow.h"
+#include "BrokenWall.h"
 
 extern GameCamera *gamecamera;
 extern Player *player;
@@ -11,6 +12,7 @@ CRandom random;
 extern CLight darklight;
 extern Bomb* bomb[BOMBNUM];
 extern int itemnum;
+extern BrokenWall *wall[WALLNUM];
 
 Bomb::Bomb()
 {
@@ -23,7 +25,7 @@ Bomb::Bomb()
 	model.SetShadowCasterFlag(true);
 	fallspeed = 0.3f;
 	angle = 0;
-	charactercontroller.SetPickUp(false);
+	deleteflg = false;
 }
 
 Bomb::~Bomb()
@@ -66,12 +68,13 @@ void Bomb::Throw()
 	{
 		return;
 	}
-	//ボムの近くでXボタンを押すと拾う
+	//ボムの近くでAボタンを押すと拾う
 	CVector3 distance;
 	distance.Subtract(position, player->position);
-	if (distance.Length() < 10.0f && Pad(0).IsTrigger(enButtonX) && !charactercontroller.IsPickUp())
+	if (distance.Length() < 10.0f && Pad(0).IsTrigger(enButtonA) && !charactercontroller.IsPickUp())
 	{
 		charactercontroller.SetPickUp(true);
+		player->bombcount++;
 	}
 
 
@@ -81,12 +84,12 @@ void Bomb::Throw()
 		position.y += 100.0f;
 		charactercontroller.SetGravity(0.0f);
 		charactercontroller.SetPosition(position);
-		//拾った状態でAボタンを押すと投げる
+		//拾った状態でXボタンを押すと投げる
 		if (itemnum != ItemShow::BOMB)
 		{
 			return;
 		}
-		if (Pad(0).IsTrigger(enButtonA))
+		if (Pad(0).IsTrigger(enButtonX))
 		{
 			for (int i = 0;i < BOMBNUM;i++)
 			{
@@ -118,6 +121,7 @@ void Bomb::Throw()
 			move_speed = move_direction;
 			move_speed.y += 5.0f;
 			angle = 10;
+			player->bombcount--;
 		}
 	}
 }
@@ -131,10 +135,6 @@ void Bomb::CollCheck()
 			move_speed = CVector3::Zero;
 			angle = 0;
 		}
-		return;
-	}
-	if (itemnum != ItemShow::BOMB)
-	{
 		return;
 	}
 	//何かに当たったらパーティクルを出して死亡
@@ -169,26 +169,43 @@ void Bomb::CollCheck()
 	{1.0f, 1.0f, 1.0f},								//!<乗算カラー。
 	},
 	position);
-	model.SetShadowCasterFlag(false);
-	charactercontroller.RemoveRigidBoby();
+	deleteflg = true;
 	//消すボムの情報をリセット
 	for (int i = 0;i < BOMBNUM;i++)
 	{
-		if (bomb[i] != nullptr && bomb[i]->charactercontroller.IsDead())
+		if (bomb[i] != nullptr && bomb[i]->deleteflg)
 		{
 			bomb[i] = nullptr;
 		}
 	}
+	for (int i = 0;i < WALLNUM;i++)
+	{
+		if (wall[i] != nullptr)
+		{
+			wall[i]->Break(position);
+		}
+	}
 	player->BombDam(position);
-	DeleteGO(this);
+	Delete();
 }
 
 void Bomb::Render(CRenderContext& rendercontext)
 {
-	if (charactercontroller.IsPickUp() && !throwflg)
+	//if (charactercontroller.IsPickUp() && !throwflg)
+	//{
+	//	return;
+	//}
+	model.Draw(rendercontext, gamecamera->camera.GetViewMatrix(), gamecamera->camera.GetProjectionMatrix());
+}
+
+void Bomb::Delete()
+{
+	if (this == nullptr)
 	{
 		return;
 	}
-	model.Draw(rendercontext, gamecamera->camera.GetViewMatrix(), gamecamera->camera.GetProjectionMatrix());
+	model.SetShadowCasterFlag(false);
+	charactercontroller.RemoveRigidBoby();
+	DeleteGO(this);
 }
 

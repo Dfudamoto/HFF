@@ -14,11 +14,9 @@ extern CLight darklight;
 
 ItemBox::ItemBox()
 {
-
 	light.SetAmbinetLight({0.01f, 0.01f,0.01f});
 	light.SetDiffuseLightColor(0, { 0.9f, 0.9f, 0.9f, 1.0f });
 }
-
 
 ItemBox::~ItemBox()
 {
@@ -54,12 +52,9 @@ void ItemBox::Init(const char *modelname, CVector3& position, CQuaternion& rotat
 	rigidbody.Create(rbInfo);
 	//作成した剛体を物理ワールドに追加する。
 	PhysicsWorld().AddRigidBody(&rigidbody);
-	charactercontroller.Init(0.3f, 1.0f, position);
 }
 void ItemBox::Update()
 {
-	charactercontroller.Execute();
-	position = charactercontroller.GetPosition();
 	BombCreate();
 	CVector3 direction;
 	direction.Subtract(position, player->position);
@@ -74,8 +69,6 @@ void ItemBox::Update()
 
 	}
 	light.SetDiffuseLightDirection(0, direction);
-	//maplight.SetPointLightColor({ 4.0f, 4.0f, 4.0f, 1.0f });
-	//maplight.SetPointLightPosition(player->position);
 	model.Update(position, rotation, CVector3::One);
 }
 
@@ -87,15 +80,11 @@ void ItemBox::BombCreate()
 	}
 	//プレイヤーとの距離と測る
 	CVector3 distance;
-	distance.Subtract(position, player->position);
+	distance.Subtract(position, player->hitbox_position);
 	if (distance.Length() < player->radius && Pad(0).IsTrigger(enButtonX))
 	{
-		model.SetShadowCasterFlag(false);
-		charactercontroller.RemoveRigidBoby();
-		PhysicsWorld().RemoveRigidBody(&rigidbody);
-		rigidbody.Release();
 		//ある一定の距離でボタンが押されたら消えてボムをだす
-		DeleteGO(this);
+		Delete();
 		for (int i = 0;i < BOMBNUM;i++)
 		{
 			if (bomb[i] == nullptr)
@@ -111,4 +100,12 @@ void ItemBox::BombCreate()
 void ItemBox::Render(CRenderContext& rendercontext)
 {
 	model.Draw(rendercontext, gamecamera->camera.GetViewMatrix(), gamecamera->camera.GetProjectionMatrix());
+}
+
+void ItemBox::Delete()
+{
+	model.SetShadowCasterFlag(false);
+	PhysicsWorld().RemoveRigidBody(&rigidbody);
+	rigidbody.Release();
+	DeleteGO(this);
 }

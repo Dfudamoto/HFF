@@ -2,11 +2,13 @@
 #include "HealingApple.h"
 #include "GameCamera.h"
 #include "Player.h"
+#include "ItemShow.h"
 
 
 extern Player* player;
 extern GameCamera* gamecamera;
 HealingApple *apple[APPLENUM];
+extern int itemnum;
 
 HealingApple::HealingApple()
 {	
@@ -16,7 +18,6 @@ HealingApple::HealingApple()
 	light.SetDiffuseLightColor(0, { 0.9f, 0.9f, 0.9f, 1.0f });
 	harves = false;
 	deleteflg = false;
-	charactercontroller.SetPickUp(false);
 }
 
 HealingApple::~HealingApple()
@@ -46,14 +47,13 @@ void HealingApple::Init(const char *modelname, CVector3 position, CQuaternion ro
 void HealingApple::Update() 
 {
 	float scale = 0.01f;
-	Delete();
+	Eatable();
 	PickUp();
 	Move();
 	CVector3 direction;
 	direction.Subtract(position, player->position);
 	CVector3 distance = direction;
 	distance.Scale(scale);
-
 	direction.Normalize();
 	float lightscale = 1.0f / distance.Length();
 	if (lightscale < 1.0f)
@@ -69,7 +69,7 @@ void HealingApple::Move()
 {
 	//プレイヤーとの距離を計算
 	CVector3 distance;
-	distance.Subtract(position, player->position);
+	distance.Subtract(position, player->hitbox_position);
 	if (Pad(0).IsTrigger(enButtonX) && distance.Length() < 10.0f)
 	{
 		harves = true;
@@ -104,10 +104,11 @@ void HealingApple::PickUp()
 		return;
 	}
 	CVector3 distance;
-	distance.Subtract(player->position, position);
-	if (distance.Length() < player->radius && Pad(0).IsTrigger(enButtonX))
+	distance.Subtract(position, player->hitbox_position);
+	if (distance.Length() < player->radius && Pad(0).IsTrigger(enButtonA))
 	{
 		charactercontroller.SetPickUp(true);
+		player->applecount++;
 	}
 	//拾われてなかったらリターン
 	if (!charactercontroller.IsPickUp())
@@ -118,7 +119,7 @@ void HealingApple::PickUp()
 	position.y += 100.0f;
 	charactercontroller.SetGravity(0.0f);
 	charactercontroller.SetPosition(position);
-	if (Pad(0).IsTrigger(enButtonA))
+	if (Pad(0).IsTrigger(enButtonX))
 	{
 		for (int i = 0;i < APPLENUM;i++)
 		{
@@ -131,9 +132,13 @@ void HealingApple::PickUp()
 	}
 }
 
-void HealingApple::Delete()
+void HealingApple::Eatable()
 {
 	if (!deleteflg)
+	{
+		return;
+	}
+	if (itemnum != ItemShow::APPLE)
 	{
 		return;
 	}
@@ -148,6 +153,12 @@ void HealingApple::Delete()
 	{
 		player->hp += 10;
 	}
+	Delete();
+	player->applecount--;
+}
+
+void HealingApple::Delete()
+{
 	charactercontroller.RemoveRigidBoby();
 	DeleteGO(this);
 }

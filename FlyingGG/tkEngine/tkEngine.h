@@ -62,7 +62,8 @@ namespace tkEngine{
 			m_screenWidth(0),
 			m_numRenderContext(0),
 			m_pTransformedPrimEffect(nullptr),
-			m_currentMainRenderTarget(0)
+			m_currentMainRenderTarget(0),
+			m_final(false)
 		{}
 		~CEngine() {}
 	public:
@@ -211,6 +212,10 @@ namespace tkEngine{
 		{
 			return m_physicsWorld;
 		}
+		void Finish()
+		{
+			m_final = true;
+		}
 	private:
 		/*!
 		* @brief	メインレンダリングターゲットの内容をバックバッファにコピー。
@@ -237,6 +242,7 @@ namespace tkEngine{
 		*/
 		static LRESULT CALLBACK MsgProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 	private:
+		MSG										msg;
 		HWND									m_hWnd;						//!<ウィンドウハンドル。
 		LPDIRECT3D9								m_pD3D;						//!<D3DDevice
 		LPDIRECT3DDEVICE9						m_pD3DDevice;				//!<Rendering device
@@ -261,6 +267,7 @@ namespace tkEngine{
 		CSkinModelDataResources					m_skinModelDataResources;	//!<スキンモデルデータリソース。
 		CSoundEngine							m_soundEngine;				//!<サウンドエンジン。
 		CPhysicsWorld							m_physicsWorld;				//!<物理ワールド。
+		bool									m_final;
 	};
 	static inline CEngine& Engine()
 	{
