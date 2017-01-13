@@ -96,11 +96,6 @@ void Map::Start()
 			itembox[itemboxnum]->Init(mapLocInfo[i].modelName, mapLocInfo[i].position, mapLocInfo[i].rotation);
 			itemboxnum++;
 		}
-		else if (strcmp(mapLocInfo[i].modelName, "helmet") == 0)
-		{
-
-			helmet = NewGO<HelmetLight>(0);
-		}
 		else if (strcmp(mapLocInfo[i].modelName, "Enemy") == 0)
 		{
 			enemy[enemynum] = NewGO<Enemy>(0);
@@ -164,10 +159,13 @@ void Map::Delete()
 	}
 	for (int i = 0;i < enemynum;i++)
 	{
-		enemy[i]->Delete();
-		enemy[i] = nullptr;
+		if (enemy[i] == nullptr)
+		{
+			enemy[i]->Delete();
+			enemy[i] = nullptr;
+		}
 	}
-	helmet->Delete();
+	//helmet->Delete();
 	helmet = nullptr;
 	DeleteGO(this);
 }

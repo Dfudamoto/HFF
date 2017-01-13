@@ -157,7 +157,7 @@ void ItemShow::Update()
 void ItemShow::Render(CRenderContext& rendercontext)
 {
 	sprite.Draw(rendercontext);
-	if (itemnum == BOMB || itemnum == APPLE)
+	if (itemnum == BOMB || itemnum == APPLE || itemnum == DEBUFFITEM)
 	{
 		num1sprite.Draw(rendercontext);
 		num2sprite.Draw(rendercontext);

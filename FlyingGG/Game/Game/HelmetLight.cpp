@@ -33,10 +33,10 @@ void HelmetLight::Update()
 	//プレイヤーが拾った状態
 	if (pickup)
 	{
-		position = player->position;
-		rotation = player->rotation;
+		//position = player->position;
+		//rotation = player->rotation;
 	}
-	CMatrix matrix = player->knife_model.GetWorldMatrix();
+	CMatrix matrix = player->player_model.GetWorldMatrix();
 	CVector3 lightdirection;
 	lightdirection.x = matrix.m[2][0];
 	lightdirection.y = matrix.m[2][1];
@@ -44,7 +44,7 @@ void HelmetLight::Update()
 	lightdirection.Normalize();
 
 
-	//シャドウマップのライトの設定
+	////シャドウマップのライトの設定
 	CVector3 lightposition = player->position;
 	lightdirection.Add(lightposition);
 	lightposition.y -= 0.4;
@@ -52,8 +52,8 @@ void HelmetLight::Update()
 	ShadowMap().SetLightPosition(lightposition);
 	ShadowMap().SetLightTarget(lightdirection);
 	ShadowMap().Update();
-	Equip();
-	model.Update(position, rotation, CVector3::One);
+	//Equip();
+	//model.Update(position, rotation, CVector3::One);
 }
 
 void HelmetLight::Equip()
@@ -78,7 +78,7 @@ void HelmetLight::Render(CRenderContext& rendercontext)
 	{
 		return;
 	}
-	model.Draw(rendercontext, gamecamera->camera.GetViewMatrix(), gamecamera->camera.GetProjectionMatrix());
+	//model.Draw(rendercontext, gamecamera->camera.GetViewMatrix(), gamecamera->camera.GetProjectionMatrix());
 }
 
 void HelmetLight::Delete()
@@ -87,6 +87,6 @@ void HelmetLight::Delete()
 	{
 		return;
 	}
-	DeleteGO(this);
+	//DeleteGO(this);
 }
 

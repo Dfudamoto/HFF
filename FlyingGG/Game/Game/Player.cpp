@@ -35,6 +35,7 @@ Player::Player()
 	nockbackflg = false;
 	speedup_flg = false;
 	speedup_count = 0.0f;
+	attackflg = false;
 }
 
 Player::~Player()
@@ -43,8 +44,7 @@ Player::~Player()
 }
 
 void Player::Init(CVector3 position, CQuaternion rotation)
-{
-	 
+{ 
 	player_modelresource.Load(player_data, "Assets/modelData/bodyg_alpha.X", &player_animation);
 	player_model.Init(player_data.GetBody());
 	player_model.SetLight(&light);
@@ -67,6 +67,7 @@ void Player::Init(CVector3 position, CQuaternion rotation)
 
 void Player::Update()
 {
+	attackflg = false;
 	if (Pad(0).IsTrigger(enButtonLB3))
 	{
 		hp = 0;
@@ -76,9 +77,12 @@ void Player::Update()
 		switch (itemnum)
 		{
 		case ItemShow::KNIFE:
-			player_animation.PlayAnimation(KNIFE);
-			knife_animation.PlayAnimation(1);
-			enemy[0]->NockBack2();
+			if (player_animation.GetPlayAnimNo() != KNIFE || (player_animation.GetPlayAnimNo() == KNIFE && !player_animation.IsPlay()))
+			{
+				player_animation.PlayAnimation(KNIFE);
+				knife_animation.PlayAnimation(1);
+				attackflg = true;
+			}
 			break;
 		case ItemShow::BOMB:
 			if (bombcount > 0)

@@ -1,16 +1,14 @@
 #pragma once
-
-
-
-class MapChip : public IGameObject
+class BrokenWall : public IGameObject
 {
 public:
-	//ここからメンバ関数。
-	MapChip();
-	~MapChip();
+	BrokenWall();
+	~BrokenWall();
+
 	void Init(const char* modelName, CVector3 position, CQuaternion rotation);
 	void Update();
 	void Render(CRenderContext& renderContext);
+	void Break(CVector3&);
 	void Delete();
 
 	//ここからメンバ変数。
@@ -22,7 +20,5 @@ public:
 	CLight				maplight;		//テスト用
 	CSkinModelDataHandle modeldata;
 	CSkinModelDataResources modelresource;
-	CQuaternion				rotation;
-	RigidBodyInfo rbInfo;
 };
 

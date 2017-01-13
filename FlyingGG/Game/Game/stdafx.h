@@ -4,11 +4,11 @@
 
 #ifndef _STDAFX_H_
 #define _STDAFX_H_
-#define BOMBNUM 10
-#define APPLENUM 10
-#define WALLNUM 100
+#define BOMBNUM 100
+#define APPLENUM 100
+#define WALLNUM 200
 #define ENEMYNUM 100
-#define DEBUFFNUM 10
+#define DEBUFFNUM 100
 #define MAXHP 130
 #define HEIGHT 2.0f
 

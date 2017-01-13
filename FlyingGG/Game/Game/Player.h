@@ -63,5 +63,6 @@ public:
 	bool						nockbackflg;
 	bool						speedup_flg;
 	float						speedup_count;
+	bool						attackflg;
 };
 

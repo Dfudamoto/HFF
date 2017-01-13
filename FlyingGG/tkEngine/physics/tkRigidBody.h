@@ -17,7 +17,6 @@ namespace tkEngine{
 		CQuaternion rot;			//回転。
 		ICollider* collider;		//コライダー。
 		float mass;					//質量。
-
 	};
 	//剛体クラス。
 	class CRigidBody
