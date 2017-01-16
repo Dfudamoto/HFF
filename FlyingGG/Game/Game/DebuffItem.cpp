@@ -11,9 +11,8 @@ extern DebuffItem *debuffitem[DEBUFFNUM];
 
 DebuffItem::DebuffItem()
 {
-	light.SetAmbinetLight(CVector3::One);
-	//light.SetAmbinetLight({0.01f, 0.01f, 0.01f});
-	//light.SetDiffuseLightColor(0, { 0.9f, 0.9f, 0.9f, 1.0f });
+	light.SetAmbinetLight(CVector3::Zero);
+	light.SetDiffuseLightColor(0, { 1.0f, 1.0f, 1.0f, 1.0f });
 	harves = false;
 	deleteflg = false;
 }
@@ -35,20 +34,31 @@ void DebuffItem::Init(const char *modelname, CVector3 position, CQuaternion rota
 	model.SetLight(&light);
 	this->position = position;
 	this->rotation = rotation;
+	initpos = position;
 	charactercontroller.Init(0.3f, 0.3f, position);
 	charactercontroller.SetMoveSpeed(CVector3::Zero);
+	this->rotation.SetRotation(CVector3::AxisY, 0.0f);
 	model.Update(position, rotation, CVector3::One);
 }
 
 void DebuffItem::Update()
 {
-	CVector3 distance;
-	distance.Subtract(position, player->position);
 	Eatable();
 	PickUp();
 	Move();
-	distance.Normalize();
-	light.SetDiffuseLightDirection(0, distance);
+	CVector3 direction;
+	direction.Subtract(position, player->position);
+	CVector3 distance = direction;
+	distance.Scale(0.2f);
+	float light_scale = 1.0f / distance.Length();
+	direction.Normalize();
+	float light_limit = 1.0f;
+	if (light_scale > light_limit)
+	{
+		light_scale = light_limit;
+	}
+	direction.Scale(light_scale);
+	light.SetDiffuseLightDirection(0, direction);
 	model.Update(position, rotation, CVector3::One);
 }
 
@@ -146,4 +156,12 @@ void DebuffItem::Delete()
 	}
 	charactercontroller.RemoveRigidBoby();
 	DeleteGO(this);
+}
+
+void DebuffItem::ReInit()
+{
+	position = initpos;
+	rotation.SetRotation(CVector3::AxisY, 0.0f);
+	harves = false;
+	charactercontroller.SetPickUp(false);
 }

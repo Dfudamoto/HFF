@@ -26,8 +26,6 @@ public:
 	CSkinModelDataResources	modelresource;
 	CLight					light;
 	CCharacterController	charactercontroller;
-	CRigidBody				rigidbody;
-	CMeshCollider			meshcollider;
 	float					timer;
 	bool					discovery;
 	bool					rotswitch;

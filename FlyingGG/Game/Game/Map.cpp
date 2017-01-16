@@ -102,7 +102,7 @@ void Map::Start()
 			enemy[enemynum]->Init(mapLocInfo[i].modelName, mapLocInfo[i].position, mapLocInfo[i].rotation);
 			enemynum++;
 		}
-		else if (strcmp(mapLocInfo[i].modelName, "wall") == 0)
+		else if (strcmp(mapLocInfo[i].modelName, "brokenwall") == 0)
 		{
 			wall[wallnum] = NewGO<BrokenWall>(0);
 			wall[wallnum]->Init(mapLocInfo[i].modelName, mapLocInfo[i].position, mapLocInfo[i].rotation);
@@ -116,6 +116,7 @@ void Map::Start()
 			mapchipnum++;
 		}
 	}
+	helmet = NewGO<HelmetLight>(0);
 	gamecamera = NewGO<GameCamera>(0);
 	if (scene != nullptr)
 	{
@@ -165,7 +166,60 @@ void Map::Delete()
 			enemy[i] = nullptr;
 		}
 	}
-	//helmet->Delete();
+	helmet->Delete();
 	helmet = nullptr;
 	DeleteGO(this);
+}
+
+void Map::ReInit()
+{
+	////マップにいくつのオブジェクトが配置されているか調べる。
+	//int numObject = sizeof(mapLocInfo) / sizeof(mapLocInfo[0]);
+	////置かれているオブジェクトの数だけマップチップを生成する。
+	//for (int i = 0; i < numObject; i++) {
+	//	if (strcmp(mapLocInfo[i].modelName, "apple") == 0)
+	//	{
+	//		if (apple[applenum] == nullptr)
+	//		{
+	//			apple[applenum] = NewGO<HealingApple>(0);
+	//			//モデル名、座標、回転を与えてマップチップを初期化する。
+	//			apple[applenum]->Init(mapLocInfo[i].modelName, mapLocInfo[i].position, mapLocInfo[i].rotation);
+	//		}
+	//		else
+	//		{
+	//			apple[applenum]->ReInit();
+	//		}
+	//		applenum++;
+	//	}
+	//	else if (strcmp(mapLocInfo[i].modelName, "dragonfruit") == 0)
+	//	{
+	//		if (debuffitem[debuffnum] == nullptr)
+	//		{
+	//			debuffitem[debuffnum] = NewGO<DebuffItem>(0);
+	//			//モデル名、座標、回転を与えてマップチップを初期化する。
+	//			debuffitem[debuffnum]->Init(mapLocInfo[i].modelName, mapLocInfo[i].position, mapLocInfo[i].rotation);
+	//		}
+	//		else
+	//		{
+	//			debuffitem[debuffnum]->ReInit();
+	//		}
+	//		debuffnum++;
+	//	}
+	//	else if (strcmp(mapLocInfo[i].modelName, "woodbox") == 0)
+	//	{
+	//		if (itembox[itemboxnum] == nullptr)
+	//		{
+	//			itembox[itemboxnum] = NewGO<ItemBox>(0);
+	//			//モデル名、座標、回転を与えてマップチップを初期化する。
+	//			itembox[itemboxnum]->Init(mapLocInfo[i].modelName, mapLocInfo[i].position, mapLocInfo[i].rotation);
+	//		}
+	//		itemboxnum++;
+	//	}
+	//}
+	player->ReInit();
+	//if (scene != nullptr)
+	//{
+	//	DeleteGO(scene->load);
+	//	scene->load = nullptr;
+	//}
 }

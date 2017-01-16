@@ -9,12 +9,12 @@ extern Player *player;
 
 MapChip::MapChip()
 {
-	light.SetAmbinetLight({ 0.01f, 0.01f, 0.01f });
-	light.SetDiffuseLightColor(0, { 0.9f, 0.9f, 0.9f, 1.0f });
-	//maplight.SetAmbinetLight({ 0.01f, 0.01f, 0.01f });
-	//maplight.SetAmbinetLight(CVector3::One);
+	light.SetAmbinetLight(CVector3::Zero);
+	light.SetDiffuseLightColor(0, { 1.0f, 1.0f, 1.0f, 1.0f });
+	maplight.SetAmbinetLight(CVector3::Zero);
 	maplight.SetDiffuseLightColor(0, {0.05f, 0.05f, 0.05f, 1.0f});
 	maplight.SetDiffuseLightDirection(0, { 0.0f, -1.0f, 0.0f });
+	walllight.SetAmbinetLight(CVector3::Zero);
 }
 
 
@@ -61,25 +61,56 @@ void MapChip::Init(const char* modelName, CVector3 position, CQuaternion rotatio
 	rigidBody.Create(rbInfo);
 	//ì¬‚µ‚½„‘Ì‚ð•¨—ƒ[ƒ‹ƒh‚É’Ç‰Á‚·‚éB
 	PhysicsWorld().AddRigidBody(&rigidBody);
+	modelname = modelName;
 }
 void MapChip::Update()
 {
-	CVector3 direction;
-	direction.Subtract(position, player->position);
-	CVector3 distance = direction;
-	distance.Scale(0.2f);
-
-
-	float light_scale = 1.0f / distance.Length();
-	direction.Normalize();
-	float light_limit = 1.0f;
-	if (light_scale > light_limit)
+	if (strcmp(modelname, "ground") == 0)
 	{
-		light_scale = light_limit;
+		float pointlightcolor = 4.0f;
+		maplight.SetPointLightPosition(player->position);
+		maplight.SetPointLightColor({ pointlightcolor, pointlightcolor, pointlightcolor, 1.0f });
+
 	}
-	direction.Scale(light_scale);
-	light.SetDiffuseLightDirection(0, direction);
-	float pointlightcolor = 4.0f;
+	else if (strcmp(modelname, "tree") == 0)
+	{
+		CVector3 direction;
+		direction.Subtract(position, player->position);
+		CVector3 distance = direction;
+		distance.Scale(0.2f);
+
+
+		float light_scale = 1.0f / distance.Length();
+		direction.Normalize();
+		float light_limit = 1.0f;
+		if (light_scale > light_limit)
+		{
+			light_scale = light_limit;
+		}
+		direction.Scale(light_scale);
+		light.SetDiffuseLightDirection(0, direction);
+
+	}
+	else if (strcmp(modelname, "wall") == 0)
+	{
+		float pointlightcolor = 0.0f;
+		CVector3 distance;
+		distance.Subtract(player->position, position);
+		pointlightcolor = distance.Length();
+		if (distance.Length() > 4.0f)
+		{
+			pointlightcolor *= 4.0f;
+		}
+		else
+		{
+			pointlightcolor *= distance.Length();
+		}
+		light.SetPointLightPosition(player->position);
+		light.SetPointLightColor({ pointlightcolor, pointlightcolor, pointlightcolor, 1.0f });
+
+	}
+
+
 	skinModel.Update(position, rotation, CVector3::One);
 }
 void MapChip::Render(CRenderContext& renderContext)

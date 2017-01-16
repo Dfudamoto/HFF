@@ -19,10 +19,12 @@ public:
 	CMeshCollider		meshCollider;	//メッシュコライダー。
 	CRigidBody			rigidBody;		//剛体。
 	CVector3			position;		//場所
-	CLight				maplight;		//テスト用
+	CLight				maplight;		
+	CLight				walllight;
 	CSkinModelDataHandle modeldata;
 	CSkinModelDataResources modelresource;
 	CQuaternion				rotation;
 	RigidBodyInfo rbInfo;
+	const char *modelname;
 };
 

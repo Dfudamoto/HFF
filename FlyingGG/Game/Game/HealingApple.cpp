@@ -12,10 +12,8 @@ extern int itemnum;
 
 HealingApple::HealingApple()
 {	
-	//light.SetAmbinetLight({ 100.0f, 100.0f, 100.0f });
-	//light.SetAmbinetLight(CVector3::One);
-	light.SetAmbinetLight({ 0.01f,0.01f,0.01f });
-	light.SetDiffuseLightColor(0, { 0.9f, 0.9f, 0.9f, 1.0f });
+	light.SetAmbinetLight(CVector3::Zero);
+	light.SetDiffuseLightColor(0, { 1.0f, 1.0f, 1.0f, 1.0f });
 	harves = false;
 	deleteflg = false;
 }
@@ -38,28 +36,33 @@ void HealingApple::Init(const char *modelname, CVector3 position, CQuaternion ro
 	model.SetLight(&light);
 	this->position = position;
 	this->rotation = rotation;
+	initpos = position;
 	CVector3 movespeed = { 0.0f, 0.0f, 0.0 };
 	charactercontroller.SetMoveSpeed(movespeed);
 	charactercontroller.Init(0.3f, 0.3f, position);
+	this->rotation.SetRotation(CVector3::AxisY, 0.0f);
 	model.Update(position, rotation, CVector3::One);
+
 }
 
 void HealingApple::Update() 
 {
-	float scale = 0.01f;
+	float scale = 0.2f;
 	Eatable();
 	PickUp();
 	Move();
 	CVector3 direction;
 	direction.Subtract(position, player->position);
 	CVector3 distance = direction;
-	distance.Scale(scale);
+	distance.Scale(0.2f);
+	float light_scale = 1.0f / distance.Length();
 	direction.Normalize();
-	float lightscale = 1.0f / distance.Length();
-	if (lightscale < 1.0f)
+	float light_limit = 1.0f;
+	if (light_scale > light_limit)
 	{
-		direction.Scale(lightscale);
+		light_scale = light_limit;
 	}
+	direction.Scale(light_scale);
 	light.SetDiffuseLightDirection(0, direction);
 
 	model.Update(position, rotation, CVector3::One);
@@ -161,4 +164,13 @@ void HealingApple::Delete()
 {
 	charactercontroller.RemoveRigidBoby();
 	DeleteGO(this);
+}
+
+void HealingApple::ReInit()
+{
+	charactercontroller.SetPickUp(false);
+	harves = false;
+	deleteflg = false;
+	position = initpos;
+	rotation.SetRotation(CVector3::AxisY, 0.0f);
 }

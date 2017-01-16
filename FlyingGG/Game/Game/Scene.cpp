@@ -55,33 +55,8 @@ void Scene::Update()
 		}
 		break;
 	case GAMEOVER:
-		//ゲームオーバー画面の表示
-		if (transition_flg)
-		{
-			DeleteGO(hpbar);
-			hpbar = nullptr;
-			DeleteGO(itemshow);
-			itemshow = nullptr;
-			map->Delete();
-			map = nullptr;
-			player->Delete();
-			player = nullptr;
-			gameover = NewGO<GameOver>(0);
-			transition_flg = false;
-			break;
-		}
-		//ゲームを終了
-		if (Pad(0).IsTrigger(enButtonA))
-		{
-			Engine().Finish();
-			break;
-		}
-		//コンテニュー
-		if (Pad(0).IsTrigger(enButtonB))
-		{
-			load = NewGO<Load>(0);
-			transition_num = LOAD;
-		}
+		map->ReInit();
+		transition_num = GAMEPLAY;
 		break;
 	case GAMECLEAR:
 		break;

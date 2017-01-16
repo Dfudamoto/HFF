@@ -9,7 +9,8 @@ extern GameCamera *gamecamera;
 
 BrokenWall::BrokenWall()
 {
-	light.SetAmbinetLight(CVector3::One);
+	light.SetAmbinetLight(CVector3::Zero);
+	light.SetDiffuseLightColor(0, { 1.0f, 1.0f, 1.0f, 1.0f });
 }
 
 BrokenWall::~BrokenWall()
@@ -51,20 +52,20 @@ void BrokenWall::Init(const char* modelName, CVector3 position, CQuaternion rota
 
 void BrokenWall::Update()
 {
-	CVector3 direction;
-	direction.Subtract(position, player->position);
-	CVector3 distance = direction;
-	distance.Scale(0.05f);
-
-	direction.Normalize();
-	float light_scale = 1.0f / distance.Length();
-	float light_limit = 3.0f;
-	if (light_scale > light_limit)
+	float pointlightcolor = 0.0f;
+	CVector3 distance;
+	distance.Subtract(player->position, position);
+	pointlightcolor = distance.Length();
+	if (distance.Length() > 4.0f)
 	{
-		light_scale = light_limit;
+		pointlightcolor *= 4.0f;
 	}
-	direction.Scale(light_scale);
-	//light.SetDiffuseLightDirection(0, direction);
+	else
+	{
+		pointlightcolor *= distance.Length();
+	}
+	light.SetPointLightPosition(player->position);
+	light.SetPointLightColor({ pointlightcolor, pointlightcolor, pointlightcolor, 1.0f });
 }
 
 void BrokenWall::Break(CVector3& position)

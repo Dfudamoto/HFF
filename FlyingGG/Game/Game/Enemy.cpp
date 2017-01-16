@@ -9,27 +9,8 @@ extern Enemy *enemy[ENEMYNUM];
 
 Enemy::Enemy()
 {
-	light.SetAmbinetLight(CVector3::One);
-	position = { 5.0f, 3.0f, 0.0f };
-	rotation.SetRotation(CVector3::AxisY, CMath::DegToRad(0));
-	modelresource.Load(modeldata, "Assets/modelData/Enemy.X", NULL);
-	model.Init(modeldata.GetBody());
-	model.SetLight(&light);
-	charactercontroller.Init(0.3f, 0.3f, position);
-	//メッシュコライダーの作成。
-	meshcollider.CreateFromSkinModel(&model, modeldata.GetBody()->GetRootBoneWorldMatrix());
-	//剛体の作成。
-	RigidBodyInfo rbInfo;
-	//剛体のコライダーを渡す。
-	rbInfo.collider = &meshcollider;
-	//剛体の質量。0.0だと動かないオブジェクト。背景などは0.0にしよう。
-	rbInfo.mass = 0.0f;
-	rbInfo.pos = position;
-	rbInfo.rot = rotation;
-	rigidbody.Create(rbInfo);
-	//作成した剛体を物理ワールドに追加する。
-	PhysicsWorld().AddRigidBody(&rigidbody);
-	model.SetShadowCasterFlag(true);
+	light.SetAmbinetLight(CVector3::Zero);
+	light.SetDiffuseLightColor(0, { 1.0f, 1.0f, 1.0f, 1.0f });
 	discovery = false;
 	rotswitch = false;
 	saverad = 0.0f;
@@ -62,19 +43,7 @@ void Enemy::Init(const char *modelname, CVector3 position, CQuaternion rotation)
 	this->rotation = rotation;
 	charactercontroller.Init(0.3f, 0.3f, position);
 	model.Update(position, rotation, CVector3::One);
-	//メッシュコライダーの作成。
-	meshcollider.CreateFromSkinModel(&model, modeldata.GetBody()->GetRootBoneWorldMatrix());
-	//剛体の作成。
-	RigidBodyInfo rbInfo;
-	//剛体のコライダーを渡す。
-	rbInfo.collider = &meshcollider;
-	//剛体の質量。0.0だと動かないオブジェクト。背景などは0.0にしよう。
-	rbInfo.mass = 0.0f;
-	rbInfo.pos = position;
-	rbInfo.rot = rotation;
-	rigidbody.Create(rbInfo);
-	//作成した剛体を物理ワールドに追加する。
-	PhysicsWorld().AddRigidBody(&rigidbody);
+
 	model.SetShadowCasterFlag(true);
 	timer = 0.0f;
 	CMatrix matrix = model.GetWorldMatrix();
@@ -88,6 +57,7 @@ void Enemy::Init(const char *modelname, CVector3 position, CQuaternion rotation)
 
 void Enemy::Update()
 {
+	Delete();
 	if (deleteflg)
 	{
 		return;
@@ -125,9 +95,13 @@ void Enemy::Update()
 	position = charactercontroller.GetPosition();
 	position.y += 1.5f;
 	model.Update(position, rotation, CVector3::One);
+	if (player->attackflg)
+	{
+		NockBack2();
+	}
 	if (hp <= 0 && !deleteflg)
 	{
-		Delete();
+		deleteflg = true;
 	}
 }
 
@@ -250,22 +224,35 @@ void Enemy::Move()
 		}
 
 	}
+	CVector3 direction;
+	direction.Subtract(position, player->position);
+	CVector3 distance = direction;
+	distance.Scale(0.2f);
 
+
+	float light_scale = 1.0f / distance.Length();
+	direction.Normalize();
+	float light_limit = 1.0f;
+	if (light_scale > light_limit)
+	{
+		light_scale = light_limit;
+	}
+	direction.Scale(light_scale);
+	light.SetDiffuseLightDirection(0, direction);
 }
 
 
 void Enemy::Render(CRenderContext& rendercontext)
 {
-	if (deleteflg)
-	{
-		return;
-	}
 	model.Draw(rendercontext, gamecamera->camera.GetViewMatrix(), gamecamera->camera.GetProjectionMatrix());
 }
 
 void Enemy::Delete()
 {
-	deleteflg = true;
+	if (!deleteflg)
+	{
+		return;
+	}
 	for (int i = 0;i < ENEMYNUM;i++)
 	{
 		if (enemy[i] != nullptr && enemy[i]->deleteflg)
@@ -274,8 +261,6 @@ void Enemy::Delete()
 		}
 	}
 	charactercontroller.RemoveRigidBoby();
-	PhysicsWorld().RemoveRigidBody(&rigidbody);
-	rigidbody.Release();
 	model.SetShadowCasterFlag(false);
 	DeleteGO(this);
 }

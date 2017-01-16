@@ -41,6 +41,8 @@ public:
 
 	void Delete();
 
+	void ReInit();
+
 	int							bombcount;
 	int							applecount;
 	int							debuffcount;
@@ -52,8 +54,8 @@ public:
 	CCharacterController		characterController;
 	float						radius;				//アイテムのあたり判定取るときの半径
 	CSkinModelDataHandle		player_data;			//モデルデータ
-	CSkinModelDataResources		player_modelresource;		//モデルデータハンドルを入れる媒体
-	CSkinModelDataResources		knife_modelresource;		//モデルデータハンドルを入れる媒体
+	CSkinModelDataResources		player_modelresource;	//モデルデータハンドルを入れる媒体
+	CSkinModelDataResources		knife_modelresource;	//モデルデータハンドルを入れる媒体
 	CSkinModelDataHandle		knife_data;			//モデルデータ
 	int							hp;					//プレイヤーの体力
 	CAnimation					player_animation;
@@ -64,5 +66,7 @@ public:
 	bool						speedup_flg;
 	float						speedup_count;
 	bool						attackflg;
+	CVector3					initpos;
+	CQuaternion					initrot;
 };
 

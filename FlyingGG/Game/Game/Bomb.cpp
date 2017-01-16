@@ -19,7 +19,8 @@ Bomb::Bomb()
 	random.Init((unsigned int)+time(NULL));
 	modelresource.Load(modeldata, "Assets/modelData/bomb.X", NULL);
 	model.Init(modeldata.GetBody());
-	light.SetAmbinetLight(CVector3::One);
+	light.SetAmbinetLight(CVector3::Zero);
+	light.SetDiffuseLightColor(0, { 1.0f, 1.0f, 1.0f, 1.0f });
 	model.SetLight(&light);
 	rotation.SetRotation(CVector3::AxisY, CMath::DegToRad(0));
 	model.SetShadowCasterFlag(true);
@@ -53,7 +54,21 @@ void Bomb::Update()
 	CQuaternion multi;
 	multi.SetRotation(axisx, CMath::DegToRad(-angle));
 	rotation.Multiply(multi);
+	CVector3 direction;
+	direction.Subtract(position, player->position);
+	CVector3 distance = direction;
+	distance.Scale(0.2f);
 
+
+	float light_scale = 1.0f / distance.Length();
+	direction.Normalize();
+	float light_limit = 1.0f;
+	if (light_scale > light_limit)
+	{
+		light_scale = light_limit;
+	}
+	direction.Scale(light_scale);
+	light.SetDiffuseLightDirection(0, direction);
 	CollCheck();
 	Throw();
 	

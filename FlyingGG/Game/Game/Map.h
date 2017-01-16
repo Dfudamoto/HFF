@@ -18,6 +18,7 @@ public:
 	void Start();
 	void Update();
 	void Delete();
+	void ReInit();
 
 	int applenum;
 	int debuffnum;

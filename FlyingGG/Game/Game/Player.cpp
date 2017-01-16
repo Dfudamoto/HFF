@@ -25,7 +25,7 @@ Player::Player()
 	position = CVector3::Zero;
 	position = {0.0f, 3.0f, 0.0f };
 	rotation.SetRotation(CVector3::AxisY, CMath::DegToRad(0));
-	characterController.Init(0.5f, 1.0f, position);
+	characterController.Init(0.5f, 0.5f, position);
 	radius = 3.0f;
 	hp = MAXHP;
 	itemnum = 0;
@@ -63,6 +63,8 @@ void Player::Init(CVector3 position, CQuaternion rotation)
 	player_animation.SetAnimationLoopFlag(KNIFE, false);
 	player_animation.SetAnimationLoopFlag(BOMBTHROW, false);
 	knife_animation.SetAnimationLoopFlag(1, false);
+	initpos = position;
+	initrot = rotation;
 }
 
 void Player::Update()
@@ -107,6 +109,10 @@ void Player::Update()
 	player_model.Update(position, rotation, CVector3::One);
 	knife_animation.Update(3.0f / 60.0f);
 	knife_model.Update(position, rotation, CVector3::One);
+	if (position.y < -30.0f)
+	{
+		hp = 0;
+	}
 }
 
 void Player::Move()
@@ -224,3 +230,9 @@ void Player::NockBack()
 	nockbackflg = true;
 }
 
+void Player::ReInit()
+{
+	hp = MAXHP;
+	position = initpos;
+	rotation = initrot;
+}

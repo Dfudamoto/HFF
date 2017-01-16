@@ -60,14 +60,14 @@ void ItemBox::Update()
 	direction.Subtract(position, player->position);
 	CVector3 distance = direction;
 	distance.Scale(0.2f);
-
+	float light_scale = 1.0f / distance.Length();
 	direction.Normalize();
-	float lightscale = 1.0f / distance.Length();
-	if (distance.Length() > 1.0f)
+	float light_limit = 1.0f;
+	if (light_scale > light_limit)
 	{
-		direction.Scale(lightscale);
-
+		light_scale = light_limit;
 	}
+	direction.Scale(light_scale);
 	light.SetDiffuseLightDirection(0, direction);
 	model.Update(position, rotation, CVector3::One);
 }

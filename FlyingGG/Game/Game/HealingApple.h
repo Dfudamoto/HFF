@@ -19,6 +19,8 @@ public:
 
 	void Eatable();
 
+	void ReInit();
+
 	CSkinModel				model;					//ƒ‚ƒfƒ‹
 	CLight					light;					//ƒ‚ƒfƒ‹‚ÌŒõ
 	CVector3				position;				//HealingApple‚ÌÀ•W
@@ -28,5 +30,7 @@ public:
 	CSkinModelDataHandle	modeldata;
 	CSkinModelDataResources modelresource;
 	bool					deleteflg;
+	CVector3				initpos;
+
 };
 
