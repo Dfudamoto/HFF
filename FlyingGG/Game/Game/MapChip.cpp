@@ -11,7 +11,7 @@ MapChip::MapChip()
 {
 	light.SetAmbinetLight(CVector3::Zero);
 	light.SetDiffuseLightColor(0, { 1.0f, 1.0f, 1.0f, 1.0f });
-	maplight.SetAmbinetLight(CVector3::One);
+	maplight.SetAmbinetLight(CVector3::Zero);
 	maplight.SetDiffuseLightColor(0, {0.05f, 0.05f, 0.05f, 1.0f});
 	maplight.SetDiffuseLightDirection(0, { 0.0f, -1.0f, 0.0f });
 	walllight.SetAmbinetLight(CVector3::Zero);
