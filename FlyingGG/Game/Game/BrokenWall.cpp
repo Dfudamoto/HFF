@@ -72,9 +72,13 @@ void BrokenWall::Break(CVector3& position)
 {
 	CVector3 distance;
 	distance.Subtract(this->position, position);
-	if (distance.Length() < 5.0f)
+	if (distance.Length() < 7.0f)
 	{
 		Delete();
+		CSoundSource *sound;
+		sound = NewGO<CSoundSource>(0);
+		sound->Init("Assets/SE/wallbreak.wav");
+		sound->Play(false);
 	}
 }
 

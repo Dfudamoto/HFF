@@ -145,6 +145,10 @@ void DebuffItem ::Eatable()
 	player->debuffcount--;
 	player->speedup_flg = true;
 	player->speedup_count = 0.0f;
+	CSoundSource *sound;
+	sound = NewGO<CSoundSource>(0);
+	sound->Init("Assets/SE/eatapple.wav");
+	sound->Play(false);
 	Delete();
 }
 

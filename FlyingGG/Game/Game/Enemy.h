@@ -19,6 +19,8 @@ public:
 
 	void NockBack2();
 
+	void ReInit();
+
 	CVector3				position;
 	CQuaternion				rotation;
 	CSkinModel				model;
@@ -40,5 +42,8 @@ public:
 	CVector3				move_angle;
 	int						hp;
 	bool					deleteflg;
+	CQuaternion				initrot;
+	CVector3				initpos;
+
 };
 

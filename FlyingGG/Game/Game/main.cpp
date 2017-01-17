@@ -72,14 +72,14 @@ int WINAPI wWinMain(
 	//tkEngineの初期化。
 	InitTkEngine( hInst );
 	scene = nullptr;
-	NewGO<HelmetLight>(0);
-	NewGO<Map>(0);
-	NewGO<HPBar>(1);
-	NewGO<ItemShow>(1);
+	//NewGO<HelmetLight>(0);
+	//NewGO<Map>(0);
+	//NewGO<HPBar>(1);
+	//NewGO<ItemShow>(1);
 	//enemy[0] = NewGO<Enemy>(0);
 	//NewGO<sky>(1);//モデルをテスト表示
 	//NewGO<Title>(0);
-	//scene = NewGO<Scene>(0);
+	scene = NewGO<Scene>(0);
 	Engine().RunGameLoop();		//ゲームループを実行。
 
 	return 0;

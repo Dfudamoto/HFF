@@ -68,5 +68,9 @@ public:
 	bool						attackflg;
 	CVector3					initpos;
 	CQuaternion					initrot;
+	bool						jumpsoundflg;
+	CSoundSource				*bgm;
+	CSoundSource				*walksound;
+	bool						walksoundflg;
 };
 

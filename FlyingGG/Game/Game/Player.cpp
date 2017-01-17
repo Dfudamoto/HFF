@@ -28,6 +28,8 @@ Player::Player()
 	speedup_flg = false;
 	speedup_count = 0.0f;
 	attackflg = false;
+	jumpsoundflg = false;
+	walksoundflg = true;
 }
 
 Player::~Player()
@@ -57,15 +59,16 @@ void Player::Init(CVector3 position, CQuaternion rotation)
 	knife_animation.SetAnimationLoopFlag(1, false);
 	initpos = position;
 	initrot = rotation;
+	bgm = NewGO<CSoundSource>(0);
+	bgm->Init("Assets/SE/wind.wav");
+	bgm->Play(true);
+	walksound = NewGO<CSoundSource>(0);
+	walksound->Init("Assets/SE/walk-tatami1.wav");
 }
 
 void Player::Update()
 {
 	attackflg = false;
-	if (Pad(0).IsTrigger(enButtonLB3))
-	{
-		hp = 0;
-	}
 	if (Pad(0).IsTrigger(enButtonX))
 	{
 		switch (itemnum)
@@ -76,18 +79,35 @@ void Player::Update()
 				player_animation.PlayAnimation(KNIFE);
 				knife_animation.PlayAnimation(1);
 				attackflg = true;
+				CSoundSource *knife;
+				knife = NewGO<CSoundSource>(0);
+				knife->Init("Assets/SE/sword-gesture1.wav");
+				knife->Play(false);
 			}
 			break;
 		case ItemShow::BOMB:
 			if (bombcount > 0)
 			{
 				player_animation.PlayAnimation(BOMBTHROW);
+				CSoundSource *sound;
+				sound = NewGO<CSoundSource>(0);
+				sound->Init("Assets/SE/throw.wav");
+				sound->Play(false);
 			}
 			break;
 		}
 	}
 	if (!characterController.IsJump())
 	{
+		if (jumpsoundflg)
+		{
+			CSoundSource *landing;
+			landing = NewGO<CSoundSource>(0);
+			landing->Init("Assets/SE/landing.wav");
+			landing->Play(false);
+			jumpsoundflg = false;
+			walksoundflg = true;
+		}
 		nockbackflg = false;
 	}
 	Move();
@@ -135,7 +155,6 @@ void Player::Move()
 			speedup_flg = false;
 		}
 	}
-	
 	//プレイヤーの横方向へのベクトルの取得
 	move_direction_x.x = matrix.m[0][0];
 	move_direction_x.z = matrix.m[0][2];
@@ -155,6 +174,28 @@ void Player::Move()
 	{
 		characterController.Jump();
 		move.y = 10.0f;
+		jumpsoundflg = true;
+		CSoundSource *jump;
+		jump = NewGO<CSoundSource>(0);
+		jump->Init("Assets/SE/jump.wav");
+		jump->Play(false);
+		walksound->Stop();
+	}
+	if (Pad(0).GetLStickXF() != 0 || Pad(0).GetLStickYF() != 0)
+	{
+		if (walksoundflg)
+		{
+			walksound->Play(true);
+			walksoundflg = false;
+		}
+	}
+	else
+	{
+		if (!walksoundflg)
+		{
+			walksound->Stop();
+		}
+		walksoundflg = true;
 	}
 	//決定した移動速度をキャラクタコントローラーに設定。
 	characterController.SetMoveSpeed(move);
@@ -201,6 +242,8 @@ void Player::BombDam(CVector3& bombpos)
 
 void Player::Delete()
 {
+	DeleteGO(bgm);
+	DeleteGO(walksound);
 	player_model.SetShadowCasterFlag(false);
 	characterController.RemoveRigidBoby();
 	DeleteGO(this);

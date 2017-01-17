@@ -214,7 +214,11 @@ void Bomb::CollCheck()
 			}
 		}
 	}
-	player->BombDam(position);
+	//player->BombDam(position);
+	CSoundSource *sound;
+	sound = NewGO<CSoundSource>(0);
+	sound->Init("Assets/SE/explosion03.wav");
+	sound->Play(false);
 	Delete();
 }
 

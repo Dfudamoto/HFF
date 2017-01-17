@@ -41,6 +41,8 @@ void Enemy::Init(const char *modelname, CVector3 position, CQuaternion rotation)
 	model.SetLight(&light);
 	this->position = position;
 	this->rotation = rotation;
+	initpos = position;
+
 	charactercontroller.Init(0.3f, 0.3f, position);
 	model.Update(position, rotation, CVector3::One);
 
@@ -89,6 +91,9 @@ void Enemy::Update()
 		{
 			hp--;
 			NockBack2();
+			CSoundSource *sound;
+			sound = NewGO<CSoundSource>(0);
+			sound->Init("Assets/SE/swordkill1.wav");
 		}
 	}
 	Move();
@@ -260,6 +265,14 @@ void Enemy::Delete()
 	charactercontroller.RemoveRigidBoby();
 	model.SetShadowCasterFlag(false);
 	DeleteGO(this);
+}
+
+void Enemy::ReInit()
+{
+	position = initpos;
+	rotation = initrot;
+	hp = 2;
+	discovery = false;
 }
 
 void Enemy::NockBack()

@@ -135,7 +135,6 @@ void Map::Start()
 }
 void Map::Update()
 {
-
 }
 
 void Map::Delete()
@@ -185,12 +184,11 @@ void Map::Delete()
 
 void Map::ReInit()
 {
-	//マップにいくつのオブジェクトが配置されているか調べる。
 	int numObject = sizeof(mapLocInfo) / sizeof(mapLocInfo[0]);
-	//置かれているオブジェクトの数だけマップチップを生成する。
 	int applecount = 0;
 	int debuffcount = 0;
 	int itemboxcount = 0;
+	int enemycount = 0;
 	for (int i = 0; i < numObject; i++) {
 		if (strcmp(mapLocInfo[i].modelName, "apple") == 0)
 		{
@@ -227,6 +225,20 @@ void Map::ReInit()
 				itembox[itemboxcount] = NewGO<ItemBox>(0);
 				//モデル名、座標、回転を与えてマップチップを初期化する。
 				itembox[itemboxcount]->Init(mapLocInfo[i].modelName, mapLocInfo[i].position, mapLocInfo[i].rotation);
+			}
+			itemboxcount++;
+		}
+		else if (strcmp(mapLocInfo[i].modelName, "Enemy") == 0)
+		{
+			if (enemy[enemycount] == nullptr)
+			{
+				enemy[enemycount] = NewGO<Enemy>(0);
+				//モデル名、座標、回転を与えてマップチップを初期化する。
+				enemy[enemycount]->Init(mapLocInfo[i].modelName, mapLocInfo[i].position, mapLocInfo[i].rotation);
+			}
+			else
+			{
+				enemy[enemycount]->ReInit();
 			}
 			itemboxcount++;
 		}

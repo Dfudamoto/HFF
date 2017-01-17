@@ -157,6 +157,10 @@ void HealingApple::Eatable()
 	{
 		player->hp += 10;
 	}
+	CSoundSource *sound;
+	sound = NewGO<CSoundSource>(0);
+	sound->Init("Assets/SE/eatapple.wav");
+	sound->Play(false);
 	Delete();
 	player->applecount--;
 }

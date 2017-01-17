@@ -94,6 +94,10 @@ void ItemBox::BombCreate()
 			{
 				bomb[i] = NewGO<Bomb>(0);
 				bomb[i]->Init(position);
+				CSoundSource *itembox;
+				itembox = NewGO<CSoundSource>(0);
+				itembox->Init("Assets/SE/woodboxbreak.wav");
+				itembox->Play(false);
 				break;
 			}
 		}
