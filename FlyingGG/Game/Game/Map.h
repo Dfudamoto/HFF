@@ -26,7 +26,6 @@ public:
 	int itemboxnum;
 	int enemynum;
 	int wallnum;
-	ItemBox *itembox[100];
 	MapChip *mapchip[100];
 	HelmetLight *helmet;
 	int deletewindow;

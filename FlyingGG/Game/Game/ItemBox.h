@@ -23,5 +23,6 @@ public:
 	CMeshCollider			meshcollider;
 	CSkinModelDataHandle	modeldata;
 	CSkinModelDataResources modelresource;
+	bool					deleteflg;
 };
 

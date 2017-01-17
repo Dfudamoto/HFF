@@ -7,6 +7,7 @@
 #include "ItemShow.h"
 #include "GameOver.h"
 #include "Load.h"
+#include "Goal.h"
 
 class Scene : public IGameObject
 {

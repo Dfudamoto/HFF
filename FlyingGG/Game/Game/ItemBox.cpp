@@ -11,11 +11,14 @@ extern Player *player;
 Bomb *bomb[BOMBNUM];
 extern CLight darklight;
 
+extern ItemBox *itembox[ITEMBOXNUM];
+
 
 ItemBox::ItemBox()
 {
 	light.SetAmbinetLight({0.01f, 0.01f,0.01f});
 	light.SetDiffuseLightColor(0, { 0.9f, 0.9f, 0.9f, 1.0f });
+	deleteflg = false;
 }
 
 ItemBox::~ItemBox()
@@ -104,6 +107,14 @@ void ItemBox::Render(CRenderContext& rendercontext)
 
 void ItemBox::Delete()
 {
+	deleteflg = true;
+	for (int i = 0;i < ITEMBOXNUM;i++)
+	{
+		if (itembox[i] != nullptr && itembox[i]->deleteflg)
+		{
+			itembox[i] = nullptr;
+		}
+	}
 	model.SetShadowCasterFlag(false);
 	PhysicsWorld().RemoveRigidBody(&rigidbody);
 	rigidbody.Release();

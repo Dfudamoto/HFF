@@ -72,7 +72,7 @@ int WINAPI wWinMain(
 	//tkEngine‚Ì‰Šú‰»B
 	InitTkEngine( hInst );
 	scene = nullptr;
-	//NewGO<HelmetLight>(0);
+	NewGO<HelmetLight>(0);
 	NewGO<Map>(0);
 	NewGO<HPBar>(1);
 	NewGO<ItemShow>(1);

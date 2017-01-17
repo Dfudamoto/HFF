@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Map.h"
 #include "Scene.h"
-
+#include "Goal.h"
 
 CLight defaultlight;
 extern HealingApple *apple[APPLENUM];
@@ -12,6 +12,8 @@ extern Scene *scene;
 Enemy *enemy[ENEMYNUM];
 extern Player *player;
 extern GameCamera *gamecamera;
+Goal *goal;
+ItemBox *itembox[ITEMBOXNUM];
 
 struct SMapInfo {
 	const char* modelName;
@@ -55,6 +57,7 @@ Map::Map()
 		wall[i] = nullptr;
 	}
 	helmet = nullptr;
+	goal = nullptr;
 
 }
 
@@ -108,6 +111,11 @@ void Map::Start()
 			wall[wallnum]->Init(mapLocInfo[i].modelName, mapLocInfo[i].position, mapLocInfo[i].rotation);
 			wallnum++;
 		}
+		else if (strcmp(mapLocInfo[i].modelName, "Goal") == 0)
+		{
+			goal = NewGO<Goal>(0);
+			goal->Init(mapLocInfo[i].modelName, mapLocInfo[i].position, mapLocInfo[i].rotation);
+		}
 		else
 		{
 			mapchip[mapchipnum] = NewGO<MapChip>(0);
@@ -153,14 +161,18 @@ void Map::Delete()
 		mapchip[i]->Delete();
 		mapchip[i] = nullptr;
 	}
+
 	for (int i = 0;i < itemboxnum;i++)
 	{
-		itembox[i]->Delete();
-		itembox[i] = nullptr;
+		if (itembox[i] != nullptr)
+		{
+			itembox[i]->Delete();
+			itembox[i] = nullptr;
+		}
 	}
 	for (int i = 0;i < enemynum;i++)
 	{
-		if (enemy[i] == nullptr)
+		if (enemy[i] != nullptr)
 		{
 			enemy[i]->Delete();
 			enemy[i] = nullptr;
@@ -173,49 +185,52 @@ void Map::Delete()
 
 void Map::ReInit()
 {
-	////マップにいくつのオブジェクトが配置されているか調べる。
-	//int numObject = sizeof(mapLocInfo) / sizeof(mapLocInfo[0]);
-	////置かれているオブジェクトの数だけマップチップを生成する。
-	//for (int i = 0; i < numObject; i++) {
-	//	if (strcmp(mapLocInfo[i].modelName, "apple") == 0)
-	//	{
-	//		if (apple[applenum] == nullptr)
-	//		{
-	//			apple[applenum] = NewGO<HealingApple>(0);
-	//			//モデル名、座標、回転を与えてマップチップを初期化する。
-	//			apple[applenum]->Init(mapLocInfo[i].modelName, mapLocInfo[i].position, mapLocInfo[i].rotation);
-	//		}
-	//		else
-	//		{
-	//			apple[applenum]->ReInit();
-	//		}
-	//		applenum++;
-	//	}
-	//	else if (strcmp(mapLocInfo[i].modelName, "dragonfruit") == 0)
-	//	{
-	//		if (debuffitem[debuffnum] == nullptr)
-	//		{
-	//			debuffitem[debuffnum] = NewGO<DebuffItem>(0);
-	//			//モデル名、座標、回転を与えてマップチップを初期化する。
-	//			debuffitem[debuffnum]->Init(mapLocInfo[i].modelName, mapLocInfo[i].position, mapLocInfo[i].rotation);
-	//		}
-	//		else
-	//		{
-	//			debuffitem[debuffnum]->ReInit();
-	//		}
-	//		debuffnum++;
-	//	}
-	//	else if (strcmp(mapLocInfo[i].modelName, "woodbox") == 0)
-	//	{
-	//		if (itembox[itemboxnum] == nullptr)
-	//		{
-	//			itembox[itemboxnum] = NewGO<ItemBox>(0);
-	//			//モデル名、座標、回転を与えてマップチップを初期化する。
-	//			itembox[itemboxnum]->Init(mapLocInfo[i].modelName, mapLocInfo[i].position, mapLocInfo[i].rotation);
-	//		}
-	//		itemboxnum++;
-	//	}
-	//}
+	//マップにいくつのオブジェクトが配置されているか調べる。
+	int numObject = sizeof(mapLocInfo) / sizeof(mapLocInfo[0]);
+	//置かれているオブジェクトの数だけマップチップを生成する。
+	int applecount = 0;
+	int debuffcount = 0;
+	int itemboxcount = 0;
+	for (int i = 0; i < numObject; i++) {
+		if (strcmp(mapLocInfo[i].modelName, "apple") == 0)
+		{
+			if (apple[applecount] == nullptr)
+			{
+				apple[applecount] = NewGO<HealingApple>(0);
+				//モデル名、座標、回転を与えてマップチップを初期化する。
+				apple[applecount]->Init(mapLocInfo[i].modelName, mapLocInfo[i].position, mapLocInfo[i].rotation);
+			}
+			else
+			{
+				apple[applecount]->ReInit();
+			}
+			applecount++;
+		}
+		else if (strcmp(mapLocInfo[i].modelName, "dragonfruit") == 0)
+		{
+			if (debuffitem[debuffcount] == nullptr)
+			{
+				debuffitem[debuffnum] = NewGO<DebuffItem>(0);
+				//モデル名、座標、回転を与えてマップチップを初期化する。
+				debuffitem[debuffcount]->Init(mapLocInfo[i].modelName, mapLocInfo[i].position, mapLocInfo[i].rotation);
+			}
+			else
+			{
+				debuffitem[debuffcount]->ReInit();
+			}
+			debuffcount++;
+		}
+		else if (strcmp(mapLocInfo[i].modelName, "woodbox") == 0)
+		{
+			if (itembox[itemboxcount] == nullptr)
+			{
+				itembox[itemboxcount] = NewGO<ItemBox>(0);
+				//モデル名、座標、回転を与えてマップチップを初期化する。
+				itembox[itemboxcount]->Init(mapLocInfo[i].modelName, mapLocInfo[i].position, mapLocInfo[i].rotation);
+			}
+			itemboxcount++;
+		}
+	}
 	player->ReInit();
 	//if (scene != nullptr)
 	//{

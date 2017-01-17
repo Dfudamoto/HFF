@@ -11,10 +11,11 @@ MapChip::MapChip()
 {
 	light.SetAmbinetLight(CVector3::Zero);
 	light.SetDiffuseLightColor(0, { 1.0f, 1.0f, 1.0f, 1.0f });
-	maplight.SetAmbinetLight(CVector3::Zero);
+	maplight.SetAmbinetLight(CVector3::One);
 	maplight.SetDiffuseLightColor(0, {0.05f, 0.05f, 0.05f, 1.0f});
 	maplight.SetDiffuseLightDirection(0, { 0.0f, -1.0f, 0.0f });
 	walllight.SetAmbinetLight(CVector3::Zero);
+	signpostlight.SetAmbinetLight({1.0f, 1.0f, 1.0f});
 }
 
 
@@ -39,6 +40,10 @@ void MapChip::Init(const char* modelName, CVector3 position, CQuaternion rotatio
 	{
 		skinModel.SetLight(&maplight);
 	}
+	else if (strcmp(modelName, "signpost") == 0)
+	{
+		skinModel.SetLight(&signpostlight);
+	}
 	else
 	{
 		skinModel.SetLight(&light);
@@ -52,6 +57,7 @@ void MapChip::Init(const char* modelName, CVector3 position, CQuaternion rotatio
 	//メッシュコライダーの作成。
 	meshCollider.CreateFromSkinModel(&skinModel, modeldata.GetBody()->GetRootBoneWorldMatrix());
 	//剛体の作成。
+	RigidBodyInfo rbInfo;
 	//剛体のコライダーを渡す。
 	rbInfo.collider = &meshCollider;
 	//剛体の質量。0.0だと動かないオブジェクト。背景などは0.0にしよう。

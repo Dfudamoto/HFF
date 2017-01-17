@@ -21,10 +21,10 @@ public:
 	CVector3			position;		//èÍèä
 	CLight				maplight;		
 	CLight				walllight;
+	CLight				signpostlight;
 	CSkinModelDataHandle modeldata;
 	CSkinModelDataResources modelresource;
 	CQuaternion				rotation;
-	RigidBodyInfo rbInfo;
 	const char *modelname;
 };
 

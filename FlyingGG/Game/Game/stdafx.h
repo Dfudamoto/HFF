@@ -9,6 +9,7 @@
 #define WALLNUM 200
 #define ENEMYNUM 100
 #define DEBUFFNUM 100
+#define ITEMBOXNUM 100
 #define MAXHP 130
 #define HEIGHT 2.0f
 

@@ -5,6 +5,7 @@
 #include "time.h"
 #include "ItemShow.h"
 #include "BrokenWall.h"
+#include "Enemy.h"
 
 extern GameCamera *gamecamera;
 extern Player *player;
@@ -13,6 +14,7 @@ extern CLight darklight;
 extern Bomb* bomb[BOMBNUM];
 extern int itemnum;
 extern BrokenWall *wall[WALLNUM];
+extern Enemy *enemy[ENEMYNUM];
 
 Bomb::Bomb()
 {
@@ -198,6 +200,18 @@ void Bomb::CollCheck()
 		if (wall[i] != nullptr)
 		{
 			wall[i]->Break(position);
+		}
+	}
+	for (int i = 0;i < ENEMYNUM;i++)
+	{
+		if (enemy[i] != nullptr)
+		{
+			CVector3 distance;
+			distance.Subtract(position, enemy[i]->position);
+			if (distance.Length() < 3.0f)
+			{
+				enemy[i]->deleteflg = true;
+			}
 		}
 	}
 	player->BombDam(position);

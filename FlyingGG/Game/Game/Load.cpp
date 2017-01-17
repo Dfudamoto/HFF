@@ -11,7 +11,7 @@ extern Player *player;
 
 Load::Load()
 {
-	back.Load("Assets/sprite/Load.jpg");
+	back.Load("Assets/sprite/road.png");
 	back_sp.Init(&back);
 	back_sp.SetSize({ 1330.5f, 730.5f });
 	back_sp.SetPivot({ 0.0f, 0.5f });

@@ -3,6 +3,7 @@
 
 extern Player *player;
 extern GameCamera *gamecamera;
+extern Goal *goal;
 
 
 Scene::Scene()
@@ -38,7 +39,6 @@ void Scene::Update()
 	case LOAD:
 		if (1 <= loadcount)
 		{
-			player = NewGO<Player>(0);
 			gamecamera = NewGO<GameCamera>(0);
 			map = NewGO<Map>(0);
 			hpbar = NewGO<HPBar>(1);
@@ -53,12 +53,32 @@ void Scene::Update()
 			transition_num = GAMEOVER;
 			transition_flg = true;
 		}
+		if (goal != nullptr && goal->hp <= 0)
+		{
+			transition_num = GAMECLEAR;
+			transition_flg = true;
+		}
 		break;
 	case GAMEOVER:
 		map->ReInit();
 		transition_num = GAMEPLAY;
 		break;
 	case GAMECLEAR:
+		if (transition_flg)
+		{
+			gameover = NewGO<GameOver>(0);
+			map->Delete();
+			map = nullptr;
+			DeleteGO(hpbar);
+			hpbar = nullptr;
+			DeleteGO(itemshow);
+			itemshow = nullptr;
+			transition_flg = false;
+		}
+		if (Pad(0).IsTrigger(enButtonA))
+		{
+			Engine().Finish();
+		}
 		break;
 	}
 

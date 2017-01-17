@@ -16,14 +16,6 @@ Player::Player()
 {
 
 	light.SetAmbinetLight(CVector3::One);
-	//player_modelresource.Load(player_data, "Assets/modelData/bodyg_alpha.X", &player_animation);
-	//player_model.Init(player_data.GetBody());
-	//player_model.SetLight(&light);
-	//knife_modelresource.Load(knife_data, "Assets/modelData/knife.X", &knife_animation);
-	//knife_model.Init(knife_data.GetBody());
-	//knife_model.SetLight(&light);
-	position = CVector3::Zero;
-	position = {0.0f, 3.0f, 0.0f };
 	rotation.SetRotation(CVector3::AxisY, CMath::DegToRad(0));
 	characterController.Init(0.5f, 0.5f, position);
 	radius = 3.0f;
@@ -159,7 +151,7 @@ void Player::Move()
 	move.Add(move_direction_x);
 	move.Add(move_direction_z);
 	//ÉWÉÉÉìÉvèàóù
-	if (Pad(0).IsTrigger(enButtonB))
+	if (Pad(0).IsTrigger(enButtonB) && !characterController.IsJump())
 	{
 		characterController.Jump();
 		move.y = 10.0f;
@@ -201,7 +193,7 @@ void Player::BombDam(CVector3& bombpos)
 {
 	CVector3 distance;
 	distance.Subtract(position, bombpos);
-	if (distance.Length() < 20.0f)
+	if (distance.Length() < 6.0f)
 	{
 		hp -= 10;
 	}
@@ -227,12 +219,17 @@ void Player::NockBack()
 	movespeed.y += 5.0f;
 	characterController.SetMoveSpeed(movespeed);
 	characterController.Execute();
+	hp -= 10;
 	nockbackflg = true;
 }
 
 void Player::ReInit()
 {
 	hp = MAXHP;
-	position = initpos;
-	rotation = initrot;
+	characterController.SetPosition(initpos);
+	position = characterController.GetPosition();
+	rotation.SetRotation(CVector3::AxisY, 0.0f);
+	bombcount = 0;
+	applecount = 0;
+	debuffcount = 0;
 }

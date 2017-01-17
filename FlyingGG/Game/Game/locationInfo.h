@@ -439,7 +439,7 @@
 //Goal
 {
 	"Goal",
-	CVector3(-62.32f, -23.00f, 266.10f),             //平行移動
+	CVector3(-62.32f, -21.00f, 266.10f),             //平行移動
 	CQuaternion(0.00f, 1.00f, 0.00f, 0.00f ), //回転
 },
 //woodbox

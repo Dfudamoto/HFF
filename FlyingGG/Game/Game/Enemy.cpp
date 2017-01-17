@@ -64,9 +64,9 @@ void Enemy::Update()
 	}
 	CVector3 distance;
 	distance.Subtract(player->position, position);
-	if (discovery && distance.Length() < 5.0f)
+	if (discovery && distance.Length() < 1.5f)
 	{
-		//player->NockBack();
+		player->NockBack();
 	}
 	//if (!charactercontroller.IsJump())
 	//{
@@ -88,6 +88,7 @@ void Enemy::Update()
 		if (distance.Length() < 2.0f)
 		{
 			hp--;
+			NockBack2();
 		}
 	}
 	Move();
@@ -95,10 +96,6 @@ void Enemy::Update()
 	position = charactercontroller.GetPosition();
 	position.y += 1.5f;
 	model.Update(position, rotation, CVector3::One);
-	if (player->attackflg)
-	{
-		NockBack2();
-	}
 	if (hp <= 0 && !deleteflg)
 	{
 		deleteflg = true;
@@ -200,7 +197,7 @@ void Enemy::Move()
 		rotation.SetRotation(CVector3::AxisY, CMath::DegToRad(angle));
 		CVector3 movespeed = direction;
 		movespeed.Scale(5.0f);
-		charactercontroller.SetMoveSpeed(CVector3::Zero);
+		charactercontroller.SetMoveSpeed(movespeed);
 	}
 	else
 	{

@@ -122,6 +122,10 @@ void HealingApple::PickUp()
 	position.y += 100.0f;
 	charactercontroller.SetGravity(0.0f);
 	charactercontroller.SetPosition(position);
+	if (itemnum != ItemShow::APPLE)
+	{
+		return;
+	}
 	if (Pad(0).IsTrigger(enButtonX))
 	{
 		for (int i = 0;i < APPLENUM;i++)
@@ -141,10 +145,7 @@ void HealingApple::Eatable()
 	{
 		return;
 	}
-	if (itemnum != ItemShow::APPLE)
-	{
-		return;
-	}
+
 	for (int i = 0;i < APPLENUM;i++)
 	{
 		if (apple[i] != nullptr && apple[i]->deleteflg)
