@@ -93,7 +93,8 @@ void Enemy::Update()
 			NockBack2();
 			CSoundSource *sound;
 			sound = NewGO<CSoundSource>(0);
-			sound->Init("Assets/SE/swordkill1.wav");
+			sound->Init("Assets/SE/swordkill.wav");
+			sound->Play(false);
 		}
 	}
 	Move();
