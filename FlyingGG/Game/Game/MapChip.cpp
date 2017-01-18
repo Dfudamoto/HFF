@@ -18,7 +18,6 @@ MapChip::MapChip()
 	signpostlight.SetAmbinetLight({1.0f, 1.0f, 1.0f});
 }
 
-
 MapChip::~MapChip()
 {
 }

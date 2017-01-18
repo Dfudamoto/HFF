@@ -451,18 +451,6 @@
 //woodbox
 {
 	"woodbox",
-	CVector3(-0.50f, -23.10f, 175.70f),             //平行移動
-	CQuaternion(0.00f, 0.00f, 0.00f, 1.00f ), //回転
-},
-//woodbox
-{
-	"woodbox",
-	CVector3(-46.60f, -23.10f, 177.70f),             //平行移動
-	CQuaternion(0.00f, 0.00f, 0.00f, 1.00f ), //回転
-},
-//woodbox
-{
-	"woodbox",
 	CVector3(38.80f, -23.10f, 145.50f),             //平行移動
 	CQuaternion(0.00f, 0.00f, 0.00f, 1.00f ), //回転
 },
@@ -494,12 +482,6 @@
 {
 	"dragonfruit",
 	CVector3(-56.02f, 6.48f, -10.73f),             //平行移動
-	CQuaternion(-0.71f, 0.00f, 0.00f, 0.71f ), //回転
-},
-//dragonfruit
-{
-	"dragonfruit",
-	CVector3(-56.89f, 5.81f, -9.74f),             //平行移動
 	CQuaternion(-0.71f, 0.00f, 0.00f, 0.71f ), //回転
 },
 //dragonfruit
@@ -559,12 +541,6 @@
 //dragonfruit
 {
 	"dragonfruit",
-	CVector3(15.99f, 6.48f, -15.60f),             //平行移動
-	CQuaternion(-0.71f, 0.00f, 0.00f, 0.71f ), //回転
-},
-//dragonfruit
-{
-	"dragonfruit",
 	CVector3(64.19f, 6.50f, -51.47f),             //平行移動
 	CQuaternion(-0.71f, 0.00f, 0.00f, 0.71f ), //回転
 },
@@ -574,12 +550,7 @@
 	CVector3(62.59f, 5.10f, -53.77f),             //平行移動
 	CQuaternion(-0.71f, 0.00f, 0.00f, 0.71f ), //回転
 },
-//dragonfruit
-{
-	"dragonfruit",
-	CVector3(63.39f, 5.80f, -50.47f),             //平行移動
-	CQuaternion(-0.71f, 0.00f, 0.00f, 0.71f ), //回転
-},
+
 //woodbox
 {
 	"woodbox",
@@ -592,12 +563,7 @@
 	CVector3(-7.00f, -23.10f, 262.10f),             //平行移動
 	CQuaternion(0.00f, 0.00f, 0.00f, 1.00f ), //回転
 },
-//apple
-{
-	"apple",
-	CVector3(12.24f, -19.33f, 171.84f),             //平行移動
-	CQuaternion(-0.71f, 0.00f, 0.00f, 0.71f ), //回転
-},
+
 //apple
 {
 	"apple",
@@ -622,18 +588,7 @@
 	CVector3(-46.42f, -20.43f, 173.36f),             //平行移動
 	CQuaternion(-0.71f, 0.00f, 0.00f, 0.71f ), //回転
 },
-//apple
-{
-	"apple",
-	CVector3(-44.62f, -19.33f, 172.46f),             //平行移動
-	CQuaternion(-0.71f, 0.00f, 0.00f, 0.71f ), //回転
-},
-//apple
-{
-	"apple",
-	CVector3(4.78f, -19.90f, 222.02f),             //平行移動
-	CQuaternion(-0.71f, 0.00f, 0.00f, 0.71f ), //回転
-},
+
 //apple
 {
 	"apple",
@@ -658,12 +613,7 @@
 	CVector3(65.04f, -20.40f, 257.84f),             //平行移動
 	CQuaternion(-0.71f, 0.00f, 0.00f, 0.71f ), //回転
 },
-//apple
-{
-	"apple",
-	CVector3(66.84f, -19.30f, 256.94f),             //平行移動
-	CQuaternion(-0.71f, 0.00f, 0.00f, 0.71f ), //回転
-},
+
 //tree
 {
 	"tree",
@@ -949,24 +899,6 @@
 //tree
 {
 	"tree",
-	CVector3(-37.00f, 1.31f, -29.00f),             //平行移動
-	CQuaternion(0.00f, 0.00f, 0.00f, 1.00f ), //回転
-},
-//tree
-{
-	"tree",
-	CVector3(-28.30f, 1.33f, -59.10f),             //平行移動
-	CQuaternion(0.00f, 0.00f, 0.00f, 1.00f ), //回転
-},
-//tree
-{
-	"tree",
-	CVector3(51.20f, 1.37f, -49.30f),             //平行移動
-	CQuaternion(0.00f, 0.00f, 0.00f, 1.00f ), //回転
-},
-//tree
-{
-	"tree",
 	CVector3(66.61f, -23.80f, 257.05f),             //平行移動
 	CQuaternion(0.00f, 0.00f, 0.00f, 1.00f ), //回転
 },
@@ -1226,35 +1158,5 @@
 {
 	"tree",
 	CVector3(59.50f, -23.40f, 165.60f),             //平行移動
-	CQuaternion(0.00f, 0.00f, 0.00f, 1.00f ), //回転
-},
-//tree
-{
-	"tree",
-	CVector3(43.20f, -23.40f, 253.50f),             //平行移動
-	CQuaternion(0.00f, 0.00f, 0.00f, 1.00f ), //回転
-},
-//tree
-{
-	"tree",
-	CVector3(13.30f, -23.40f, 251.20f),             //平行移動
-	CQuaternion(0.00f, 0.00f, 0.00f, 1.00f ), //回転
-},
-//tree
-{
-	"tree",
-	CVector3(-61.50f, -23.40f, 142.70f),             //平行移動
-	CQuaternion(0.00f, 0.00f, 0.00f, 1.00f ), //回転
-},
-//tree
-{
-	"tree",
-	CVector3(45.00f, -23.40f, 167.00f),             //平行移動
-	CQuaternion(0.00f, 0.00f, 0.00f, 1.00f ), //回転
-},
-//tree
-{
-	"tree",
-	CVector3(0.60f, -23.40f, 234.40f),             //平行移動
 	CQuaternion(0.00f, 0.00f, 0.00f, 1.00f ), //回転
 },
