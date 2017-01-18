@@ -102,7 +102,7 @@ void Enemy::Update()
 	position = charactercontroller.GetPosition();
 	position.y += 1.5f;
 	model.Update(position, rotation, CVector3::One);
-	if (hp <= 0 && !deleteflg)
+	if ((hp <= 0 || position.y < -30.0f) && !deleteflg)
 	{
 		deleteflg = true;
 	}

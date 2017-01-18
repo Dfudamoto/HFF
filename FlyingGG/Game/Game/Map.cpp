@@ -208,7 +208,7 @@ void Map::ReInit()
 		{
 			if (debuffitem[debuffcount] == nullptr)
 			{
-				debuffitem[debuffnum] = NewGO<DebuffItem>(0);
+				debuffitem[debuffcount] = NewGO<DebuffItem>(0);
 				//モデル名、座標、回転を与えてマップチップを初期化する。
 				debuffitem[debuffcount]->Init(mapLocInfo[i].modelName, mapLocInfo[i].position, mapLocInfo[i].rotation);
 			}

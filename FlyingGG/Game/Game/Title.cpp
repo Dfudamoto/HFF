@@ -26,10 +26,10 @@ void Title::Start()
 	m_Title.SetPivot({ 0.0f,0.5f });
 	m_Title.SetPosition(TitlePos);
 
-	//CSoundSource *m_TitleSound = NewGO<CSoundSource>(0);
+	CSoundSource *m_TitleSound = NewGO<CSoundSource>(0);
 	//タイトル画面のBGM
-	//m_TitleSound->Init("Assets/sound/SE/BGM/タイトル/musicbox.wav");
-	//m_TitleSound->Play(true);
+	m_TitleSound->Init("Assets/sound/SE/BGM/タイトル/musicbox.wav");
+	m_TitleSound->Play(true);
 	//m_TitleSound.InitStreaming("Assets / sound / musicbox.wav");
 	
 
